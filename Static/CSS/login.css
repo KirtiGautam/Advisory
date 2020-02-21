@@ -1,0 +1,27 @@
+.m{
+    margin-top: 1vmax;
+}
+
+.log{
+    font-size: 6vmin;
+}
+
+.form-control{
+    font-size: 5vmin;
+}
+
+.btn{
+    font-size: 5vmin;
+    width: 100%;
+}
+
+.fas{
+    font-size: 4vmin;
+}
+
+.container{
+    background-color:lightgray;
+    height: 50vmin;
+    width: 50vmin;
+
+}

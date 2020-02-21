@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advisory</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'Fonts/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/login.css' %}">
+
+
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="contain">
+                <img src="{% static 'Images/logo.png' %}" alt="My image">
+                
+            </div>
+        </nav>
+    </div>
+    <div class="container m">
+        <div class="text-center log">LOGIN</div>
+        <div class="d-flex justify-content-center m">
+            <form>
+                <div class="input-group m">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" name="" class="form-control" placeholder="USERNAME">
+                </div>
+                <div class="input-group m">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fas fa-lock" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="password" name="" class="form-control" placeholder="PASSWORD">
+                </div>
+                <div class="d-flex justify-content-center m">
+                    <button type="button" name="button" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
