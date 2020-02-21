@@ -1,3 +1,7 @@
+h1{
+    font-size: 3vmin;
+}
+
 .m{
     margin-top: 1vmax;
 }
@@ -27,6 +31,6 @@
 }
 
 .btn-primary:hover{
-    background: white;
+    background: #f7f7f7;
     color: #0275d8;
 }
