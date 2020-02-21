@@ -2,8 +2,15 @@
     margin-top: 1vmax;
 }
 
+.cunt{
+    background-color:lightgray;
+    height: 50vmin;
+    width: 60vmin;
+}
+
 .log{
-    font-size: 6vmin;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 7vmin;
 }
 
 .form-control{
@@ -11,17 +18,15 @@
 }
 
 .btn{
-    font-size: 5vmin;
+    font-size: 4vmin;
     width: 100%;
 }
 
 .fas{
-    font-size: 4vmin;
+    font-size: 5vmin;
 }
 
-.container{
-    background-color:lightgray;
-    height: 50vmin;
-    width: 50vmin;
-
+.btn-primary:hover{
+    background: white;
+    color: #0275d8;
 }
