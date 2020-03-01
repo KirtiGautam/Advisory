@@ -25,3 +25,6 @@ def dashboard(request):
         return render(request, 'dashboard.html', {'username': request.session['user']})
     else:
         return redirect(index)
+
+def superuser(request):
+    return render(request, 'superuser_navbar.html')

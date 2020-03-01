@@ -1,0 +1,45 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/navbar.css' %}">
+</head>
+
+<body>
+    <div class=" d-flex ">
+        <nav id="sidebar">
+            <div class="custom-menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <div class="p-4"> 
+                <img src="{% static 'Images/logo.jpg' %}" alt="Avatar" class="avatar">
+                <ul class="list-unstyled mb-5">
+                    <li class="active">
+                        <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="fas fa-user-tag mr-3"></span> Edit Admins</a>
+                    </li>
+                    <li>
+                        <a href="#"><span class="fas fa-user-cog mr-3"></span> Settings</a>
+                    </li>
+                </ul>
+
+                <div class="footer">
+
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content" class="p-4 p-md-5 pt-5">
+        </div>
+    </div>
+
+    <script src="{% static 'js/navbar.js' %}"></script>
+</body>
+{% endblock %}
