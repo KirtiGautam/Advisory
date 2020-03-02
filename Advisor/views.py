@@ -10,5 +10,11 @@ def index(request):
 def dashboard(request):
     return indexController.dashboard(request)
 
-def superuser(request):
-    return render(request, 'superuser_navbar.html')
+def settings(request):
+    return render(request, 'Master\settings.html')
+
+def editAdmins(request):
+    return render(request, 'Superuser\editAdmins.html')
+
+def logout(request):
+    return indexController.log(request)

@@ -5,6 +5,7 @@
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
+
 }
 
 .avatar {
@@ -29,6 +30,7 @@
     -o-transition: all 0.3s;
     transition: all 0.3s;
     position: relative;
+    height: 900px;
 }
 
 #sidebar .h6 {
@@ -40,7 +42,7 @@
 }
 
 #sidebar.active .custom-menu {
-    margin-right: -50px;
+    margin-right: -60px;
 }
 
 #sidebar h1 {

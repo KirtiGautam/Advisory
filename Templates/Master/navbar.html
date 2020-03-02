@@ -1,0 +1,77 @@
+{% extends 'Master\master.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/navbar.css' %}">
+</head>
+
+<body>
+    <div class=" d-flex ">
+        <nav id="sidebar">
+            <div class="custom-menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <img src="{% static 'Images/logo.jpg' %}" alt="Avatar" class="avatar">
+                <h1>Superuser</h1>
+                <ul class="list-unstyled mb-5">
+                    <li>
+                        <a href="{% url 'editAdmin' %}"><span class="fas fa-user-tag mr-3"></span> Edit Admins</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'settings' %}"><span class="fas fa-user-cog mr-3"></span> Settings</a>
+                    </li>
+                    <li>
+                        <form action="{% url 'logout' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="fas fa-sign-out-alt mr-3"> Logout</button>
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+        {% block page %}
+        {% endblock %}
+        <!-- Page Content  -->
+        <!-- <div id="content" class="p-4 p-md-5 pt-5">
+            <div class="settings mt-5 p-4 p-md-5 pt-5 d-flex justify-content-center align-items-center">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pass">Change Password</button>
+            </div>
+            <div id="pass" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1>Change Password</h1>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <label for="pre">Current Password</label>
+                                <input type="password" name="pre" id="pre">
+                            </div>
+                            <div class="input-group">
+                                <label for="new">New Password</label>
+                                <input type="password" name="new" id="new">
+                            </div>
+                            <div class="input-group">
+                                <label for="renew">Re-enter New Password</label>
+                                <input type="password" name="renew" id="renew">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Change Password</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div> -->
+    </div>
+
+    <script src="{% static 'js/navbar.js' %}"></script>
+</body>
+{% endblock %}
