@@ -1,10 +1,44 @@
 {% extends 'Master\navbar.html' %}
 {% load static %}
 {% block page %}
+
 <head>
     <link rel="stylesheet" href="{% static 'CSS/content.css' %}">
 </head>
+
 <body>
+    <table class="p-4 p-md-5 pt-5" style="border: 2px; border-style: solid;">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Name </th>
+                <th>Current HOD</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for key in hod %}
+                <td>{{ forloop.counter }}</td>
+                <td>{{ key.name }}</td>
+                <td>
+                    <select name="teachers" id="teachers">
+                        {% for teacher in teachers %}
+                            {% ifequal teacher.full_name key.name %}
+                                <option value="{{teacher.id}}" selected>
+                                    {{teacher.full_name|capfirst}}
+                                </option>
+                            {% else %}
+                                <option value="{{teacher.id}}">
+                                    {{teacher.full_name|capfirst}}
+                                </option>
+                            {% endifequal %}
+                        {% endfor %}
+                    </select>
+                </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
     <div class="p-4 p-md-5 pt-5">kirtu ko spank kro</div>
 </body>
 {% endblock %}

@@ -32,5 +32,4 @@ def dashboard(request):
 
 def log(request):
     logout(request)
-    # del request.session['user']
     return redirect(views.index)

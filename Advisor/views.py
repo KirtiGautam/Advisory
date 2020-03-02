@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
-from Advisor.controllers import indexController
+from Advisor.controllers import indexController, superuserController
 
 # Create your views here.
 
@@ -11,10 +11,13 @@ def dashboard(request):
     return indexController.dashboard(request)
 
 def settings(request):
-    return render(request, 'Master\settings.html')
+    if 'user' in request.session:
+        return render(request, 'Master\settings.html')
+    else:
+        return redirect(index)
 
 def editAdmins(request):
-    return render(request, 'Superuser\editAdmins.html')
+    return superuserController.editAdmins(request)
 
 def logout(request):
     return indexController.log(request)
