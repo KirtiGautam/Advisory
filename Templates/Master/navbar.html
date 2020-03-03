@@ -27,7 +27,7 @@
                     <li>
                         <form action="{% url 'logout' %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit" class="fas fa-sign-out-alt mr-3"> Logout</button>
+                            <button type="submit" class="fas fa-sign-out-alt btn btn-danger mt-5 mr-3"> Logout</button>
                         </form>
                     </li>
                 </ul>
@@ -36,40 +36,6 @@
         </nav>
         {% block page %}
         {% endblock %}
-        <!-- Page Content  -->
-        <!-- <div id="content" class="p-4 p-md-5 pt-5">
-            <div class="settings mt-5 p-4 p-md-5 pt-5 d-flex justify-content-center align-items-center">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pass">Change Password</button>
-            </div>
-            <div id="pass" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1>Change Password</h1>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <label for="pre">Current Password</label>
-                                <input type="password" name="pre" id="pre">
-                            </div>
-                            <div class="input-group">
-                                <label for="new">New Password</label>
-                                <input type="password" name="new" id="new">
-                            </div>
-                            <div class="input-group">
-                                <label for="renew">Re-enter New Password</label>
-                                <input type="password" name="renew" id="renew">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Change Password</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div> -->
     </div>
 
     <script src="{% static 'js/navbar.js' %}"></script>

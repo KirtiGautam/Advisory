@@ -7,39 +7,27 @@
 </head>
 
 <body>
-    <table class="p-4 p-md-5 pt-5" style="border: 2px; border-style: solid;">
-        <thead>
-            <tr>
-                <th>S.No</th>
-                <th>Name </th>
-                <th>Current HOD</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for key in hod %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ key.name }}</td>
-                <td>
-                    <select name="teachers" id="teachers">
-                        {% for teacher in teachers %}
-                        {% ifequal teacher.department key %}
-                        {% ifequal teacher.full_name key.HOD %}
-                        <option value="{{teacher.id}}" selected>
-                            {{teacher.full_name}}
-                        </option>
-                        {% else %}
-                        <option value="{{teacher.id}}">
-                            {{teacher.full_name}}
-                        </option>
-                        {% endifequal %}
-                        {% endifequal %}
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div id="content" class="p-4 p-md-5 pt-5">
+        <table class="table p-4 p-md-5 pt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Name </th>
+                    <th scope="col">Current HOD</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key in hod %}
+                <tr>
+                    <td>{{ key.name }}</td>
+                    <td>
+                        {{ key.HOD}} 
+                    </td>
+                    <td><button class="btn btn-info">Edit</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 {% endblock %}

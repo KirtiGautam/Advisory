@@ -5,6 +5,38 @@
     <link rel="stylesheet" href="{% static 'CSS/content.css' %}">
 </head>
 <body>
-    <div>kirtu ko bot zyada spank kro</div>
+    <div id="content" class="p-4 p-md-5 pt-5">
+        <div class="settings mt-5 p-4 p-md-5 pt-5 d-flex justify-content-center align-items-center">
+            <button type="button" class="btn btn-primary" data-toggle="modal" id='gucci' data-target="#pass">Change Password</button>
+        </div>
+        <div id="pass" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Change Password</h1>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <label for="pre" class="col-6 mt-2 mb-2">Current Password</label>
+                            <input type="password" name="pre" id="pre" class="col-6 mt-2 mb-2">
+                        </div>
+                        <div class="input-group">
+                            <label for="new" class="col-6 mt-2 mb-2">New Password</label>
+                            <input type="password" name="new" id="new" class="col-6 mt-2 mb-2">
+                        </div>
+                        <div class="input-group">
+                            <label for="renew" class="col-6 mt-2 mb-2">Re-enter New Password</label>
+                            <input type="password" name="renew" id="renew" class="col-6 mt-2 mb-2">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Change Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/settings.js' %}"></script> 
 </body>
 {% endblock %}
