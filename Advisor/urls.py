@@ -7,6 +7,7 @@ urlpatterns = [
     path(r'dashboard', views.dashboard, name='dashboard'),
     path(r'settings', views.settings, name='settings'),
     path(r'editAdmin', views.editAdmins, name='editAdmin'),
-    path(r'logout', views.logout, name='logout')
+    path(r'logout', views.logout, name='logout'),
+    path(r'change-password', views.changePass, name='changeP'),
 
 ]
