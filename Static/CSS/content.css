@@ -1,0 +1,4 @@
+.name, .dept{
+    border:none;
+    border-bottom: 2px solid lightgray;
+}
