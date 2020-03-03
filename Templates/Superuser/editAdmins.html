@@ -16,29 +16,30 @@
             </tr>
         </thead>
         <tbody>
+            {% for key in hod %}
             <tr>
-                {% for key in hod %}
                 <td>{{ forloop.counter }}</td>
                 <td>{{ key.name }}</td>
                 <td>
                     <select name="teachers" id="teachers">
                         {% for teacher in teachers %}
-                            {% ifequal teacher.full_name key.name %}
-                                <option value="{{teacher.id}}" selected>
-                                    {{teacher.full_name|capfirst}}
-                                </option>
-                            {% else %}
-                                <option value="{{teacher.id}}">
-                                    {{teacher.full_name|capfirst}}
-                                </option>
-                            {% endifequal %}
+                        {% ifequal teacher.department key %}
+                        {% ifequal teacher.full_name key.HOD %}
+                        <option value="{{teacher.id}}" selected>
+                            {{teacher.full_name}}
+                        </option>
+                        {% else %}
+                        <option value="{{teacher.id}}">
+                            {{teacher.full_name}}
+                        </option>
+                        {% endifequal %}
+                        {% endifequal %}
                         {% endfor %}
                     </select>
                 </td>
-                {% endfor %}
             </tr>
+            {% endfor %}
         </tbody>
     </table>
-    <div class="p-4 p-md-5 pt-5">kirtu ko spank kro</div>
 </body>
 {% endblock %}

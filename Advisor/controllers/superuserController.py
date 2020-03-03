@@ -9,4 +9,4 @@ def editAdmins(request):
         context={'teachers': teacher, 'hod': Hod}
         return render(request, 'Superuser\editAdmins.html', context)
     else:
-        return redirect(index)
+        return redirect(views.index)
