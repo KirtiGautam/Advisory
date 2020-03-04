@@ -4,6 +4,15 @@
 
 <head>
     <link rel="stylesheet" href="{% static 'CSS/content.css' %}">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-en_US.js"></script>
 </head>
 
 <body>
@@ -27,7 +36,8 @@
                     <td>
                         {{ key.HOD}}
                     </td>
-                    <td><button class="btn btn-info" data-toggle="modal" id='ed' data-target="#edit">Edit</button></td>
+                    <td><button class="btn btn-info" data-toggle="modal" id='{{ key.id }}' onclick="set(this.id)"
+                            data-target="#edit">Edit</button></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -39,11 +49,20 @@
                         <h1 class="modal-title">Edit</h1>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <div class="modal-body">
-                        <div class="input-group">
-                            <label for="name" class="col-6 mt-2 mb-2">Name</label>
-                            <input class="form-control name" type="text">
-                        </div>
+                    <input type="hidden" id='ho'>
+                    <div class="modal-body" style="height: 400px;">
+                        <!-- <div class="input-group"> -->
+                        <label for="hods" class="col-6 mt-2 mb-2">Name</label>
+                        <select class="form-control" id='hods' placeholder='Search name here..'>
+                            <!-- <option value="s">sas</option> -->
+                        </select>
+                        <!-- <input class="form-control name" type="text" id="search"> -->
+                        <!-- </div> -->
+                        <!-- <ul style="list-style-type: none;" >
+                            <li>
+                                Second
+                            </li>
+                        </ul> -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Update</button>
@@ -74,5 +93,4 @@
         </div>
     </div>
     <script src="{% static 'js/editAdmins.js' %}"></script>
-</body>
-{% endblock %}
+    {% endblock %}

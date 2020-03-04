@@ -6,6 +6,8 @@ from django.http import JsonResponse
 
 # Create your views here.
 
+def getHods(request):
+    return superuserController.hods(request)
 
 def index(request):
     return indexController.index(request)
