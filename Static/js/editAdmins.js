@@ -1,33 +1,53 @@
-$(function () {
-    $('#hods').selectpicker();
-});
 function set(i) {
+    $('#dep').val(i);
+    search();
+    return;
+}
+
+function search() {
     let token = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": token },
         url: '/get-hods',
         data: {
-            'dept': i,
+            'dept': $('#dep').val(),
+            'term': $('#search').val(),
         },
         dataType: 'json',
         success: function (data) {
-            console.log(data.hods)
             html = '';
-            for (let i = 0; i < data.hods.length; i++) {
-                html += '<option value="' + data.hods[i].full_name + '">' + data.hods[i].full_name + '</option>';
-            }
-            console.log(html)
-            $('#hods').html(html).selectpicker('refresh');
-            // $('#hods')
-            // $('#hods')
-            // $('#hods')
-            $('#edit').show();
+            for (let i = 0; i < data.hods.length; i++)
+                html += '<option value="' + data.hods[i][0] + '">' + data.hods[i][0] + '</option>';
+            $('#hods').html(html);
         }
     });
-
 }
 
-$('#ad').click(function () {
-    $('#add').show();
+$(document).ready(function () {
+    $('#updateHod').click(function () {
+        let token = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": token },
+            url: '/update-hod',
+            data: {
+                'dept': $('#dep').val(),
+                'name': $('#hods').children("option:selected").val(),
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    alert('Hod updated');
+                    let id = '#' + $('#dep').val();
+                    $(id).children('td').eq(1).html($('#hods').children("option:selected").val());
+                }
+            }
+        });
+    });
+
+    $('#ad').click(function () {
+        $('#add').show();
+    });
+
 });

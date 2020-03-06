@@ -6,6 +6,9 @@ from django.http import JsonResponse
 
 # Create your views here.
 
+def updatehod(request):
+    return superuserController.updateHod(request)
+
 def getHods(request):
     return superuserController.hods(request)
 

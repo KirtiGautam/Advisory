@@ -17,9 +17,20 @@ def editAdmins(request):
 
 def hods(request):
     if 'user' in request.session:
-        # raw('''SELECT * FROM advisor_teachers WHERE full_name LIKE "%%''' +
-        #                             request.POST['term'] + '''%%" AND department_id = ''' + request.POST['dept'])
+        hods = teachers.objects.raw('''SELECT * FROM advisor_teachers WHERE full_name LIKE "%%''' +
+                   request.POST['term'] + '''%%" AND department_id = ''' + request.POST['dept'])
+
         data = {
-            "hods": [hod for hod in teachers.objects.filter(department=request.POST['dept']).values()]
+            "hods": [[hod.full_name, hod.id] for hod in hods]
+        }
+        return JsonResponse(data)
+
+def updateHod(request):
+    if 'user' in request.session:
+        hod= department.objects.get(id=request.POST['dept'])
+        hod.HOD=request.POST['name']
+        hod.save()
+        data={
+            'success': True,
         }
         return JsonResponse(data)
