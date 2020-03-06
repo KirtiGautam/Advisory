@@ -16,7 +16,7 @@ function search() {
         },
         dataType: 'json',
         success: function (data) {
-            html = '';
+            let html = '';
             for (let i = 0; i < data.hods.length; i++)
                 html += '<option value="' + data.hods[i][0] + '">' + data.hods[i][0] + '</option>';
             $('#hods').html(html);
@@ -25,6 +25,9 @@ function search() {
 }
 
 $(document).ready(function () {
+
+    $('#editAdmin').addClass('active');
+
     $('#updateHod').click(function () {
         let token = $('meta[name="csrf-token"]').attr('content');
         let id = '#' + $('#dep').val();
@@ -49,6 +52,27 @@ $(document).ready(function () {
 
     $('#ad').click(function () {
         $('#add').show();
+    });
+
+    $('#addDep').click(function () {
+        let token = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": token },
+            url: '/update-deps',
+            data: {
+                'dept': $('#depname').val(),
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    let html = " <tr id='" + data.deptid + "'><td>" + data.dept + "</td><td>" + data.deptHOD + "</td><td><button class='btn btn-info' data-toggle='modal' id='" + data.deptid 
+                    + "' onclick='set(this.id)' data-target='#edit'>Edit</button ></td></tr >";
+                    $('tbody').append(html);
+                    alert('Departments updated');
+                }
+            }
+        });
     });
 
 });

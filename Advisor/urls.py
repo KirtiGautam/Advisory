@@ -11,4 +11,5 @@ urlpatterns = [
     path(r'change-password', views.changePass, name='changeP'),
     path(r'get-hods', views.getHods, name='getH'),
     path(r'update-hod', views.updatehod, name='updateH'),
+    path(r'update-deps', views.updatedeps, name='updateD'),
 ]

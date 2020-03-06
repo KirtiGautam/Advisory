@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 class department(models.Model):
     name = models.CharField(max_length=255)
-    HOD = models.CharField(max_length=100)
+    HOD = models.CharField(max_length=100, default=None, null=True, blank=True)
 
     def __str__(self):
         return self.name

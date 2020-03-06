@@ -26,6 +26,19 @@ def hods(request):
         return JsonResponse(data)
 
 
+def updateDeps(request):
+    if 'user' in request.session:
+        dept = department.objects.create(name=request.POST['dept'])
+        print(dept)
+        data = {
+            'success': True,
+            'deptid': dept.id,
+            'deptHOD': dept.HOD,
+            'dept': dept.name,
+        }
+        return JsonResponse(data)
+
+
 def updateHod(request):
     if 'user' in request.session:
         try:
@@ -37,7 +50,7 @@ def updateHod(request):
                 prev_user.save()
             except teachers.DoesNotExist:
                 print('No such teacheer')
-                
+
             next = teachers.objects.get(
                 full_name=request.POST['name'])
             user = Users.objects.get(uid=next)
