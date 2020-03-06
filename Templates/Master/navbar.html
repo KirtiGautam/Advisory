@@ -18,9 +18,15 @@
                 <img src="{% static 'Images/logo.jpg' %}" alt="Avatar" class="avatar">
                 <h1>Superuser</h1>
                 <ul class="list-unstyled mb-5">
+                    {% if user.admin %}
+                    <li>
+                        <a href="#"><span class="fas fa-user-friends"></span> HOD hu</a>
+                    </li>
+                    {% elif user.is_superuser %}
                     <li>
                         <a href="{% url 'editAdmin' %}"><span class="fas fa-user-tag mr-3"></span> Edit Admins</a>
                     </li>
+                    {% endif %}
                     <li>
                         <a href="{% url 'settings' %}"><span class="fas fa-user-cog mr-3"></span> Settings</a>
                     </li>

@@ -37,18 +37,21 @@ class UserManager(BaseUserManager):
         user_obj.set_password(password)
         user_obj.admin = is_admin
         user_obj.is_superuser = is_superuser
+        user_obj.uid = uid
         user_obj.save(using=self._db)
         return user_obj
 
     def create_superuser(self, username, password=None, uid=None):
         user = self.create_user(username,
                                 password,
+                                uid=uid,
                                 is_superuser=True)
         return user
 
     def create_admin(self, username, password=None, uid=None):
         user = self.create_user(username,
                                 password,
+                                uid=uid,
                                 is_admin=True)
         return user
 

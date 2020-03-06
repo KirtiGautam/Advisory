@@ -6,11 +6,14 @@ from django.http import JsonResponse
 
 # Create your views here.
 
+
 def updatehod(request):
     return superuserController.updateHod(request)
 
+
 def getHods(request):
     return superuserController.hods(request)
+
 
 def index(request):
     return indexController.index(request)
@@ -22,7 +25,8 @@ def dashboard(request):
 
 def settings(request):
     if 'user' in request.session:
-        return render(request, 'Master\settings.html')
+        context = {'user': Users.objects.get(id=request.session['user'])}
+        return render(request, 'Master\settings.html', context)
     else:
         return redirect(index)
 

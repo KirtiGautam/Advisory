@@ -19,18 +19,18 @@ def dashboard(request):
         if user is not None:
             login(request, user)
             request.session['user'] = str(user.id)
-            context = dict()
-            context['username'] = user.uid
+            context = {'user': user}
             return render(request, 'Master/dashboard.html', context)
         else:
             return redirect(views.index)
-    elif 'user' in request.session:
-        user = Users.objects.get(id = request.session['user'])
-        context = dict()
-        context['username'] = user.uid
-        return render(request, 'Master/dashboard.html', context)
     else:
-        return redirect(views.index)
+        if 'user' in request.session:
+            context = {'user': Users.objects.get(
+                id=request.session['user'])}
+            return render(request, 'Master/dashboard.html', context)
+        else:
+            return redirect(views.index)
+
 
 def log(request):
     logout(request)

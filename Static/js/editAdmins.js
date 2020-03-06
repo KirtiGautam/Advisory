@@ -27,6 +27,7 @@ function search() {
 $(document).ready(function () {
     $('#updateHod').click(function () {
         let token = $('meta[name="csrf-token"]').attr('content');
+        let id = '#' + $('#dep').val();
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
@@ -34,12 +35,12 @@ $(document).ready(function () {
             data: {
                 'dept': $('#dep').val(),
                 'name': $('#hods').children("option:selected").val(),
+                'prev': $(id).children('td').eq(1).html().trim(),
             },
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
                     alert('Hod updated');
-                    let id = '#' + $('#dep').val();
                     $(id).children('td').eq(1).html($('#hods').children("option:selected").val());
                 }
             }

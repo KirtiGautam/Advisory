@@ -20,11 +20,12 @@ def populate(N):
         email = fakegen.email()
         contact = fakegen.random_number(10)
         gender = random.choice(lis)
+        ids = random.randint(1,3)
         teach = teachers.objects.create(full_name=name,
                                         gender=gender,
                                         email=email,
                                         contact=contact,
-                                        department=department.objects.get(id=1))
+                                        department=department.objects.get(id=ids))
         teach.save()
 
 
