@@ -2,12 +2,23 @@
 {% load static %}
 {% block page %}
 
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/data.css' %}">
+</head>
+
 <body>
-    <div class="container">
-        Upload csv file
-        <input type="file" name="data" id="data">
-        <button type="button" class="btn btn-primary" id="upload">Upload data</button>
-        <div id="bod"></div>
+    <div class="container p-4 p-md-5 pt-5">
+        <center>
+            <div class="box">
+                <div class="p-4 p-md-2 up">
+                    <h1>Upload csv file</h1>
+                </div>
+                <div class="p-4 mt-2 p-md-2"><input type="file" name="data" id="data"></div>
+                <div class="p-4 mt-2 p-md-2"><button type="button" class="btn btn-primary" id="upload">Upload data</button>
+                </div>
+                <div id="bod" class="p-4 p-md-2"></div>
+            </div>
+        </center>
     </div>
     <script src="{% static 'js/data.js' %}"></script>
 </body>
