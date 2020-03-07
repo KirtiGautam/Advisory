@@ -1,0 +1,16 @@
+{% extends 'Master\navbar.html' %}
+{% load static %}
+{% block page %}
+
+<body>
+    <div class="container">
+        Upload csv file
+        <input type="file" name="data" id="data">
+        <button type="button" class="btn btn-primary" id="upload">Upload data</button>
+        <div id="bod"></div>
+    </div>
+    <script src="{% static 'js/data.js' %}"></script>
+</body>
+
+
+{% endblock %}

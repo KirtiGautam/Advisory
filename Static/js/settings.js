@@ -29,12 +29,16 @@ $(document).ready(function () {
             headers: { "X-CSRFToken": token },
             url: '/change-password',
             data: {
-                'password': $('#new').val()
+                'password': $('#new').val(),
+                'pre': $('#pre').val(),
             },
             dataType: 'json',
             success: function (data) {
                 if (data.Changed) {
                     alert("Password Changed");
+                }
+                else{
+                    alert("Invalid Current Password")
                 }
             }
         });

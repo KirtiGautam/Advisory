@@ -66,6 +66,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
+                    $('#depname').val('');
                     let html = " <tr id='" + data.deptid + "'><td>" + data.dept + "</td><td>" + data.deptHOD + "</td><td><button class='btn btn-info' data-toggle='modal' id='" + data.deptid 
                     + "' onclick='set(this.id)' data-target='#edit'>Edit</button ></td></tr >";
                     $('tbody').append(html);

@@ -6,6 +6,16 @@ from django.http import JsonResponse
 
 # Create your views here.
 
+def uploadtData(request):
+    return indexController.tdata(request)
+
+def uploadData(request):
+    if 'user' in request.session:
+        context = {'user': Users.objects.get(id=request.session['user'])}
+        return render(request, 'Master\data.html', context)
+    else:
+        return redirect(index)
+
 def updatedeps(request):
     return superuserController.updateDeps(request)
 
@@ -44,11 +54,16 @@ def logout(request):
 def changePass(request):
     if request.method == 'POST':
         use = Users.objects.get(id=request.session['user'])
-        use.set_password(request.POST['password'])
-        use.save()
-        data = {
-            'Changed': True
-        }
+        if use.check_password(request.POST['pre']):
+            use.set_password(request.POST['password'])
+            use.save()
+            data = {
+                'Changed': True
+            }
+        else:
+            data = {
+                'Changed': False
+            }
         return JsonResponse(data)
     else:
         return render(settings)
