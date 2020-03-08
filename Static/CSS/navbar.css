@@ -134,3 +134,7 @@
     background: #393c7f !important;
     border-color: #393c7f !important;
 }
+
+.logout{
+    font-size: 3vmin;
+}
