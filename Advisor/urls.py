@@ -1,17 +1,15 @@
 from django.urls import path
 
-from . import views
+from Advisor import views
+
+app_name = 'Advisor'
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path(r'', views.index, name='index'),
     path(r'dashboard', views.dashboard, name='dashboard'),
     path(r'settings', views.settings, name='settings'),
-    path(r'editAdmin', views.editAdmins, name='editAdmin'),
-    path(r'logout', views.logout, name='logout'),
+    path(r'logout', views.log, name='logout'),
     path(r'change-password', views.changePass, name='changeP'),
-    path(r'get-hods', views.getHods, name='getH'),
-    path(r'update-hod', views.updatehod, name='updateH'),
-    path(r'update-deps', views.updatedeps, name='updateD'),
     path(r'upload-data', views.uploadData, name='uploadData'),
     path(r'uploadt-data', views.uploadtData, name='uploadtData'),
 ]

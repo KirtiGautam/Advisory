@@ -1,38 +1,43 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate
-from Advisor.models import Users
-from Advisor.controllers import indexController, superuserController
+from django.contrib.auth import authenticate, login, logout
+from Advisor.models import Users, teachers, department
 from django.http import JsonResponse
+import json
 
 # Create your views here.
 
-def uploadtData(request):
-    return indexController.tdata(request)
-
-def uploadData(request):
-    if 'user' in request.session:
-        context = {'user': Users.objects.get(id=request.session['user'])}
-        return render(request, 'Master\data.html', context)
-    else:
-        return redirect(index)
-
-def updatedeps(request):
-    return superuserController.updateDeps(request)
-
-def updatehod(request):
-    return superuserController.updateHod(request)
-
-
-def getHods(request):
-    return superuserController.hods(request)
-
 
 def index(request):
-    return indexController.index(request)
+    if 'user' in request.session:
+        return redirect('Advisor:dashboard')
+    else:
+        return render(request, 'Master/login.html')
 
 
 def dashboard(request):
-    return indexController.dashboard(request)
+    if request.method == 'POST':
+        user = authenticate(
+            username=request.POST['username'],
+            password=request.POST['password'])
+        if user is not None:
+            login(request, user)
+            request.session['user'] = str(user.id)
+            context = {'user': user}
+            return render(request, 'Master/dashboard.html', context)
+        else:
+            return redirect('Advisor:index')
+    else:
+        if 'user' in request.session:
+            context = {'user': Users.objects.get(
+                id=request.session['user'])}
+            return render(request, 'Master/dashboard.html', context)
+        else:
+            return redirect('Advisor:index')
+
+
+def log(request):
+    logout(request)
+    return redirect('Advisor:index')
 
 
 def settings(request):
@@ -40,15 +45,30 @@ def settings(request):
         context = {'user': Users.objects.get(id=request.session['user'])}
         return render(request, 'Master\settings.html', context)
     else:
-        return redirect(index)
+        return redirect('Advisor:index')
 
 
-def editAdmins(request):
-    return superuserController.editAdmins(request)
+def uploadtData(request):
+    if 'user' in request.session:
+        dat = json.loads(request.POST['tdata'])
+        for d in dat:
+            teachers.objects.create(full_name=d['full_name'],
+                                    gender=d['gender'],
+                                    email=d['email'],
+                                    contact=d['contact'],
+                                    department=department.objects.get(id=d['department']),)
+        data = {
+            'success': True,
+        }
+        return JsonResponse(data)
 
 
-def logout(request):
-    return indexController.log(request)
+def uploadData(request):
+    if 'user' in request.session:
+        context = {'user': Users.objects.get(id=request.session['user'])}
+        return render(request, 'Master/data.html', context)
+    else:
+        return redirect('Advisor:index')
 
 
 def changePass(request):
@@ -66,4 +86,4 @@ def changePass(request):
             }
         return JsonResponse(data)
     else:
-        return render(settings)
+        return redirect(settings)

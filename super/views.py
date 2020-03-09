@@ -4,18 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 
 
-def editAdmins(request):
-    if 'user' in request.session:
-        teacher = teachers.objects.all()
-        Hod = department.objects.all()
-        context = {'teachers': teacher, 'hod': Hod,
-                   'user': Users.objects.get(id=request.session['user'])}
-        return render(request, 'Superuser\editAdmins.html', context)
-    else:
-        return redirect(views.index)
-
-
-def hods(request):
+def getHods(request):
     if 'user' in request.session:
         hods = teachers.objects.raw('''SELECT * FROM advisor_teachers WHERE full_name LIKE "%%''' +
                                     request.POST['term'] + '''%%" AND department_id = ''' + request.POST['dept'])
@@ -26,7 +15,7 @@ def hods(request):
         return JsonResponse(data)
 
 
-def updateDeps(request):
+def updatedeps(request):
     if 'user' in request.session:
         dept = department.objects.create(name=request.POST['dept'])
         print(dept)
@@ -39,7 +28,7 @@ def updateDeps(request):
         return JsonResponse(data)
 
 
-def updateHod(request):
+def updatehod(request):
     if 'user' in request.session:
         try:
             try:
@@ -67,3 +56,14 @@ def updateHod(request):
             'success': True,
         }
         return JsonResponse(data)
+
+
+def editAdmins(request):
+    if 'user' in request.session:
+        teacher = teachers.objects.all()
+        Hod = department.objects.all()
+        context = {'teachers': teacher, 'hod': Hod,
+                   'user': Users.objects.get(id=request.session['user'])}
+        return render(request, 'Superuser\editAdmins.html', context)
+    else:
+        return redirect('Advisor:index')
