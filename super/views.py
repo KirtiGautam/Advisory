@@ -6,24 +6,26 @@ from django.http import JsonResponse
 
 def getHods(request):
     if 'user' in request.session:
-        hods = teachers.objects.raw('''SELECT * FROM advisor_teachers WHERE full_name LIKE "%%''' +
-                                    request.POST['term'] + '''%%" AND department_id = ''' + request.POST['dept'])
+        teacher = teachers.objects.raw('''SELECT * FROM advisor_teachers WHERE full_name LIKE "%%''' +
+                                       request.POST['term'] + '''%%" AND department_id = ''' + request.POST['dept'])
 
         data = {
-            "hods": [[hod.full_name, hod.id] for hod in hods]
+            "teachers": [[teach.full_name, teach.id, teach.contact] for teach in teacher]
         }
         return JsonResponse(data)
 
 
 def updatedeps(request):
     if 'user' in request.session:
-        dept = department.objects.create(name=request.POST['dept'])
-        print(dept)
+        dept, created = department.objects.get_or_create(
+            name=request.POST['dept'].lower())
+
         data = {
             'success': True,
+            'created': created,
             'deptid': dept.id,
             'deptHOD': dept.HOD,
-            'dept': dept.name,
+            'dept': dept.name.title(),
         }
         return JsonResponse(data)
 
@@ -39,21 +41,21 @@ def updatehod(request):
                 prev_user.save()
             except teachers.DoesNotExist:
                 print('No such teacheer')
-
             next = teachers.objects.get(
-                full_name=request.POST['name'])
+                id=request.POST['id'])
             user = Users.objects.get(uid=next)
             user.admin = True
             user.save()
         except Users.DoesNotExist:
             print('No such User')
             user = Users.objects.create_admin(
-                username=request.POST['name'], password=request.POST['name'], uid=teachers.objects.get(full_name=request.POST['name']))
+                username=next.full_name, password=next.full_name, uid=next)
         hod = department.objects.get(id=request.POST['dept'])
-        hod.HOD = request.POST['name']
+        hod.HOD = next.full_name
         hod.save()
         data = {
             'success': True,
+            'hod': next.full_name
         }
         return JsonResponse(data)
 

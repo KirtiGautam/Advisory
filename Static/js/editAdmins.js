@@ -17,8 +17,8 @@ function search() {
         dataType: 'json',
         success: function (data) {
             let html = '';
-            for (let i = 0; i < data.hods.length; i++)
-                html += '<option value="' + data.hods[i][0] + '">' + data.hods[i][0] + '</option>';
+            for (let i = 0; i < data.teachers.length; i++)
+                html += '<option value="' + data.teachers[i][1] + '">' + data.teachers[i][0] + ' (' + data.teachers[i][2] + ') ' + '</option>';
             $('#hods').html(html);
         }
     });
@@ -37,14 +37,14 @@ $(document).ready(function () {
             url: '/update-hod',
             data: {
                 'dept': $('#dep').val(),
-                'name': $('#hods').children("option:selected").val(),
+                'id': $('#hods').children("option:selected").val(),
                 'prev': $(id).children('td').eq(1).html().trim(),
             },
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
                     alert('Hod updated');
-                    $(id).children('td').eq(1).html($('#hods').children("option:selected").val());
+                    $(id).children('td').eq(1).html(data.hod);
                 }
             }
         });
@@ -66,11 +66,15 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
-                    $('#depname').val('');
-                    let html = " <tr id='" + data.deptid + "'><td>" + data.dept + "</td><td>" + data.deptHOD + "</td><td><button class='btn btn-info' data-toggle='modal' id='" + data.deptid 
-                    + "' onclick='set(this.id)' data-target='#edit'>Edit</button ></td></tr >";
-                    $('tbody').append(html);
-                    alert('Departments updated');
+                    if (data.created) {
+                        $('#depname').val('');
+                        let html = " <tr id='" + data.deptid + "'><td>" + data.dept + "</td><td>" + data.deptHOD + "</td><td><button class='btn btn-info' data-toggle='modal' id='" + data.deptid
+                            + "' onclick='set(this.id)' data-target='#edit'>Edit</button ></td></tr >";
+                        $('tbody').append(html);
+                        alert('Departments updated');
+                    }else{
+                        alert('Department already exists')
+                    }
                 }
             }
         });
