@@ -11,7 +11,11 @@
         <nav id="sidebar">
             <div class="p-4">
                 <img src="{% static 'Images/logo.jpg' %}" alt="Avatar" class="avatar">
+                {% if user.is_superuser %}
                 <h1>Superuser</h1>
+                {% else %}
+                <h1>{{ user.teacher }}</h1>
+                {% endif %}
                 <ul class="list-unstyled mb-5">
                     {% if user.admin %}
                     <li id="Role">

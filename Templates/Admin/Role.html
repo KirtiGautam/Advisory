@@ -18,9 +18,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td><button class="btn btn-info" data-toggle="modal" id='' onclick=""
+                    <td>Upload Student Data</td>
+                    <td>{{ can_upload }}</td>
+                    <td><button class="btn btn-info edit" data-toggle="modal" 
+                            data-target="#edit">Edit</button></td>
+                </tr>
+                <tr>
+                    <td>Assign mentors</td>
+                    <td>{{ can_assign }}</td>
+                    <td><button class="btn btn-info edit" data-toggle="modal" 
                             data-target="#edit">Edit</button></td>
                 </tr>
             </tbody>
@@ -37,15 +43,15 @@
                             <input type="search" class="search mt-4 mb-4 p-1" placeholder="Search here ..." id="search"
                                 onkeyup="search()">
                         </div>
-                        <input type="hidden" id="dep">
+                        <input type="hidden" id="perm">
                         <div class="input-group">
                             <label for="hods" class="col-6 mt-2 mb-2">Name</label>
-                            <select class="form-control" id='hods' placeholder='Select one name'>
+                            <select class="form-control" id='teachers' placeholder='Select one name'>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id='updateHod'>Update</button>
+                        <button type="button" class="btn btn-danger" id='updatePerm'>Update</button>
                     </div>
                 </div>
             </div>

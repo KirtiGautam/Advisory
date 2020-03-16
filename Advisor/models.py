@@ -28,7 +28,7 @@ class teachers(models.Model):
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, password=None, uid=None, is_admin=False, is_superuser=False):
+    def create_user(self, username, password=None, teacher=None, is_admin=False, is_superuser=False):
         if not username:
             raise ValueError('User must have a username')
         if not password:
@@ -37,27 +37,27 @@ class UserManager(BaseUserManager):
         user_obj.set_password(password)
         user_obj.admin = is_admin
         user_obj.is_superuser = is_superuser
-        user_obj.uid = uid
+        user_obj.teacher = teacher
         user_obj.save(using=self._db)
         return user_obj
 
-    def create_superuser(self, username, password=None, uid=None):
+    def create_superuser(self, username, password=None, teacher=None):
         user = self.create_user(username,
                                 password,
-                                uid=uid,
+                                teacher=teacher,
                                 is_superuser=True)
         return user
 
-    def create_admin(self, username, password=None, uid=None):
+    def create_admin(self, username, password=None, teacher=None):
         user = self.create_user(username,
                                 password,
-                                uid=uid,
+                                teacher=teacher,
                                 is_admin=True)
         return user
 
 
 class Users(AbstractBaseUser, PermissionsMixin):
-    uid = models.OneToOneField(
+    teacher = models.OneToOneField(
         teachers,  on_delete=models.CASCADE, default=None, null=True, blank=True)
     username = models.CharField(max_length=50, unique=True)
     admin = models.BooleanField(default=False)
@@ -65,6 +65,12 @@ class Users(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
+
+    class Meta:
+        permissions=[
+            ('can_upload_students', 'Can upload student data'),
+            ('can_assign_mentors', 'Can assign mentors to class'),
+        ]
 
     def __str__(self):
         return str(self.uid)

@@ -56,7 +56,7 @@ def uploadtData(request):
                                     gender=d['gender'],
                                     email=d['email'],
                                     contact=d['contact'],
-                                    department=department.objects.get(id=d['department']),)
+                                    department=department.objects.get(name=d['department'].lower()),)
         data = {
             'success': True,
         }

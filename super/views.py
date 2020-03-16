@@ -36,20 +36,20 @@ def updatehod(request):
             try:
                 prev = teachers.objects.get(
                     full_name=request.POST['prev'])
-                prev_user = Users.objects.get(uid=prev)
+                prev_user = Users.objects.get(teacher=prev)
                 prev_user.admin = False
                 prev_user.save()
             except teachers.DoesNotExist:
                 print('No such teacheer')
             next = teachers.objects.get(
                 id=request.POST['id'])
-            user = Users.objects.get(uid=next)
+            user = Users.objects.get(teacher=next)
             user.admin = True
             user.save()
         except Users.DoesNotExist:
             print('No such User')
             user = Users.objects.create_admin(
-                username=next.full_name, password=next.full_name, uid=next)
+                username=next.full_name, password=next.full_name, teacher=next)
         hod = department.objects.get(id=request.POST['dept'])
         hod.HOD = next.full_name
         hod.save()
