@@ -20,4 +20,5 @@ urlpatterns = [
     path('', include('Advisor.urls')),
     path('admin/', admin.site.urls),
     path('', include('super.urls')),
+    path('', include('hod.urls')),
 ]

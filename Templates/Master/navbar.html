@@ -15,10 +15,10 @@
                 <ul class="list-unstyled mb-5">
                     {% if user.admin %}
                     <li id="Role">
-                        <a href="#"><span class="fas fa-user-friends mr-3"></span> Role</a>
+                        <a href="{% url 'Admin:mentor' %}"><span class="fas fa-user-friends mr-3"></span> Role</a>
                     </li>
                     <li id="Mentor">
-                        <a href="#"><span class="fas fa-users mr-3"></span> Mentors</a>
+                        <a href="{% url 'Admin:role' %}"><span class="fas fa-users mr-3"></span> Mentors</a>
                     </li>
                     {% elif user.is_superuser %}
                     <li id="editAdmin">
