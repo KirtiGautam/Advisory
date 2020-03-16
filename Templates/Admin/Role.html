@@ -2,8 +2,55 @@
 {% load static %}
 {% block page %}
 
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/role.css' %}">
+</head>
 
-Role page
-
+<body>
+    <div id="content" class="p-4 p-md-5 pt-5">
+        <table class="table p-4 p-md-5 pt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Role </th>
+                    <th scope="col">Current Teacher</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-info" data-toggle="modal" id='' onclick=""
+                            data-target="#edit">Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="edit" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Edit</h1>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <input type="search" class="search mt-4 mb-4 p-1" placeholder="Search here ..." id="search"
+                                onkeyup="search()">
+                        </div>
+                        <input type="hidden" id="dep">
+                        <div class="input-group">
+                            <label for="hods" class="col-6 mt-2 mb-2">Name</label>
+                            <select class="form-control" id='hods' placeholder='Select one name'>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id='updateHod'>Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 <script src="{% static 'js/role.js' %}"></script>
 {% endblock %}

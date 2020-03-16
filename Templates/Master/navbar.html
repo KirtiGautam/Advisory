@@ -15,10 +15,10 @@
                 <ul class="list-unstyled mb-5">
                     {% if user.admin %}
                     <li id="Role">
-                        <a href="{% url 'Admin:mentor' %}"><span class="fas fa-user-friends mr-3"></span> Role</a>
+                        <a href="{% url 'Admin:role' %}"><span class="fas fa-user-friends mr-3"></span> Role</a>
                     </li>
                     <li id="Mentor">
-                        <a href="{% url 'Admin:role' %}"><span class="fas fa-users mr-3"></span> Mentors</a>
+                        <a href="{% url 'Admin:mentor' %}"><span class="fas fa-users mr-3"></span> Mentors</a>
                     </li>
                     {% elif user.is_superuser %}
                     <li id="editAdmin">
@@ -34,7 +34,7 @@
                     <li>
                         <form action="{% url 'Advisor:logout' %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit" class="fas fa-sign-out-alt btn btn-danger mt-5 mr-3"> Logout</button>
+                            <button type="submit" class="fas fa-sign-out-alt btn btn-danger mt-5 mr-3 logout"> Logout</button>
                         </form>
                     </li>
                 </ul>
