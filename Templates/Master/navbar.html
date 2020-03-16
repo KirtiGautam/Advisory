@@ -9,18 +9,16 @@
 <body>
     <div class=" d-flex ">
         <nav id="sidebar">
-            <div class="custom-menu">
-                <button type="button" id="sidebarCollapse" class="btn btn-primary">
-                    <i class="fa fa-bars"></i>
-                </button>
-            </div>
             <div class="p-4">
                 <img src="{% static 'Images/logo.jpg' %}" alt="Avatar" class="avatar">
                 <h1>Superuser</h1>
                 <ul class="list-unstyled mb-5">
                     {% if user.admin %}
-                    <li id="HOD hu">
-                        <a href="#"><span class="fas fa-user-friends"></span> HOD hu</a>
+                    <li id="Role">
+                        <a href="#"><span class="fas fa-user-friends mr-3"></span> Role</a>
+                    </li>
+                    <li id="Mentor">
+                        <a href="#"><span class="fas fa-users mr-3"></span> Mentors</a>
                     </li>
                     {% elif user.is_superuser %}
                     <li id="editAdmin">
@@ -36,7 +34,7 @@
                     <li>
                         <form action="{% url 'Advisor:logout' %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit" class="fas fa-sign-out-alt btn btn-danger mt-5 mr-3 logout"> Logout</button>
+                            <button type="submit" class="fas fa-sign-out-alt btn btn-danger mt-5 mr-3"> Logout</button>
                         </form>
                     </li>
                 </ul>
@@ -46,7 +44,5 @@
         {% block page %}
         {% endblock %}
     </div>
-
-    <script src="{% static 'js/navbar.js' %}"></script>
 </body>
 {% endblock %}
