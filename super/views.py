@@ -4,17 +4,6 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 
 
-def getHods(request):
-    if 'user' in request.session:
-        teacher = teachers.objects.raw('''SELECT * FROM advisor_teachers WHERE full_name LIKE "%%''' +
-                                       request.POST['term'] + '''%%" AND department_id = ''' + request.POST['dept'])
-
-        data = {
-            "teachers": [[teach.full_name, teach.id, teach.contact] for teach in teacher]
-        }
-        return JsonResponse(data)
-
-
 def updatedeps(request):
     if 'user' in request.session:
         dept, created = department.objects.get_or_create(
@@ -56,6 +45,17 @@ def updatehod(request):
         data = {
             'success': True,
             'hod': next.full_name
+        }
+        return JsonResponse(data)
+
+
+def getHods(request):
+    if 'user' in request.session:
+        teacher = teachers.objects.raw('''SELECT * FROM advisor_teachers WHERE full_name LIKE "%%''' +
+                                       request.POST['term'] + '''%%" AND department_id = ''' + request.POST['dept'])
+
+        data = {
+            "teachers": [[teach.full_name, teach.id, teach.contact] for teach in teacher]
         }
         return JsonResponse(data)
 

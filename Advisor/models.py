@@ -27,6 +27,51 @@ class teachers(models.Model):
         return self.full_name
 
 
+class Class(models.Model):
+    section = models.CharField(max_length=4)
+    batch = models.PositiveIntegerField()
+    department = models.ForeignKey(department, on_delete=models.CASCADE)
+    Mentor = models.ForeignKey(teachers, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.section
+
+
+class students(models.Model):
+    urn = models.PositiveIntegerField(primary_key=True)
+    crn = models.PositiveIntegerField()
+    full_name = models.CharField(max_length=255)
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    blood_group = models.CharField(max_length=4)
+    category = models.CharField(max_length=255)
+    height = models.PositiveIntegerField()
+    weight = models.PositiveIntegerField()
+    living_choices = (
+        ('DAY SCHOLAR', 'DAY SCHOLAR'),
+        ('HOSTELLER', 'HOSTELLER'),
+    )
+    living = models.CharField(choices=living_choices, max_length=12)
+    Father_name = models.CharField(max_length=255)
+    Father_contact = models.PositiveIntegerField()
+    Mother_name = models.CharField(max_length=255)
+    Mother_contact = models.PositiveIntegerField()
+    Address = models.CharField(max_length=255)
+    City = models.CharField(max_length=255)
+    State = models.CharField(max_length=255)
+    District = models.CharField(max_length=255)
+    Pincode = models.PositiveIntegerField()
+    Contact = models.PositiveIntegerField()
+    email = models.EmailField()
+    Class = models.ForeignKey(Class, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.full_name
+
+
 class UserManager(BaseUserManager):
     def create_user(self, username, password=None, teacher=None, is_admin=False, is_superuser=False):
         if not username:
@@ -67,7 +112,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'username'
 
     class Meta:
-        permissions=[
+        permissions = [
             ('can_upload_students', 'Can upload student data'),
             ('can_assign_mentors', 'Can assign mentors to class'),
         ]

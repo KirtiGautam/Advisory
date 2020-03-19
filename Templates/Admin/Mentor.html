@@ -16,12 +16,14 @@
                 </tr>
             </thead>
             <tbody>
+                {% for key in mentor %}
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td><button class="btn btn-info" data-toggle="modal" id='' onclick=""
+                    <td>{{key.section}} ({{key.batch}})</td>
+                    <td>{{key.Mentor}}</td>
+                    <td><button class="btn btn-info" data-toggle="modal" id='{{key.id}}' onclick="set(this.id)"
                             data-target="#edit">Edit</button></td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
         <div id="edit" class="modal fade" role="dialog">
@@ -36,15 +38,15 @@
                             <input type="search" class="search mt-4 mb-4 p-1" placeholder="Search here ..." id="search"
                                 onkeyup="search()">
                         </div>
-                        <input type="hidden" id="dep">
+                        <input type="hidden" id="class">
                         <div class="input-group">
                             <label for="hods" class="col-6 mt-2 mb-2">Name</label>
-                            <select class="form-control" id='hods' placeholder='Select one name'>
+                            <select class="form-control" id='teachers' placeholder='Select one name'>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id='updateHod'>Update</button>
+                        <button type="button" class="btn btn-danger" id='updateMentor'>Update</button>
                     </div>
                 </div>
             </div>
