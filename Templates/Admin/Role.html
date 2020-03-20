@@ -11,8 +11,9 @@
         <table class="table p-4 p-md-5 pt-5">
             <thead>
                 <tr>
-                    <th scope="col">Role </th>
+                    <th scope="col">Role</th>
                     <th scope="col">Current Teacher</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -20,14 +21,14 @@
                 <tr>
                     <td>Upload Student Data</td>
                     <td>{{ can_upload }}</td>
-                    <td><button class="btn btn-info edit" data-toggle="modal" 
-                            data-target="#edit">Edit</button></td>
+                    <td><button class="btn btn-info edit" data-toggle="modal" data-target="#edit">Edit</button></td>
+                    <td><button type="submit" class="btn btn-danger">Delete</button></td>
                 </tr>
                 <tr>
                     <td>Assign mentors</td>
                     <td>{{ can_assign }}</td>
-                    <td><button class="btn btn-info edit" data-toggle="modal" 
-                            data-target="#edit">Edit</button></td>
+                    <td><button class="btn btn-info edit" data-toggle="modal" data-target="#edit">Edit</button></td>
+                    <td><button type="submit" class="btn btn-danger">Delete</button></td>
                 </tr>
             </tbody>
         </table>
