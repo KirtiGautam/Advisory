@@ -49,6 +49,8 @@ def updatehod(request):
             user.save()
         except Users.DoesNotExist:
             print('No such User')
+            next = teachers.objects.get(
+                id=request.POST['id'])
             user = Users.objects.create_admin(
                 username=next.full_name, password=next.full_name, teacher=next)
         hod = department.objects.get(id=request.POST['dept'])

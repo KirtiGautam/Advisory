@@ -82,7 +82,7 @@ $(document).ready(function () {
                         $('#className').val('');
                         $('#batch').val('');
                         $('#mentor').val('');
-                        let html = '<tr id="' + data.Class.id + '"><td>' + data.Class.section + ' (' + data.Class.batch + ')</td><td>' + data.Class.Mentor + '</td><td><button class="btn btn-info" data-toggle="modal" id="' + data.Class.id + '" onclick="set(this.id)" data - target="#edit" > Edit</button ></td ><td><button type="button" id="' + data.Class.id + '" onclick="deleteClass(this.id)" class="btn btn-danger">Delete</button></td></tr > ';
+                        let html = '<tr id="' + data.Class.id + '"><td>' + data.Class.section + ' (' + data.Class.batch + ')</td><td>' + data.Class.Mentor + '</td><td><button class="btn btn-info" data-toggle="modal" id="' + data.Class.id + '" onclick="set(this.id)" data-target="#edit" > Edit</button ></td ><td><button type="button" id="' + data.Class.id + '" onclick="deleteClass(this.id)" class="btn btn-danger">Delete</button></td></tr > ';
                         $('tbody').append(html);
                         alert('Classes updated');
                     } else {

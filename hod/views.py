@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import Permission
-from Advisor.models import Users, teachers, Class
+from Advisor.models import Users, teachers, Class, department
 from django.db.models import Q
 from django.http import JsonResponse
 from django.core import serializers
@@ -11,9 +11,11 @@ from django.core import serializers
 
 def createClass(request):
     if 'user' in request.session:
+        teach = teachers.objects.get(id=request.POST['Mentor'])
         clas, created = Class.objects.get_or_create(
-            section=request.POST['section'], batch=request.POST['batch'], department=request.user.teacher.department, Mentor=teachers.objects.get(
-                id=request.POST['Mentor']))
+            section=request.POST['section'], batch=request.POST['batch'], department=request.user.teacher.department, Mentor=teach)
+        Users.objects.create_user(
+            username=teach.full_name, password=teach.full_name, teacher=teach)
         c = {'id': clas.id, 'section': clas.section,
              'Mentor': str(clas.Mentor), 'batch': clas.batch}
         data = {
@@ -27,8 +29,16 @@ def createClass(request):
 def updateClass(request):
     if 'user' in request.session:
         clas = Class.objects.get(id=request.POST['id'])
-        clas.Mentor = teachers.objects.get(id=request.POST['Mentor'])
+        try:
+            prev = Users.objects.get(teacher=clas.Mentor)
+            prev.delete()
+        except Users.DoesNotExist:
+            print('User Does not exist')
+        teach = teachers.objects.get(id=request.POST['Mentor'])
+        clas.Mentor = teach
         clas.save()
+        Users.objects.create_user(
+            username=teach.full_name, password=teach.full_name, teacher=teach)
         c = {'id': clas.id, 'section': clas.section,
              'Mentor': str(clas.Mentor), 'batch': clas.batch}
         data = {
@@ -65,8 +75,9 @@ def getTeachers(request):
 
 def mentor(request):
     if 'user' in request.session:
+        depart= request.user.teacher.department
         context = {
-            'mentor': Class.objects.all()
+            'mentor': Class.objects.filter(department=depart)
         }
         return render(request, 'Admin/Mentor.html', context)
     else:
