@@ -9,4 +9,5 @@ urlpatterns = [
     path(r'get-hods', views.getHods, name='getH'),
     path(r'update-hod', views.updatehod, name='updateH'),
     path(r'update-deps', views.updatedeps, name='updateD'),
+    path(r'delete-dep', views.deletedep, name='deletedep'),
 ]

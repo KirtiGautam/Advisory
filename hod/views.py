@@ -12,13 +12,14 @@ from django.core import serializers
 def createClass(request):
     if 'user' in request.session:
         clas, created = Class.objects.get_or_create(
-            section=request.POST['section'], batch=request.POST['batch'])
-        clas.Mentor = teachers.objects.get(id=request.POST['Mentor'])
-        clas.save()
+            section=request.POST['section'], batch=request.POST['batch'], department=request.user.teacher.department, Mentor=teachers.objects.get(
+                id=request.POST['Mentor']))
+        c = {'id': clas.id, 'section': clas.section,
+             'Mentor': str(clas.Mentor), 'batch': clas.batch}
         data = {
             'success': True,
             'created': created,
-            'Class': clas,
+            'Class': c,
         }
         return JsonResponse(data)
 
@@ -28,7 +29,8 @@ def updateClass(request):
         clas = Class.objects.get(id=request.POST['id'])
         clas.Mentor = teachers.objects.get(id=request.POST['Mentor'])
         clas.save()
-        c = [clas.section, str(clas.Mentor), clas.batch]
+        c = {'id': clas.id, 'section': clas.section,
+             'Mentor': str(clas.Mentor), 'batch': clas.batch}
         data = {
             'success': True,
             'Class': c,
@@ -40,9 +42,11 @@ def deleteClass(request):
     if 'user' in request.session:
         clas = Class.objects.get(id=request.POST['delete'])
         clas.delete()
+        c = {'id': clas.id, 'section': clas.section,
+             'Mentor': str(clas.Mentor), 'batch': clas.batch}
         data = {
             'success': True,
-            'Class': clas,
+            'Class': c,
         }
         return JsonResponse(data)
 

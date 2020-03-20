@@ -4,6 +4,26 @@ function set(i) {
     return;
 }
 
+function deleteDep(id) {
+    let token = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+        type: "POST",
+        headers: { "X-CSRFToken": token },
+        url: '/delete-dep',
+        data: {
+            'delete': id,
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (data.success) {
+                $('tr#' + id).remove();
+                alert("Department deleted")
+            }
+        }
+    });
+}
+
+
 function search() {
     let token = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
@@ -69,7 +89,7 @@ $(document).ready(function () {
                     if (data.created) {
                         $('#depname').val('');
                         let html = " <tr id='" + data.deptid + "'><td>" + data.dept + "</td><td>" + data.deptHOD + "</td><td><button class='btn btn-info' data-toggle='modal' id='" + data.deptid
-                            + "' onclick='set(this.id)' data-target='#edit'>Edit</button ></td></tr >";
+                            + "' onclick='set(this.id)' data-target='#edit'>Edit</button ></td><td><button type='submit' id='"+ data.deptid +"' onclick='deleteDep(this.id)' class='btn btn-danger'>Delete</button></td></tr > ";
                         $('tbody').append(html);
                         alert('Departments updated');
                     }else{

@@ -4,6 +4,18 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 
 
+def deletedep(request):
+    if 'user' in request.session:
+        dep = department.objects.get(id=request.POST['delete'])
+        dep.delete()
+        d={'id':dep.id, 'HOD': dep.HOD, 'name': dep.name}
+        data = {
+            'success': True,
+            'dep': d,
+        }
+        return JsonResponse(data)
+
+
 def updatedeps(request):
     if 'user' in request.session:
         dept, created = department.objects.get_or_create(

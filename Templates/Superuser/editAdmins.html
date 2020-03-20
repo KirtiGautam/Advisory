@@ -30,7 +30,7 @@
                     </td>
                     <td><button class="btn btn-info" data-toggle="modal" id='{{ key.id }}' onclick="set(this.id)"
                             data-target="#edit">Edit</button></td>
-                    <td><button type="submit" class="btn btn-danger">Delete</button></td>
+                    <td><button type="submit" id='{{ key.id }}' onclick="deleteDep(this.id)" class="btn btn-danger">Delete</button></td>
                 </tr>
                 {% endfor %}
             </tbody>

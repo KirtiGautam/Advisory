@@ -9,7 +9,8 @@
 <body>
     <div id="content" class="p-4 p-md-5 pt-5">
         <div class="d-flex justify-content-end mt-3 mb-3">
-            <button class="btn btn-secondary" data-toggle="modal" id='ad' data-target="#add"><i class="fas fa-plus"></i>
+            <button class="btn btn-secondary" data-toggle="modal" id='ad' onclick="search()" data-target="#add"><i
+                    class="fas fa-plus"></i>
                 Add new</button>
         </div>
         <table class="table p-4 p-md-5 pt-5">
@@ -23,12 +24,13 @@
             </thead>
             <tbody>
                 {% for key in mentor %}
-                <tr>
+                <tr id="{{key.id}}">
                     <td>{{key.section}} ({{key.batch}})</td>
                     <td>{{key.Mentor}}</td>
                     <td><button class="btn btn-info" data-toggle="modal" id='{{key.id}}' onclick="set(this.id)"
                             data-target="#edit">Edit</button></td>
-                    <td><button type="submit" class="btn btn-danger">Delete</button></td>
+                    <td><button type="submit" class="btn btn-danger" id='{{key.id}}'
+                            onclick="deleteClass(this.id)">Delete</button></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -43,12 +45,12 @@
                     <div class="modal-body">
                         <div class="input-group">
                             <input type="search" class="search mt-4 mb-4 p-1" placeholder="Search here ..." id="search"
-                                onkeyup="search()">
+                                onkeyup="search(this.value)">
                         </div>
                         <input type="hidden" id="class">
                         <div class="input-group">
                             <label for="hods" class="col-6 mt-2 mb-2">Name</label>
-                            <select class="form-control" id='teachers' placeholder='Select one name'>
+                            <select class="form-control teachers" id="teachers" placeholder='Select one name'>
                             </select>
                         </div>
                     </div>
@@ -67,12 +69,26 @@
                     </div>
                     <div class="modal-body">
                         <div class="input-group">
-                            <label for="dept" class="col-6 mt-2 mb-2">Class</label>
-                            <input class="form-control dept" type="text" id="depname">
+                            <label for="className" class="col-6 mt-2 mb-2">Class</label>
+                            <input class="form-control dept" type="text" id="className">
+                        </div>
+                        <div class="input-group">
+                            <label for="batch" class="col-6 mt-2 mb-2">Batch</label>
+                            <input class="form-control dept" type="text" id="batch">
+                        </div>
+                        <div class="input-group">
+                            <input type="search" class="search mt-4 mb-4 p-1" placeholder="Search here ..." id="search"
+                                onkeyup="search(this.value)">
+                        </div>
+                        <input type="hidden" id="class">
+                        <div class="input-group">
+                            <label for="hods" class="col-6 mt-2 mb-2">Name</label>
+                            <select class="form-control teachers" id="mentor" placeholder='Select one name'>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="addDep" class="btn btn-success">Add</button>
+                        <button type="button" id="addClass" class="btn btn-success">Add</button>
                     </div>
                 </div>
             </div>
