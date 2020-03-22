@@ -9,23 +9,23 @@
 }
 
 #sidebar {
+    max-width: 250px;
     background: #494ca2;
     color: #fff;
-    height: 782px;
+    height: 700px;
 }
 
 #sidebar h1 {
     margin-bottom: 3vmin;
-    font-size: 6vmin;
+    font-size: 5vmin;
     font-weight: 700;
 }
 
-
-#sidebar ul li ,.logout{
+#sidebar ul li, .logout {
     font-size: 3vmin;
 }
 
-#sidebar ul li a{
+#sidebar ul li a {
     padding: 10px 0;
     display: block;
     color: rgba(255, 255, 255, 0.6);
@@ -40,4 +40,52 @@
 #sidebar ul li.active>a {
     background: transparent;
     color: #fff;
+}
+
+@media only screen and (max-width: 320px) {
+    #sidebar {
+        max-width: 50px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    #sidebar {
+        max-width: 70px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #sidebar {
+        max-width: 90px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #sidebar {
+        max-width: 110px;
+    }
+}
+
+@media only screen and (max-width: 860px) {
+    #sidebar {
+        max-width: 130px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    #sidebar {
+        max-width: 150px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    #sidebar {
+        max-width: 170px;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    #sidebar {
+        max-width: 190px;
+    }
 }

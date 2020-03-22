@@ -19,26 +19,29 @@
                 <ul class="list-unstyled mb-5">
                     {% if user.admin %}
                     <li id="Role">
-                        <a href="{% url 'Admin:role' %}"><span class="fas fa-user-friends mr-3"></span> Role</a>
+                        <a href="{% url 'Admin:role' %}"><span class="fas fa-user-friends mr-2"></span> Role</a>
                     </li>
                     <li id="Mentor">
-                        <a href="{% url 'Admin:mentor' %}"><span class="fas fa-users mr-3"></span> Mentors</a>
+                        <a href="{% url 'Admin:mentor' %}"><span class="fas fa-users mr-2"></span> Mentors</a>
                     </li>
                     {% elif user.is_superuser %}
                     <li id="editAdmin">
-                        <a href="{% url 'Super:editAdmin' %}"><span class="fas fa-user-tag mr-3"></span> Edit Admins</a>
+                        <a href="{% url 'Super:editAdmin' %}"><span class="fas fa-user-tag mr-2"></span> Edit Admins</a>
                     </li>
                     {% endif %}
+                    <li id="student">
+                        <a href=""><span class="fas fa-user-graduate mr-2"></span> Students</a>
+                    </li>
                     <li id="dataupload">
-                        <a href="{% url 'Advisor:uploadData' %}"><span class="fas fa-database mr-3"></span> Data upload</a>
+                        <a href="{% url 'Advisor:uploadData' %}"><span class="fas fa-database mr-2"></span> Data upload</a>
                     </li>
                     <li id="settings">
-                        <a href="{% url 'Advisor:settings' %}"><span class="fas fa-user-cog mr-3"></span> Settings</a>
+                        <a href="{% url 'Advisor:settings' %}"><span class="fas fa-user-cog mr-2"></span> Settings</a>
                     </li>
                     <li>
                         <form action="{% url 'Advisor:logout' %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit" class="fas fa-sign-out-alt btn btn-danger mt-5 mr-3 logout"> Logout</button>
+                            <button type="submit" class="fas fa-sign-out-alt btn btn-danger mt-5 mr-2 logout"> Logout</button>
                         </form>
                     </li>
                 </ul>
