@@ -9,8 +9,8 @@
 <body>
     <div id="content" class="p-4 p-md-5 pt-5">
         <div class="d-flex justify-content-end mt-3 mb-3">
-            <button class="btn btn-secondary" data-toggle="modal" id='ad' data-target="#add"><i
-                    class="fas fa-plus"></i> Add new</button>
+            <button class="btn btn-secondary" data-toggle="modal" id='ad' data-target="#add"><i class="fas fa-plus"></i>
+                Add new</button>
         </div>
         <table class="table p-4 p-md-5 pt-5">
             <thead>
@@ -28,9 +28,10 @@
                     <td>
                         {{ key.HOD}}
                     </td>
-                    <td><button class="btn btn-info" data-toggle="modal" id='{{ key.id }}' onclick="set(this.id)"
+                    <td><button class="btn btn-info" data-toggle="modal" id='{{ key.id }}' onclick="setdep(this.id)"
                             data-target="#edit">Edit</button></td>
-                    <td><button type="submit" id='{{ key.id }}' onclick="deleteDep(this.id)" class="btn btn-danger">Delete</button></td>
+                    <td><button type="submit" id='{{ key.id }}' onclick="deleteDep(this.id)"
+                            class="btn btn-danger">Delete</button></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -44,7 +45,8 @@
                     </div>
                     <div class="modal-body">
                         <div class="input-group">
-                            <input type="search" class="search mt-4 mb-4 p-1" placeholder="Search here ..." id="search" onkeyup="search()">
+                            <input type="search" class="search mt-4 mb-4 p-1" placeholder="Search here ..." id="search"
+                                onkeyup="searchHOD()">
                         </div>
                         <input type="hidden" id="dep">
                         <div class="input-group">
@@ -73,11 +75,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="addDep" class="btn btn-success" >Add</button>
+                        <button type="button" id="addDep" class="btn btn-success">Add</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="{% static 'js/editAdmins.js' %}"></script>
+    <script>
+        $('#editAdmin').addClass('active');
+    </script>
+    <!-- <script src="{% static 'js/editAdmins.js' %}"></script> -->
     {% endblock %}

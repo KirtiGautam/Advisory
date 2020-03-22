@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Advisor',
     'super',
     'hod',
+    'Mentors',
 ]
 
 MIDDLEWARE = [

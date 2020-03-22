@@ -28,10 +28,11 @@
                     <li id="editAdmin">
                         <a href="{% url 'Super:editAdmin' %}"><span class="fas fa-user-tag mr-2"></span> Edit Admins</a>
                     </li>
-                    {% endif %}
+                    {% else %}
                     <li id="student">
-                        <a href=""><span class="fas fa-user-graduate mr-2"></span> Students</a>
+                        <a href="{% url 'Mentor:students' %}"><span class="fas fa-user-graduate mr-2"></span> Students</a>
                     </li>
+                    {% endif %}
                     <li id="dataupload">
                         <a href="{% url 'Advisor:uploadData' %}"><span class="fas fa-database mr-2"></span> Data upload</a>
                     </li>

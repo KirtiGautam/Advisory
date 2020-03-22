@@ -36,13 +36,16 @@
                         </div>
                         {% csrf_token %}
                         <div class="modal-footer">
-                            <button type="submit" id="change" class="btn btn-danger" >Change Password</button>
+                            <button type="submit" id="change" class="btn btn-danger">Change Password</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script src="{% static 'js/settings.js' %}"></script>
+    <!-- <script src="{% static 'js/settings.js' %}"></script> -->
 </body>
+<script>
+    $('#settings').addClass('active');
+</script>
 {% endblock %}

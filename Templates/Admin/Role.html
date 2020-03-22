@@ -42,12 +42,12 @@
                     <div class="modal-body">
                         <div class="input-group">
                             <input type="search" class="search mt-4 mb-4 p-1" placeholder="Search here ..." id="search"
-                                onkeyup="search()">
+                                onkeyup="search(this.value)">
                         </div>
                         <input type="hidden" id="perm">
                         <div class="input-group">
                             <label for="hods" class="col-6 mt-2 mb-2">Name</label>
-                            <select class="form-control" id='teachers' placeholder='Select one name'>
+                            <select class="form-control teachers" placeholder='Select one name'>
                             </select>
                         </div>
                     </div>
@@ -59,5 +59,8 @@
         </div>
     </div>
 </body>
-<script src="{% static 'js/role.js' %}"></script>
+<script>
+    $('#Role').addClass('active');
+</script>
+<!-- <script src="{% static 'js/role.js' %}"></script> -->
 {% endblock %}
