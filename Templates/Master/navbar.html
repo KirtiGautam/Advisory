@@ -7,50 +7,54 @@
 </head>
 
 <body>
-    <div class=" d-flex ">
-        <nav id="sidebar">
-            <div class="p-4">
-                <img src="{% static 'Images/logo.jpg' %}" alt="Avatar" class="avatar">
+    <div id="content">
+        <span class="slide">
+            <a href="#" onclick="openSlideMenu()">
+                <span class="fas fa-bars"></span>
+            </a>
+        </span>
+        <div id="menu" class="nav">
+            <a href="#" class="close" onclick="closeSlideMenu()">
+                <span class="fas fa-times"></span>
+            </a>
+            <ul class="list-unstyled mb-5">
+                <center><img src="{% static 'Images/logo.jpg' %}" alt="Avatar" class="avatar"></center>
                 {% if user.is_superuser %}
-                <h1>Superuser</h1>
+                <h6>Superuser</h6>
                 {% else %}
-                <h1>{{ user.teacher }}</h1>
+                <h6>{{ user.teacher }}</h6>
                 {% endif %}
-                <ul class="list-unstyled mb-5">
-                    {% if user.admin %}
-                    <li id="Role">
-                        <a href="{% url 'Admin:role' %}"><span class="fas fa-user-friends mr-2"></span> Role</a>
-                    </li>
-                    <li id="Mentor">
-                        <a href="{% url 'Admin:mentor' %}"><span class="fas fa-users mr-2"></span> Mentors</a>
-                    </li>
-                    {% elif user.is_superuser %}
-                    <li id="editAdmin">
-                        <a href="{% url 'Super:editAdmin' %}"><span class="fas fa-user-tag mr-2"></span> Edit Admins</a>
-                    </li>
-                    {% else %}
-                    <li id="student">
-                        <a href="{% url 'Mentor:students' %}"><span class="fas fa-user-graduate mr-2"></span> Students</a>
-                    </li>
-                    {% endif %}
-                    <li id="dataupload">
-                        <a href="{% url 'Advisor:uploadData' %}"><span class="fas fa-database mr-2"></span> Data upload</a>
-                    </li>
-                    <li id="settings">
-                        <a href="{% url 'Advisor:settings' %}"><span class="fas fa-user-cog mr-2"></span> Settings</a>
-                    </li>
-                    <li>
-                        <form action="{% url 'Advisor:logout' %}" method="POST">
-                            {% csrf_token %}
-                            <button type="submit" class="fas fa-sign-out-alt btn btn-danger mt-5 mr-2 logout"> Logout</button>
-                        </form>
-                    </li>
-                </ul>
-
-            </div>
-        </nav>
-        {% block page %}
-        {% endblock %}
+                {% if user.admin %}
+                <li id="Role">
+                    <a href="{% url 'Admin:role' %}"><span class="fas fa-user-friends mr-2"></span> Role</a>
+                </li>
+                <li id="Mentor">
+                    <a href="{% url 'Admin:mentor' %}"><span class="fas fa-users mr-2"></span> Mentors</a>
+                </li>
+                {% elif user.is_superuser %}
+                <li id="editAdmin">
+                    <a href="{% url 'Super:editAdmin' %}"><span class="fas fa-user-tag mr-2"></span> Edit Admins</a>
+                </li>
+                {% else %}
+                <li id="student">
+                    <a href="{% url 'Mentor:students' %}"><span class="fas fa-user-graduate mr-2"></span> Students</a>
+                </li>
+                {% endif %}
+                <li id="dataupload">
+                    <a href="{% url 'Advisor:uploadData' %}"><span class="fas fa-database mr-2"></span> Data upload</a>
+                </li>
+                <li id="settings">
+                    <a href="{% url 'Advisor:settings' %}"><span class="fas fa-user-cog mr-2"></span> Settings</a>
+                </li>
+                <li>
+                    <a href="{% url 'Advisor:logout' %}">{% csrf_token %}<span class="fas fa-sign-out-alt mr-2"></span> Logout</a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            {% block page %}
+            {% endblock %}
+        </div>
     </div>
 </body>
 {% endblock %}

@@ -1,8 +1,47 @@
 {% extends 'Master\navbar.html' %}
+{% load static %}
 
 {% block page %}
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/students.css' %}">
+</head>
 
-Students Page
-
+<body>
+    <div id="content">
+        <div class="d-flex justify-content-around mt-5">
+            <div class="input-group col-6">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="sea"><span class="fas fa-search"></span></span>
+                </div>
+                <input type="search" class="form-control" placeholder="Search here ...">
+              </div>
+            <button type="submit" class="btn btn-primary">Download as Excel</button>
+        </div>
+        <div class="container-fluid contain mt-5">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <th>U.R.N.</th>
+                    <th>C.R.N.</th>
+                    <th>Name</th>
+                    <th>Father's Name</th>
+                    <th>Mother's Name</th>
+                    <th>Contact Number</th>
+                    <th>Email-ID</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1706499</td>
+                        <td>1715349</td>
+                        <td>Riya Singh</td>
+                        <td>Raghvendra Pratap Singh</td>
+                        <td>Pushpa Singh</td>
+                        <td>9592716300</td>
+                        <td>r.riyasingh.s15@gmail.com</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>    
+</body>
 
 {% endblock %}

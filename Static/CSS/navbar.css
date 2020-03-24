@@ -1,91 +1,72 @@
-#content {
-    width: 100%;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-.avatar {
+body {
+    overflow-x: hidden;
+}
+
+
+.nav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #543126;
+    opacity: 0.9;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.7s;
+}
+
+.nav .avatar {
     width: 15vmin;
     height: 15vmin;
     border-radius: 50%;
 }
 
-#sidebar {
-    max-width: 250px;
-    background: #494ca2;
-    color: #fff;
-    height: 700px;
-}
-
-#sidebar h1 {
-    margin-bottom: 3vmin;
-    font-size: 5vmin;
-    font-weight: 700;
-}
-
-#sidebar ul li, .logout {
-    font-size: 3vmin;
-}
-
-#sidebar ul li a {
-    padding: 10px 0;
+.nav h6 {
     display: block;
-    color: rgba(255, 255, 255, 0.6);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-#sidebar ul li a:hover {
-    color: #fff;
+    padding: 20px 30px;
+    font-size: 25px;
     text-decoration: none;
+    color: #F0AD4E;
 }
 
-#sidebar ul li.active>a {
-    background: transparent;
-    color: #fff;
+.nav a {
+    display: block;
+    padding: 20px 30px;
+    font-size: 25px;
+    text-decoration: none;
+    color: #F0AD4E;
+    border-bottom: 1px solid #B7A99A;
 }
 
-@media only screen and (max-width: 320px) {
-    #sidebar {
-        max-width: 50px;
-    }
+.nav a:hover {
+    color: #B7A99A;
+    transition: 0.4s;
 }
 
-@media only screen and (max-width: 480px) {
-    #sidebar {
-        max-width: 70px;
-    }
+.nav .close {
+    position: absolute;
+    top: 0;
+    right: 22px;
+    margin-left: 50px;
+    font-size: 30px;
+    border: none;
 }
 
-@media only screen and (max-width: 600px) {
-    #sidebar {
-        max-width: 90px;
-    }
+.slide a {
+    color: #000;
+    font-size: 30px;
 }
 
-@media only screen and (max-width: 768px) {
-    #sidebar {
-        max-width: 110px;
-    }
-}
-
-@media only screen and (max-width: 860px) {
-    #sidebar {
-        max-width: 130px;
-    }
-}
-
-@media only screen and (max-width: 900px) {
-    #sidebar {
-        max-width: 150px;
-    }
-}
-
-@media only screen and (max-width: 1024px) {
-    #sidebar {
-        max-width: 170px;
-    }
-}
-
-@media only screen and (max-width: 1200px) {
-    #sidebar {
-        max-width: 190px;
-    }
+#content {
+    padding: 20px;
+    transition: margin-left 0.7s;
+    overflow: hidden;
+    width: 100%;
 }
