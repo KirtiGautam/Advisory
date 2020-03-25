@@ -17,5 +17,5 @@ th {
 
 tr:hover{
     cursor: pointer;
-    background-color: red !important;
+    background-color: slategray !important;
 }

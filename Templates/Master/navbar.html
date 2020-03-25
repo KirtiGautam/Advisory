@@ -8,22 +8,18 @@
 
 <body>
     <div id="content">
-        <span class="slide">
-            <a href="#" onclick="openSlideMenu()">
-                <span class="fas fa-bars"></span>
-            </a>
-        </span>
+        <button type="submit" class="slide" onclick="openSlideMenu()"><span class="fas fa-bars"></span></button>
         <div id="menu" class="nav">
-            <a href="#" class="close" onclick="closeSlideMenu()">
-                <span class="fas fa-times"></span>
-            </a>
+            <button type="submit" class="close" onclick="closeSlideMenu()"><span class="fas fa-times"></span></button>
             <ul class="list-unstyled mb-5">
-                <center><img src="{% static 'Images/logo.jpg' %}" alt="Avatar" class="avatar"></center>
-                {% if user.is_superuser %}
-                <h6>Superuser</h6>
-                {% else %}
-                <h6>{{ user.teacher }}</h6>
-                {% endif %}
+                <center>
+                    <img src="{% static 'Images/logo.jpg' %}" alt="Avatar" class="avatar">
+                    {% if user.is_superuser %}
+                    <h1>Superuser</h1>
+                    {% else %}
+                    <h1>{{ user.teacher }}</h1>
+                    {% endif %}
+                </center>
                 {% if user.admin %}
                 <li id="Role">
                     <a href="{% url 'Admin:role' %}"><span class="fas fa-user-friends mr-2"></span> Role</a>
@@ -47,7 +43,8 @@
                     <a href="{% url 'Advisor:settings' %}"><span class="fas fa-user-cog mr-2"></span> Settings</a>
                 </li>
                 <li>
-                    <a href="{% url 'Advisor:logout' %}">{% csrf_token %}<span class="fas fa-sign-out-alt mr-2"></span> Logout</a>
+                    <a href="{% url 'Advisor:logout' %}">{% csrf_token %}<span class="fas fa-sign-out-alt mr-2"></span>
+                        Logout</a>
                 </li>
             </ul>
         </div>

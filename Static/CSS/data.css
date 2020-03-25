@@ -1,5 +1,5 @@
 .box {
-    border: 1px solid black;
+    border: 1px solid #471A00;
     width: 50vmin;
     font-size: 3vmin;
 }
@@ -9,5 +9,6 @@ h1 {
 }
 
 .up {
-    background-color: #5bc0de;
+    background-color: #6B3C00;
+    color: #F0AD4E;
 }
