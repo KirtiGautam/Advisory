@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block page %}
+
 <head>
     <link rel="stylesheet" href="{% static 'CSS/students.css' %}">
 </head>
@@ -11,14 +12,14 @@
         <div class="d-flex justify-content-around mt-5">
             <div class="input-group col-6">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="sea"><span class="fas fa-search"></span></span>
+                    <span class="input-group-text" id="sea"><span class="fas fa-search"></span></span>
                 </div>
-                <input type="search" class="form-control" placeholder="Search here ...">
-              </div>
-            <button type="submit" class="btn btn-primary">Download as Excel</button>
+                <input type="search" class="form-control" placeholder="Search here ..." onkeyup="searchStu(this.value)">
+            </div>
+            <button type="submit" id="downloadStu" class="btn btn-primary">Download as Excel</button>
         </div>
         <div class="container-fluid contain mt-5">
-            <table class="table table-striped">
+            <table class="table table-striped" id='stusearch'>
                 <thead class="thead-dark">
                     <th>U.R.N.</th>
                     <th>C.R.N.</th>
@@ -29,28 +30,15 @@
                     <th>Email-ID</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1706499</td>
-                        <td>1715349</td>
-                        <td>Riya Singh</td>
-                        <td>Raghvendra Pratap Singh</td>
-                        <td>Pushpa Singh</td>
-                        <td>9592716300</td>
-                        <td>r.riyasingh.s15@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <td>1706232</td>
-                        <td>1715366</td>
-                        <td>Kirti Gautam</td>
-                        <td>Vasuki Gautam</td>
-                        <td>Sarabjeet Gautam</td>
-                        <td>8837862395</td>
-                        <td>gautamkirti8c@gmail.com</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
-    </div>    
+    </div>
 </body>
+<script>
+    $(document).ready(function () {
+        searchStu();
+    });
+</script>
 
 {% endblock %}

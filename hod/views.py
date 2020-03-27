@@ -3,8 +3,6 @@ from django.contrib.auth.models import Permission
 from Advisor.models import Users, teachers, Class, department
 from django.db.models import Q
 from django.http import JsonResponse
-from django.core import serializers
-
 
 # Create your views here.
 

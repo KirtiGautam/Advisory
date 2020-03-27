@@ -152,10 +152,10 @@ $(document).ready(function () {
                     if (data.created) {
                         $('#depname').val('');
                         let html = " <tr id='" + data.deptid + "'><td>" + data.dept + "</td><td>" + data.deptHOD + "</td><td><button class='btn btn-info' data-toggle='modal' id='" + data.deptid
-                            + "' onclick='setdep(this.id)' data-target='#edit'>Edit</button ></td><td><button type='submit' id='"+ data.deptid +"' onclick='deleteDep(this.id)' class='btn btn-danger'>Delete</button></td></tr > ";
+                            + "' onclick='setdep(this.id)' data-target='#edit'>Edit</button ></td><td><button type='submit' id='" + data.deptid + "' onclick='deleteDep(this.id)' class='btn btn-danger'>Delete</button></td></tr > ";
                         $('tbody').append(html);
                         alert('Departments updated');
-                    }else{
+                    } else {
                         alert('Department already exists')
                     }
                 }
@@ -167,19 +167,19 @@ $(document).ready(function () {
 
 
 //Login
-function check(){
+function check() {
     $('p').remove();
-    if(document.getElementById('username').value==''){
+    if (document.getElementById('username').value == '') {
         $('.userd').append('<p><br />Username required</p>');
         $('#username').focus();
         return false;
     }
-    if(document.getElementById('password').value==''){
+    if (document.getElementById('password').value == '') {
         $('.passd').append('<p>Password required</p>');
         $('#password').focus();
         return false;
     }
-    if(document.getElementById('password').value.length<8){
+    if (document.getElementById('password').value.length < 8) {
         $('.passd').append('<p>Password cannot be less than 8 characters<p>');
         $('#password').focus();
         return false;
@@ -286,45 +286,27 @@ $(document).ready(function () {
 
 
 //Navbar
-(function($) {
+(function ($) {
 
-	"use strict";
+    "use strict";
 
-	var fullHeight = function() {
+    var fullHeight = function () {
 
-		$('.js-fullheight').css('height', $(window).height());
-		$(window).resize(function(){
-			$('.js-fullheight').css('height', $(window).height());
-		});
+        $('.js-fullheight').css('height', $(window).height());
+        $(window).resize(function () {
+            $('.js-fullheight').css('height', $(window).height());
+        });
 
-	};
-	fullHeight();
+    };
+    fullHeight();
 
-	$('#sidebarCollapse').on('click', function () {
-      $('#sidebar').toggleClass('active');
-  });
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
 
 })(jQuery);
 
 //Role
-// function search() {
-//     let token = $('meta[name="csrf-token"]').attr('content');
-//     $.ajax({
-//         type: "POST",
-//         headers: { "X-CSRFToken": token },
-//         url: '/get-teachers',
-//         data: {
-//             'term': $('#search').val(),
-//         },
-//         dataType: 'json',
-//         success: function (data) {
-//             let html = '';
-//             for (let i = 0; i < data.teachers.length; i++)
-//                 html += '<option value="' + data.teachers[i][1] + '">' + data.teachers[i][0] + ' (' + data.teachers[i][2] + ') ' + '</option>';
-//             $('#teachers').html(html);
-//         }
-//     });
-// }
 
 $(document).ready(function () {
     $('.edit').click(function () {
@@ -372,7 +354,7 @@ $(document).ready(function () {
                 if (data.Changed) {
                     alert("Password Changed");
                 }
-                else{
+                else {
                     alert("Invalid Current Password")
                 }
             }
@@ -382,3 +364,49 @@ $(document).ready(function () {
         $('#pre').val('');
     });
 });
+
+
+//Students
+
+function searchStu(value = '') {
+    let token = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+        type: "POST",
+        headers: { "X-CSRFToken": token },
+        url: '/get-students',
+        data: {
+            'term': value,
+        },
+        dataType: 'json',
+        success: function (data) {
+            let students = JSON.parse(data.student);
+            let html = '';
+            for (let i = 0; i < students.length; i++) {
+                let pk = students[i].pk;
+                let student = students[i].fields;
+                html += '<tr><td>' + pk + '</td><td>' + student.crn + '</td><td>' + student.full_name + '</td><td>' + student.Father_name + '</td><td>' + student.Mother_name + '</td><td>' + student.Contact + '</td><td>' + student.email + '</td></tr>';
+            }
+            $('tbody').html(html);
+        }
+    });
+}
+
+$(document).ready(function () {
+    $('#downloadStu').click(function () {
+        tableToExcel('stusearch', 'Students');
+    });
+});
+
+
+
+var tableToExcel = (function () {
+    var uri = 'data:application/vnd.ms-excel;base64,'
+        , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+        , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+    return function (table, name) {
+        if (!table.nodeType) table = document.getElementById(table)
+        var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+        window.location.href = uri + base64(format(template, ctx))
+    }
+})()

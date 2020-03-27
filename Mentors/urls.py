@@ -6,4 +6,5 @@ app_name = 'Mentor'
 
 urlpatterns = [
     path(r'students', views.index, name='students'),
+    path(r'get-students', views.getStudents, name='getstudents'),
 ]

@@ -34,7 +34,8 @@ class Class(models.Model):
     Mentor = models.ForeignKey(teachers, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.section
+        send = self.section + self.batch
+        return send
 
 
 class students(models.Model):
@@ -56,15 +57,15 @@ class students(models.Model):
     )
     living = models.CharField(choices=living_choices, max_length=12)
     Father_name = models.CharField(max_length=255)
-    Father_contact = models.PositiveIntegerField()
+    Father_contact = models.CharField(max_length=15)
     Mother_name = models.CharField(max_length=255)
-    Mother_contact = models.PositiveIntegerField()
+    Mother_contact = models.CharField(max_length=15)
     Address = models.CharField(max_length=255)
     City = models.CharField(max_length=255)
     State = models.CharField(max_length=255)
     District = models.CharField(max_length=255)
     Pincode = models.PositiveIntegerField()
-    Contact = models.PositiveIntegerField()
+    Contact = models.CharField(max_length=15)
     email = models.EmailField()
     Class = models.ForeignKey(Class, on_delete=models.CASCADE)
 

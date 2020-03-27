@@ -4,23 +4,52 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Advisory.settings')
 import django
 django.setup()
 
-from Advisor.models import teachers, department
-
+from Advisor.models import teachers, department, students, Class
 from faker import Faker
 
+fakegen = Faker()
 import random
 
-fakegen = Faker()
-lis = ['M', "F"]
+
+def student(N):
+    lis = ['M', "F"]
+    ty = ['A', 'B', 'O', 'AB']
+    sig = ['+', '-']
+    liv = ['DAY SCHOLAR', 'HOSTELLER']
+    for _ in range(N):
+        stu = students.objects.create(
+            urn=random.randint(1000000, 2000000),
+            crn=random.randint(1000000, 2000000),
+            full_name=fakegen.name(),
+            gender=random.choice(lis),
+            blood_group=(random.choice(ty) + random.choice(sig)),
+            category='General',
+            height=random.uniform(5.0, 6.11),
+            weight=random.uniform(40.0, 90.0),
+            living=random.choice(liv),
+            Father_name=fakegen.name(),
+            Father_contact=random.randint(1000000000, 99999999999),
+            Mother_name=fakegen.name(),
+            Mother_contact=random.randint(1000000000, 99999999999),
+            Address=fakegen.address(),
+            City=fakegen.city(),
+            State=fakegen.state(),
+            District=fakegen.city(),
+            Pincode=random.randint(100000, 999999),
+            Contact=random.randint(1000000000, 99999999999),
+            email=fakegen.email(),
+            Class=Class.objects.get(id=1))
+        stu.save()
 
 
-def populate(N):
-    for entry in range(N):
+def teacher(N):
+    lis = ['M', "F"]
+    for _ in range(N):
         name = fakegen.name()
         email = fakegen.email()
         contact = fakegen.random_number(10)
         gender = random.choice(lis)
-        ids = random.randint(1,4)
+        ids = random.randint(1, 4)
         teach = teachers.objects.create(full_name=name,
                                         gender=gender,
                                         email=email,
@@ -30,6 +59,8 @@ def populate(N):
 
 
 if __name__ == '__main__':
+
     print('Populating Data....')
-    populate(25)
+    student(25)
+    # teacher(25)
     print('Done')
