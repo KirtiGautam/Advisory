@@ -8,6 +8,7 @@ body {
 }
 
 .nav {
+    overflow: hidden;
     height: 100%;
     width: 0;
     position: fixed;
@@ -48,28 +49,6 @@ body {
     transition: 0.4s;
 }
 
-.nav .close {
-    position: absolute;
-    top: 0;
-    right: 22px;
-    margin-left: 50px;
-    font-size: 40px;
-    color: #F0AD4E;
-    border: none;
-    outline: none;
-    border: none;
-}
-
-.nav .close:hover{
-    color: #B7A99A;
-    transition: 0.4s;
-}
-
-.nav .close:focus{
-    outline: none;
-    border: none;
-}
-
 .slide {
     background-color: #543126;
     color: #F0AD4E;
@@ -87,7 +66,7 @@ body {
     outline: none;
 }
 
-.slide:focus{
+.slide:focus {
     outline: none;
     border: none;
 }
@@ -97,4 +76,3 @@ body {
     transition: margin-left 0.7s;
     width: 100%;
 }
-
