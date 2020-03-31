@@ -391,7 +391,7 @@ function searchStu(value = '') {
             for (let i = 0; i < students.length; i++) {
                 let pk = students[i].pk;
                 let student = students[i].fields;
-                html += '<tr><td>' + pk + '</td><td>' + student.crn + '</td><td>' + student.full_name + '</td><td>' + student.Father_name + '</td><td>' + student.Mother_name + '</td><td>' + student.Contact + '</td><td>' + student.email + '</td></tr>';
+                html += '<tr id="' + pk + '" ><td>' + pk + '</td><td>' + student.crn + '</td><td>' + student.full_name + '</td><td>' + student.Father_name + '</td><td>' + student.Mother_name + '</td><td>' + student.Contact + '</td><td>' + student.email + '</td></tr>';
             }
             $('tbody').html(html);
         }
@@ -402,8 +402,38 @@ $(document).ready(function () {
     $('#downloadStu').click(function () {
         tableToExcel('stusearch', 'Students');
     });
-});
 
+    $('table#stusearch').delegate('tr', 'click', function () {
+        let urn = this.id;
+        let token = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": token },
+            url: '/get-student',
+            data: {
+                'student': urn,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    console.log(data.student);
+                    let student = JSON.parse(data.student);
+                    console.log(student);
+                    student = student[0].fields;
+                    $('#data').modal('show');
+                    html = '';
+                    for (x in student) {
+                        html += x + ' : ' + student[x] + ' <br>';
+                    }
+                    $('#studentID').html(html);
+                }
+                else {
+                    alert('Error getting details');
+                }
+            }
+        });
+    });
+});
 
 
 var tableToExcel = (function () {

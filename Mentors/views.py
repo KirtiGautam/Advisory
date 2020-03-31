@@ -54,10 +54,12 @@ def deleteStudent(request):
 
 def getStudent(request):
     if 'user' in request.session:
-        student = students.objects.get(id=request.POST['student'])
+        student = students.objects.get(urn=request.POST['student'])
+        rec = serializers.serialize(
+            'json', [student], indent=2, use_natural_foreign_keys=True)
         data = {
             'success': True,
-            'student': student,
+            'student': rec,
         }
         return JsonResponse(data)
 
