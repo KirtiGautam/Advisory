@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from Advisor.models import students, Class
+from Advisor.models import students, Class, marks
 from django.http import JsonResponse
 from django.http import HttpResponse
 from django.core import serializers
@@ -55,11 +55,14 @@ def deleteStudent(request):
 def getStudent(request):
     if 'user' in request.session:
         student = students.objects.get(urn=request.POST['student'])
+        mark = marks.objects.filter(student=student)
         rec = serializers.serialize(
-            'json', [student], indent=2, use_natural_foreign_keys=True)
+            'json', [student, student.Class, student.Class.department], indent=2, use_natural_foreign_keys=True)
         data = {
             'success': True,
             'student': rec,
+            'marks': serializers.serialize(
+                'json', mark, indent=2, use_natural_foreign_keys=True),
         }
         return JsonResponse(data)
 

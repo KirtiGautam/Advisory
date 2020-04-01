@@ -32,7 +32,7 @@ class Class(models.Model):
     batch = models.PositiveIntegerField()
     department = models.ForeignKey(department, on_delete=models.CASCADE)
     Mentor = models.ForeignKey(teachers, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         send = self.section + self.batch
         return send
@@ -71,6 +71,14 @@ class students(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+class marks(models.Model):
+    student = models.ForeignKey(students, on_delete=models.CASCADE)
+    sgpa = models.PositiveIntegerField()
+    active_backs = models.PositiveIntegerField()
+    passive_backs = models.PositiveIntegerField()
+    sem = models.PositiveIntegerField()
 
 
 class UserManager(BaseUserManager):

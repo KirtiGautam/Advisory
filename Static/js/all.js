@@ -380,6 +380,19 @@ $(document).ready(function () {
         tableToExcel('stusearch', 'Students');
     });
 
+    $('#studDet').click(function () {
+        $("#Details").html($("#stuDet").html());
+    });
+
+    $('#pareDet').click(function () {
+        $("#Details").html($("#parDet").html());
+    });
+
+    $('#markDet').click(function () {
+        $("#Details").html($("#marDet").html());
+    });
+
+
     $('table#stusearch').delegate('tr', 'click', function () {
         let urn = this.id;
         let token = $('meta[name="csrf-token"]').attr('content');
@@ -393,16 +406,31 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
-                    console.log(data.student);
-                    let student = JSON.parse(data.student);
-                    console.log(student);
-                    student = student[0].fields;
-                    $('#data').modal('show');
-                    html = '';
-                    for (x in student) {
-                        html += x + ' : ' + student[x] + ' <br>';
+                    let models = JSON.parse(data.student);
+                    let student = models[0].fields;
+                    let Class = models[1].fields;
+                    let Department = models[2].fields;
+                    for (let x in student)
+                        $('#' + x).html(student[x]);
+                    for (let x in Class)
+                        $('#' + x).html(Class[x]);
+                    for (let x in Department)
+                        $('#' + x).html(Department[x]);
+                    let da = new Date();
+                    let sem = 2 * (4 - (Class['batch'] - da.getUTCFullYear()));
+                    if (sem <= 8)
+                        sem += da.getUTCMonth() > 5 ? 1 : 0;
+                    let marks = JSON.parse(data.marks);
+                    let html = '';
+                    for (let i = 0; i < marks.length; i++) {
+                        let mark = marks[0].fields;
+                        html += 'Semester: ' + mark.sem + ', SGPA: ' + mark.sgpa + ', Active backlogs: ' + mark.active_backs + ', Passive backlogs: ' + mark.passive_backs + '<br>';
                     }
-                    $('#studentID').html(html);
+                    $('#marDet').html(html);
+                    $('#batch').html(sem);
+                    $('#urn').html(urn);
+                    $('#studDet').trigger('click');
+                    $('#data').modal('show');
                 }
                 else {
                     alert('Error getting details');
@@ -412,6 +440,9 @@ $(document).ready(function () {
     });
 });
 
+function closeStudent() {
+    $('#Details').html('');
+}
 
 var tableToExcel = (function () {
     var uri = 'data:application/vnd.ms-excel;base64,'
@@ -424,25 +455,3 @@ var tableToExcel = (function () {
         window.location.href = uri + base64(format(template, ctx))
     }
 })()
-
-$(document).ready(function () {
-    document.getElementById("Details").innerHTML = document.getElementById("stuDet").innerHTML;
-})
-
-$(document).ready(function () {
-    $('#studDet').click(function () {
-        document.getElementById("Details").innerHTML = document.getElementById("stuDet").innerHTML;
-    })
-})
-
-$(document).ready(function () {
-    $('#pareDet').click(function () {
-        document.getElementById("Details").innerHTML = document.getElementById("parDet").innerHTML;
-    })
-})
-
-$(document).ready(function () {
-    $('#markDet').click(function () {
-        document.getElementById("Details").innerHTML = document.getElementById("marDet").innerHTML;
-    })
-})
