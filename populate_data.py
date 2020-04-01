@@ -62,5 +62,5 @@ if __name__ == '__main__':
 
     print('Populating Data....')
     student(25)
-    # teacher(25)
+    # teacher(30)
     print('Done')

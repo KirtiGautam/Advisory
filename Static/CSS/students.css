@@ -1,4 +1,4 @@
-body{
+body {
     overflow: hidden;
 }
 
@@ -19,7 +19,51 @@ th {
     overflow-y: scroll;
 }
 
-tr:hover{
+tr:hover {
     cursor: pointer;
     background-color: slategray !important;
+}
+
+.navbar {
+    background-color: #009B68;
+}
+
+.navbar button {
+    display: block;
+    padding: 10px 10px;
+    font-size: 20px;
+    font-weight: 900;
+    text-decoration: none;
+    background: transparent;
+    outline: transparent;
+    border: none;
+    color: #F0AD4E;
+}
+
+.navbar button:hover {
+    background-color: #00D39B;
+    color: #504538;
+    transition: 0.4s;
+}
+
+.navbar .act {
+    color: #00D39B;
+    background-color: #504538;
+}
+
+.modal-body #stuDet {
+    display: none;
+}
+
+.modal-body #parDet {
+    display: none;
+}
+
+.modal-body #marDet {
+    display: none;
+}
+
+hr {
+    width: 100%;
+    border: 1px solid #471A00;
 }

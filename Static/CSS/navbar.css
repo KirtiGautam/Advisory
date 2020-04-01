@@ -49,6 +49,10 @@ body {
     transition: 0.4s;
 }
 
+.nav .active {
+    color: #B7A99A;
+}
+
 .slide {
     background-color: #543126;
     color: #F0AD4E;

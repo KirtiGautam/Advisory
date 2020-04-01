@@ -34,7 +34,7 @@
             </table>
         </div>
         <div id="data" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title"></h1>
@@ -43,7 +43,146 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div id="studentID"></div>
+                        <div class="navbar d-flex justify-content-center">
+                            <button class="mr-2" id="studDet">Personal Details</button>
+                            <button class="mr-2" id="pareDet">Parent's Details</button>
+                            <button id="markDet">Marks Details</button>
+                        </div>
+                        <div class="container mt-5">
+                            <div id="Details" class="row"></div>
+                            <div id="stuDet">
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Name</h6>
+                                    <h6 id="name"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Gender</h6>
+                                    <h6 id="gender"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>University Roll Number</h6>
+                                    <h6 id="urn"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Class Roll Number</h6>
+                                    <h6 id="crn"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Father's Name</h6>
+                                    <h6 id="father"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Mother's Name</h6>
+                                    <h6 id="mother"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Contact Number</h6>
+                                    <h6 id="number"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>E-Mail ID</h6>
+                                    <h6 id="email"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Blood Group</h6>
+                                    <h6 id="blood"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Category</h6>
+                                    <h6 id="category"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Height (cm)</h6>
+                                    <h6 id="height"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Weight (cm)</h6>
+                                    <h6 id="weight"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Branch</h6>
+                                    <h6 id="branch"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Semester</h6>
+                                    <h6 id="sem"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Living</h6>
+                                    <h6 id="living"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Address</h6>
+                                    <h6 id="address"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>City</h6>
+                                    <h6 id="city"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>State</h6>
+                                    <h6 id="state"></h6>
+                                </div>
+                            </div>
+                            <div id="parDet" name="parDet">
+                                <div class="col-12">
+                                    <h5>Father's Details</h5>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Name</h6>
+                                    <h6 id="father"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Contact Number</h6>
+                                    <h6 id="f_number"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Occupation</h6>
+                                    <h6 id="f_occupation"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Address</h6>
+                                    <h6 id="f_address"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>City</h6>
+                                    <h6 id="f_city"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>State</h6>
+                                    <h6 id="f_state"></h6>
+                                </div>
+                                <hr>
+                                <div class="col-12">
+                                    <h5>Mother's Details</h5>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Name</h6>
+                                    <h6 id="mother"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Contact Number</h6>
+                                    <h6 id="m_number"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Occupation</h6>
+                                    <h6 id="m_occupation"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>Address</h6>
+                                    <h6 id="m_address"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>City</h6>
+                                    <h6 id="m_city"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12">
+                                    <h6>State</h6>
+                                    <h6 id="m_state"></h6>
+                                </div>
+                            </div>
+                            <div id="marDet" name="marDet">None</div>
+                        </div>
                     </div>
                 </div>
             </div>

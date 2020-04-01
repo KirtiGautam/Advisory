@@ -290,29 +290,6 @@ $(document).ready(function () {
     });
 });
 
-
-
-//Navbar
-(function ($) {
-
-    "use strict";
-
-    var fullHeight = function () {
-
-        $('.js-fullheight').css('height', $(window).height());
-        $(window).resize(function () {
-            $('.js-fullheight').css('height', $(window).height());
-        });
-
-    };
-    fullHeight();
-
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-    });
-
-})(jQuery);
-
 //Role
 
 $(document).ready(function () {
@@ -447,3 +424,25 @@ var tableToExcel = (function () {
         window.location.href = uri + base64(format(template, ctx))
     }
 })()
+
+$(document).ready(function () {
+    document.getElementById("Details").innerHTML = document.getElementById("stuDet").innerHTML;
+})
+
+$(document).ready(function () {
+    $('#studDet').click(function () {
+        document.getElementById("Details").innerHTML = document.getElementById("stuDet").innerHTML;
+    })
+})
+
+$(document).ready(function () {
+    $('#pareDet').click(function () {
+        document.getElementById("Details").innerHTML = document.getElementById("parDet").innerHTML;
+    })
+})
+
+$(document).ready(function () {
+    $('#markDet').click(function () {
+        document.getElementById("Details").innerHTML = document.getElementById("marDet").innerHTML;
+    })
+})
