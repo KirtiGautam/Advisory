@@ -423,8 +423,8 @@ $(document).ready(function () {
                     let marks = JSON.parse(data.marks);
                     let html = '';
                     for (let i = 0; i < marks.length; i++) {
-                        let mark = marks[0].fields;
-                        html += 'Semester: ' + mark.sem + ', SGPA: ' + mark.sgpa + ', Active backlogs: ' + mark.active_backs + ', Passive backlogs: ' + mark.passive_backs + '<br>';
+                        let mark = marks[i].fields;
+                        html += '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Semester:</h6>' + '<h6 class="h6">' + mark.sem + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">SGPA:</h6>' + '<h6 class="h6">' + mark.sgpa + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Active backlogs:</h6>' + '<h6 class="h6">' + mark.active_backs + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex"> <h6 class="mr-3">Passive backlogs:</h6>' + '<h6 class="h6">' + mark.passive_backs + '</h6> </div>'+'<hr>';
                     }
                     $('#marDet').html(html);
                     $('#batch').html(sem);

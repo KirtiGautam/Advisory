@@ -63,7 +63,16 @@ tr:hover {
     display: none;
 }
 
-hr {
+.modal-body hr {
     width: 100%;
-    border: 1px solid #471A00;
+    border: 1px solid #471A00 !important;
+    size: 5;
+}
+
+.container .h6 {
+    font-weight: 400;
+}
+
+.modal-header .close {
+    font-size: 30px;
 }
