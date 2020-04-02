@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
 from Advisor.models import students, Class, marks
-from django.http import JsonResponse
-from django.http import HttpResponse
+from django.http import JsonResponse, FileResponse, HttpResponse
 from django.core import serializers
+from PIL import Image
+
 
 
 # Create your views here.
+
+def imageStu(request):
+    return render(request, 'Mentors/uploadImage.html')
 
 
 def index(request):
@@ -54,7 +58,14 @@ def deleteStudent(request):
 
 def getStudent(request):
     if 'user' in request.session:
-        student = students.objects.get(urn=request.POST['student'])
+        try:
+            student = students.objects.get(urn=request.POST['student'])
+        except students.DoesNotExist:
+            data = {
+                'success': False,
+                'message': 'No such User',
+            }
+            return JsonResponse(data)
         mark = marks.objects.filter(student=student)
         rec = serializers.serialize(
             'json', [student, student.Class, student.Class.department], indent=2, use_natural_foreign_keys=True)
@@ -80,3 +91,22 @@ def getStudents(request):
             'student': rec,
         }
         return JsonResponse(data)
+
+
+def updateStudent(request):
+    student = students.objects.get(urn=request.POST['urn'])
+    student.Father_pic = request.FILES['Father_pic']
+    student.Mother_pic = request.FILES['Mother_pic']
+    student.photo = request.FILES['photo']
+    student.Father_pic.name = str(student.urn)+'.jpg'
+    student.Mother_pic.name = str(student.urn)+'.jpg'
+    student.photo.name = str(student.urn)+'.jpg'
+    student.save()
+
+    rec = serializers.serialize(
+        'json', [student], indent=2, use_natural_foreign_keys=True)
+    data = {
+        'success': True,
+        'student': rec,
+    }
+    return JsonResponse(data)

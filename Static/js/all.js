@@ -424,8 +424,11 @@ $(document).ready(function () {
                     let html = '';
                     for (let i = 0; i < marks.length; i++) {
                         let mark = marks[i].fields;
-                        html += '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Semester:</h6>' + '<h6 class="h6">' + mark.sem + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">SGPA:</h6>' + '<h6 class="h6">' + mark.sgpa + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Active backlogs:</h6>' + '<h6 class="h6">' + mark.active_backs + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex"> <h6 class="mr-3">Passive backlogs:</h6>' + '<h6 class="h6">' + mark.passive_backs + '</h6> </div>'+'<hr>';
+                        html += '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Semester:</h6>' + '<h6 class="h6">' + mark.sem + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">SGPA:</h6>' + '<h6 class="h6">' + mark.sgpa + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Active backlogs:</h6>' + '<h6 class="h6">' + mark.active_backs + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex"> <h6 class="mr-3">Passive backlogs:</h6>' + '<h6 class="h6">' + mark.passive_backs + '</h6> </div>' + '<hr>';
                     }
+                    $('#fathpic').attr('src', '/Media/'+student.Father_pic);
+                    $('#mothpic').attr('src', '/Media/'+student.Mother_pic);
+                    $('#stupic').attr('src', '/Media/'+student.photo);
                     $('#marDet').html(html);
                     $('#batch').html(sem);
                     $('#urn').html(urn);
@@ -455,3 +458,76 @@ var tableToExcel = (function () {
         window.location.href = uri + base64(format(template, ctx))
     }
 })()
+
+//uploadImage
+
+$(document).ready(function () {
+    $('#imsub').click(function () {
+        let token = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": token },
+            url: '/get-student',
+            data: {
+                'student': $('#imurn').val(),
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    let models = JSON.parse(data.student);
+                    if (models[0].fields.dob == $('#imdob').val()) {
+                        $('#imver').hide();
+                        $('#imForm').show();
+                    }
+                }
+                else {
+                    alert('Incorrect details');
+                }
+            }
+        });
+    });
+
+    $('#SSP').click(function () {
+        let token = $('meta[name="csrf-token"]').attr('content');
+        let formdata = new FormData();
+        formdata.append('urn', $('#imurn').val());
+        formdata.append('Father_pic', $('#FatherPic').prop('files')[0]);
+        formdata.append('Mother_pic', $('#MotherPic').prop('files')[0]);
+        formdata.append('photo', $('#studentPic').prop('files')[0]);
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": token },
+            url: '/update-student',
+            processData: false,
+            contentType: false,
+            data: formdata,
+            success: function (data) {
+                if (data.success) {
+                    let model = JSON.parse(data.student);
+                    console.log(model[0].fields.photo);
+                    $('#fathPic').attr('src', '/Media/'+model[0].fields.Father_pic);
+                    $('#mothPic').attr('src', '/Media/'+model[0].fields.Mother_pic);
+                    $('#stuPic').attr('src', '/Media/'+model[0].fields.photo);
+                    alert('Success');
+                }
+                else {
+                    alert('Incorrect details');
+                }
+            }
+        });
+    });
+});
+
+function preview(input, targ) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(targ)
+                .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+

@@ -41,12 +41,14 @@ class Class(models.Model):
 class students(models.Model):
     urn = models.PositiveIntegerField(primary_key=True)
     crn = models.PositiveIntegerField()
+    photo = models.ImageField(upload_to='students', default=None, null=True)
     full_name = models.CharField(max_length=255)
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
     )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    dob = models.DateField()
     blood_group = models.CharField(max_length=4)
     category = models.CharField(max_length=255)
     height = models.PositiveIntegerField()
@@ -56,8 +58,10 @@ class students(models.Model):
         ('HOSTELLER', 'HOSTELLER'),
     )
     living = models.CharField(choices=living_choices, max_length=12)
+    Father_pic = models.ImageField(upload_to='father', default=None, null=True)
     Father_name = models.CharField(max_length=255)
     Father_contact = models.CharField(max_length=15)
+    Mother_pic = models.ImageField(upload_to='mother', default=None, null=True)
     Mother_name = models.CharField(max_length=255)
     Mother_contact = models.CharField(max_length=15)
     Address = models.CharField(max_length=255)
