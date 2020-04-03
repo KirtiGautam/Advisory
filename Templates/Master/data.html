@@ -4,11 +4,17 @@
 
 <head>
     <link rel="stylesheet" href="{% static 'CSS/data.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.js"></script> 
 </head>
 
 <body>
     <div class="container p-4 p-md-5 pt-5">
         <center>
+            Type of data:
+            <select name="uptype" id="uptype">
+                <option value="teachers">Teachers</option>
+                <option value="students">students</option>
+            </select>
             <div class="box">
                 <div class="p-4 p-md-2 up">
                     <h1>Upload csv file</h1>
@@ -20,7 +26,6 @@
             </div>
         </center>
     </div>
-    <!-- <script src="{% static 'js/data.js' %}"></script> -->
 </body>
 <script>
     $('#dataupload').addClass('active');
