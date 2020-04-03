@@ -5,7 +5,6 @@ from django.core import serializers
 from PIL import Image
 
 
-
 # Create your views here.
 
 def imageStu(request):
@@ -57,25 +56,24 @@ def deleteStudent(request):
 
 
 def getStudent(request):
-    if 'user' in request.session:
-        try:
-            student = students.objects.get(urn=request.POST['student'])
-        except students.DoesNotExist:
-            data = {
-                'success': False,
-                'message': 'No such User',
-            }
-            return JsonResponse(data)
-        mark = marks.objects.filter(student=student)
-        rec = serializers.serialize(
-            'json', [student, student.Class, student.Class.department], indent=2, use_natural_foreign_keys=True)
+    try:
+        student = students.objects.get(urn=request.POST['student'])
+    except students.DoesNotExist:
         data = {
-            'success': True,
-            'student': rec,
-            'marks': serializers.serialize(
-                'json', mark, indent=2, use_natural_foreign_keys=True),
+            'success': False,
+            'message': 'No such User',
         }
         return JsonResponse(data)
+    mark = marks.objects.filter(student=student)
+    rec = serializers.serialize(
+        'json', [student, student.Class, student.Class.department], indent=2, use_natural_foreign_keys=True)
+    data = {
+        'success': True,
+        'student': rec,
+        'marks': serializers.serialize(
+            'json', mark, indent=2, use_natural_foreign_keys=True),
+    }
+    return JsonResponse(data)
 
 
 def getStudents(request):

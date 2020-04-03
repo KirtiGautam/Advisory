@@ -23,48 +23,81 @@ $(document).ready(function () {
 
     $("#upload").click(function () {
         let token = $('meta[name="csrf-token"]').attr('content');
-        var fileUpload = document.getElementById("data").files[0];
-        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
-        if (regex.test(document.getElementById("data").value.toLowerCase())) {
-            if (typeof (FileReader) != "undefined") {
-                var reader = new FileReader();
-                reader.onload = (function (fileUpload) {
-                    return function (e) {
-                        let table = [];
-                        let rows = e.target.result.split("\n");
-                        for (var i = 1; i < rows.length; i++) {
-                            var cells = rows[i].split(",");
-                            if (cells.length > 1) {
-                                table.push({
-                                    'full_name': cells[0],
-                                    'gender': cells[1],
-                                    'email': cells[2],
-                                    'contact': cells[3],
-                                    'department': cells[4].replace('\r', ''),
-                                });
-                            }
+        Papa.parse(document.getElementById("data").files[0], {
+            header: true,
+            complete: function (results) {
+                console.log(results.data);
+                let inlength = Object.keys(results.data[0]).length;
+                for (let i = 0; i < results.data.length; i++) {
+                    if (Object.keys(results.data[i]).length != inlength)
+                        results.data.splice(i,1);
+                }
+                console.log(results.data);
+                $.ajax({
+                    type: "POST",
+                    headers: { "X-CSRFToken": token },
+                    url: '/uploadt-data',
+                    data: {
+                        'tdata': JSON.stringify(results.data),
+                        'model': $('#uptype').val(),
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success) {
+                            alert('File upload success');
                         }
-                        $.ajax({
-                            type: "POST",
-                            headers: { "X-CSRFToken": token },
-                            url: '/uploadt-data',
-                            data: {
-                                'tdata': JSON.stringify(table),
-                            },
-                            dataType: 'json',
-                            success: function (data) {
-                                if (data.success) {
-                                    alert('File upload success');
-                                }
-                            }
-                        });
-                    };
-                })(fileUpload)
-                reader.readAsText(fileUpload);
-            } else {
-                alert("This browser does not support HTML5.");
+                    }
+                });
             }
-        }
+        });
+        // var fileUpload = document.getElementById("data").files[0];
+        // var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        // if (regex.test(document.getElementById("data").value.toLowerCase())) {
+        //     if (typeof (FileReader) != "undefined") {
+        //         var reader = new FileReader();
+        //         reader.onload = (function (fileUpload) {
+        //             return function (e) {
+        //                 let table = [];
+        //                 console.log(e.target.result);
+        //                 let rows = e.target.result.split("\n");
+        //                 let keys = rows[0].split(",");
+        //                 for (var i = 1; i < rows.length; i++) {
+        //                     var cells = rows[i].split(",");
+        //                     if (cells.length > 1) {
+        //                         let temp = {};
+        //                         for (let j = 0; j < cells.length; j++) {
+        //                             console.log([keys[j], cells[j]])
+        //                             // if (cells[j] != null)
+        //                             //     temp[keys[j].replace('\r', '')] = cells[j].replace('\r', '');
+        //                             // else
+        //                             //     temp[keys[j].replace('\r', '')] = null; 
+        //                         }
+        //                         table.push(temp);
+        //                     }
+        //                 }
+        //                 console.log(table);
+        //                 // $.ajax({
+        //                 //     type: "POST",
+        //                 //     headers: { "X-CSRFToken": token },
+        //                 //     url: '/uploadt-data',
+        //                 //     data: {
+        //                 //         'tdata': JSON.stringify(table),
+        //                 //         'model': $('#uptype').val(),
+        //                 //     },
+        //                 //     dataType: 'json',
+        //                 //     success: function (data) {
+        //                 //         if (data.success) {
+        //                 //             alert('File upload success');
+        //                 //         }
+        //                 //     }
+        //                 // });
+        //             };
+        //         })(fileUpload)
+        //         reader.readAsText(fileUpload);
+        //     } else {
+        //         alert("This browser does not support HTML5.");
+        //     }
+        // }
     });
 
 });
@@ -426,9 +459,9 @@ $(document).ready(function () {
                         let mark = marks[i].fields;
                         html += '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Semester:</h6>' + '<h6 class="h6">' + mark.sem + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">SGPA:</h6>' + '<h6 class="h6">' + mark.sgpa + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Active backlogs:</h6>' + '<h6 class="h6">' + mark.active_backs + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex"> <h6 class="mr-3">Passive backlogs:</h6>' + '<h6 class="h6">' + mark.passive_backs + '</h6> </div>' + '<hr>';
                     }
-                    $('#fathpic').attr('src', '/Media/'+student.Father_pic);
-                    $('#mothpic').attr('src', '/Media/'+student.Mother_pic);
-                    $('#stupic').attr('src', '/Media/'+student.photo);
+                    $('#fathpic').attr('src', '/Media/' + student.Father_pic);
+                    $('#mothpic').attr('src', '/Media/' + student.Mother_pic);
+                    $('#stupic').attr('src', '/Media/' + student.photo);
                     $('#marDet').html(html);
                     $('#batch').html(sem);
                     $('#urn').html(urn);
@@ -505,9 +538,9 @@ $(document).ready(function () {
                 if (data.success) {
                     let model = JSON.parse(data.student);
                     console.log(model[0].fields.photo);
-                    $('#fathPic').attr('src', '/Media/'+model[0].fields.Father_pic);
-                    $('#mothPic').attr('src', '/Media/'+model[0].fields.Mother_pic);
-                    $('#stuPic').attr('src', '/Media/'+model[0].fields.photo);
+                    $('#fathPic').attr('src', '/Media/' + model[0].fields.Father_pic);
+                    $('#mothPic').attr('src', '/Media/' + model[0].fields.Mother_pic);
+                    $('#stuPic').attr('src', '/Media/' + model[0].fields.photo);
                     alert('Success');
                 }
                 else {

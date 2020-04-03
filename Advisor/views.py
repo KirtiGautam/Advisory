@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from Advisor.models import Users, teachers, department
+from Advisor.models import Users, teachers, department, Class, students
 from django.http import JsonResponse
 import json
+from datetime import datetime, date
+
 
 # Create your views here.
 
@@ -51,12 +53,21 @@ def settings(request):
 def uploadtData(request):
     if 'user' in request.session:
         dat = json.loads(request.POST['tdata'])
-        for d in dat:
-            teachers.objects.create(full_name=d['full_name'],
-                                    gender=d['gender'],
-                                    email=d['email'],
-                                    contact=d['contact'],
-                                    department=department.objects.get(name=d['department'].lower()),)
+        model = request.POST['model']
+        if model == 'teachers':
+            for d in dat:
+                dep = department.objects.get(name=d.pop('department').lower())
+                t = teachers(department=dep, **d)
+                t.save()
+        else:
+            for d in dat:
+                clas = Class.objects.get(section=d.pop(
+                    'section'), batch=d.pop('batch'))
+                cr_date = datetime.strptime(
+                    d.pop('dob'), '%d-%m-%Y')
+                do = cr_date.strftime('%Y-%m-%d')
+                s = students(dob=do, Class=clas, **d)
+                s.save()
         data = {
             'success': True,
         }
