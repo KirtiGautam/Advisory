@@ -16,6 +16,9 @@
                 </div>
                 <input type="search" class="form-control" placeholder="Search here ..." onkeyup="searchStu(this.value)">
             </div>
+            <button class="btn btn-secondary" data-toggle="modal" id='addStu' data-target="#newStu"><i
+                    class="fas fa-plus"></i>
+                Add new</button>
             <button type="submit" id="downloadStu" class="btn btn-primary">Download as Excel</button>
         </div>
         <div class="container-fluid contain mt-5">
@@ -33,8 +36,143 @@
                 </tbody>
             </table>
         </div>
-        <div id="data" class="modal fade" role="dialog">
+        <div id="newStu" class="modal fade" role="dialog">
             <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title">Add New Student</h1>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12 d-flex">
+                            <div class="input-group justify-content-start">
+                                <label for="urn" class="col-5 mt-2 mb-2">U.R.N.</label>
+                                <input class="form-control urn col-6" type="number">
+                            </div>
+                            <div class="input-group justify-content-end">
+                                <label for="crn" class="col-5 mt-2 mb-2">C.R.N.</label>
+                                <input class="form-control crn col-6" type="number">
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="input-group justify-content-start">
+                                <label for="name" class="col-5 mt-2 mb-2">Name</label>
+                                <input class="form-control col-6 name" type="text">
+                            </div>
+                            <div class="input-group input-group justify-content-end">
+                                <label for="dob" class="col-5 mt-2 mb-2">D.O.B.</label>
+                                <input class="form-control col-6 dob" type="date">
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="input-group justify-content-start">
+                                <label for="gender" class="col-5 mt-2 mb-2">Gender</label>
+                                <select name="gender" id="gender" class="form-control col-6">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="input-group input-group justify-content-end">
+                                <label for="living" class="col-5 mt-2 mb-2">Living</label>
+                                <select name="living" id="living" class="form-control col-6">
+                                    <option value="day_scholar">Day Scholar</option>
+                                    <option value="hosteller">Hosteller</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="input-group justify-content-start">
+                                <label for="blood" class="col-5 mt-2 mb-2">Blood Group</label>
+                                <select name="blood" id="blood" class="form-control col-6">
+                                    <option value="aPos">A+</option>
+                                    <option value="aNeg">A-</option>
+                                    <option value="bPos">B+</option>
+                                    <option value="bNeg">B-</option>
+                                    <option value="abPos">AB+</option>
+                                    <option value="abNeg">AB-</option>
+                                </select>
+                            </div>
+                            <div class="input-group input-group justify-content-end">
+                                <label for="cate" class="col-5 mt-2 mb-2">Category</label>
+                                <select name="cate" id="cate" class="form-control col-6">
+                                    <option value="general">General</option>
+                                    <option value="sc">S.C.</option>
+                                    <option value="st">S.T.</option>
+                                    <option value="obc">O.B.C.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="input-group justify-content-start">
+                                <label for="Contact" class="col-5 mt-2 mb-2">Contact Number</label>
+                                <input class="form-control col-6 Contact" type="number">
+                            </div>
+                            <div class="input-group input-group justify-content-end">
+                                <label for="email" class="col-5 mt-2 mb-2">E-Mail ID</label>
+                                <input class="form-control col-6 email" type="email">
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="input-group justify-content-start">
+                                <label for="height" class="col-5 mt-2 mb-2">Height (cm)</label>
+                                <input class="form-control col-6 height" type="number">
+                            </div>
+                            <div class="input-group input-group justify-content-end">
+                                <label for="weight" class="col-5 mt-2 mb-2">Weight (kg)</label>
+                                <input class="form-control col-6 weight" type="number">
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="input-group justify-content-start">
+                                <label for="Father_name" class="col-5 mt-2 mb-2">Father's Name</label>
+                                <input class="form-control col-6 Father_name" type="text">
+                            </div>
+                            <div class="input-group input-group justify-content-end">
+                                <label for="Father_Contact" class="col-5 mt-2 mb-2">Father's Contact Number</label>
+                                <input class="form-control col-6 Father_Contact" type="number">
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="input-group justify-content-start">
+                                <label for="Mother_name" class="col-5 mt-2 mb-2">Mother's Name</label>
+                                <input class="form-control col-6 Mother_name" type="text">
+                            </div>
+                            <div class="input-group input-group justify-content-end">
+                                <label for="Mother_Contact" class="col-5 mt-2 mb-2">Mother's Contact Number</label>
+                                <input class="form-control col-6 Mother_Contact" type="number">
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="input-group justify-content-start">
+                                <label for="address" class="col-5 mt-2 mb-2">Address</label>
+                                <input class="form-control col-6 address" type="text">
+                            </div>
+                            <div class="input-group input-group justify-content-end">
+                                <label for="pin" class="col-5 mt-2 mb-2">Pin Code</label>
+                                <input class="form-control col-6 pin" type="number">
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="input-group input-group justify-content-start">
+                                <label for="city" class="col-5 mt-2 mb-2">City</label>
+                                <input class="form-control col-6 city" type="text">
+                            </div>
+                            <div class="input-group input-group justify-content-end">
+                                <label for="state" class="col-5 mt-2 mb-2">State</label>
+                                <input class="form-control col-6 state" type="text">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="addDep" class="btn btn-success">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="data" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title"></h1>
@@ -46,12 +184,13 @@
                             <button class="mr-2" id="studDet">Personal Details</button>
                             <button class="mr-2" id="pareDet">Parent's Details</button>
                             <button id="markDet">Marks Details</button>
+                            <button class="mr-2" id="update">Update</button>
                         </div>
                         <div class="container mt-5">
                             <div id="Details" class="row"></div>
                             <div id="stuDet">
-                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <img src="" alt="PFP" id="stupic">
+                                <div class="col-12">
+                                    <img src="" alt="PFP" id="stupic" height="100px" width="100px">
                                 </div>
                                 <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
                                     <h6 class="mr-3">Name :</h6>
@@ -113,22 +252,6 @@
                                     <h6 class="mr-3">Living :</h6>
                                     <h6 id="living" class="h6"></h6>
                                 </div>
-                                <hr>
-                                <div class="col-12"><h5>Correspondance Address</h5></div>
-                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <h6 class="mr-3">Address :</h6>
-                                    <h6 id="Address" class="h6"></h6>
-                                </div>
-                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <h6 class="mr-3">City :</h6>
-                                    <h6 id="City" class="h6"></h6>
-                                </div>
-                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <h6 class="mr-3">State :</h6>
-                                    <h6 id="State" class="h6"></h6>
-                                </div>
-                                <hr>
-                                <div class="col-12"><h5>Permanent Address</h5></div>
                                 <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
                                     <h6 class="mr-3">Address :</h6>
                                     <h6 id="Address" class="h6"></h6>
@@ -143,11 +266,11 @@
                                 </div>
                             </div>
                             <div id="parDet" name="parDet">
-                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <img src="" alt="PFP" id="fathpic">
-                                </div>
                                 <div class="col-12">
                                     <h5>Father's Details</h5>
+                                </div>
+                                <div class="col-12">
+                                    <img src="" alt="PFP" id="fathpic" height="100px" width="100px">
                                 </div>
                                 <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
                                     <h6 class="mr-3">Name :</h6>
@@ -165,8 +288,8 @@
                                 <div class="col-12">
                                     <h5>Mother's Details</h5>
                                 </div>
-                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <img src="" alt="PFP" id="mothpic">
+                                <div class="col-12">
+                                    <img src="" alt="PFP" id="mothpic" height="100px" width="100px">
                                 </div>
                                 <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
                                     <h6 class="mr-3">Name :</h6>
@@ -180,14 +303,14 @@
                                     <h6 class="mr-3">Occupation :</h6>
                                     <h6 id="m_occupation" class="h6"></h6>
                                 </div>
-                                </div>
                             </div>
-                            <div id="marDet" name="marDet">None</div>
                         </div>
+                        <div id="marDet" name="marDet">None</div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 <script>

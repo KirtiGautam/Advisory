@@ -531,3 +531,6 @@ function preview(input, targ) {
     }
 }
 
+$('#addStu').click(function () {
+    $('#newStu').show();
+});
