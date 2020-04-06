@@ -455,9 +455,15 @@ $(document).ready(function () {
                         let mark = marks[i].fields;
                         html += '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Semester:</h6>' + '<h6 class="h6">' + mark.sem + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">SGPA:</h6>' + '<h6 class="h6">' + mark.sgpa + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Active backlogs:</h6>' + '<h6 class="h6">' + mark.active_backs + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex"> <h6 class="mr-3">Passive backlogs:</h6>' + '<h6 class="h6">' + mark.passive_backs + '</h6> </div>' + '<hr>';
                     }
-                    $('#fathpic').attr('src', '/Media/' + student.Father_pic);
-                    $('#mothpic').attr('src', '/Media/' + student.Mother_pic);
-                    $('#stupic').attr('src', '/Media/' + student.photo);
+                    if (student.Father_pic != '') {
+                        $('#fathpic').attr('src', '/Media/' + student.Father_pic);
+                        $('#mothpic').attr('src', '/Media/' + student.Mother_pic);
+                        $('#stupic').attr('src', '/Media/' + student.photo);
+                    } else {
+                        $('#fathpic').attr('src', '');
+                        $('#mothpic').attr('src', '');
+                        $('#stupic').attr('src', '');
+                    }
                     $('#marDet').html(html);
                     $('#batch').html(sem);
                     $('#urn').html(urn);
