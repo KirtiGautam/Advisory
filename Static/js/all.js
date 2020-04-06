@@ -1,3 +1,4 @@
+let token = $('meta[name="csrf-token"]').attr('content');
 //Navbar
 
 function SlideMenu() {
@@ -22,7 +23,7 @@ function closeSlideMenu() {
 $(document).ready(function () {
 
     $("#upload").click(function () {
-        let token = $('meta[name="csrf-token"]').attr('content');
+
         Papa.parse(document.getElementById("data").files[0], {
             header: true,
             complete: function (results) {
@@ -30,7 +31,7 @@ $(document).ready(function () {
                 let inlength = Object.keys(results.data[0]).length;
                 for (let i = 0; i < results.data.length; i++) {
                     if (Object.keys(results.data[i]).length != inlength)
-                        results.data.splice(i,1);
+                        results.data.splice(i, 1);
                 }
                 console.log(results.data);
                 $.ajax({
@@ -110,7 +111,6 @@ function setdep(i) {
 }
 
 function deleteDep(id) {
-    let token = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": token },
@@ -130,7 +130,6 @@ function deleteDep(id) {
 
 
 function searchHOD() {
-    let token = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": token },
@@ -152,7 +151,7 @@ function searchHOD() {
 $(document).ready(function () {
 
     $('#updateHod').click(function () {
-        let token = $('meta[name="csrf-token"]').attr('content');
+
         let id = '#' + $('#dep').val();
         $.ajax({
             type: "POST",
@@ -178,7 +177,7 @@ $(document).ready(function () {
     });
 
     $('#addDep').click(function () {
-        let token = $('meta[name="csrf-token"]').attr('content');
+
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
@@ -235,7 +234,6 @@ function set(id) {
 }
 
 function deleteClass(id) {
-    let token = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": token },
@@ -254,7 +252,6 @@ function deleteClass(id) {
 }
 
 function search(value = '') {
-    let token = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": token },
@@ -275,7 +272,7 @@ function search(value = '') {
 $(document).ready(function () {
 
     $('#updateMentor').click(function () {
-        let token = $('meta[name="csrf-token"]').attr('content');
+
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
@@ -294,7 +291,7 @@ $(document).ready(function () {
     });
 
     $('#addClass').click(function () {
-        let token = $('meta[name="csrf-token"]').attr('content');
+
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
@@ -341,7 +338,7 @@ $(document).ready(function () {
 
     $('#change').click(function (e) {
         e.preventDefault();
-        let token = $('meta[name="csrf-token"]').attr('content');
+
         if ($('#new').val() == '' ||
             $('#renew').val() == '' ||
             $('#pre').val() == '') {
@@ -386,7 +383,6 @@ $(document).ready(function () {
 //Students
 
 function searchStu(value = '') {
-    let token = $('meta[name="csrf-token"]').attr('content');
     $.ajax({
         type: "POST",
         headers: { "X-CSRFToken": token },
@@ -428,7 +424,7 @@ $(document).ready(function () {
 
     $('table#stusearch').delegate('tr', 'click', function () {
         let urn = this.id;
-        let token = $('meta[name="csrf-token"]').attr('content');
+
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
@@ -496,7 +492,7 @@ var tableToExcel = (function () {
 
 $(document).ready(function () {
     $('#imsub').click(function () {
-        let token = $('meta[name="csrf-token"]').attr('content');
+
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
@@ -521,7 +517,7 @@ $(document).ready(function () {
     });
 
     $('#SSP').click(function () {
-        let token = $('meta[name="csrf-token"]').attr('content');
+
         let formdata = new FormData();
         formdata.append('urn', $('#imurn').val());
         formdata.append('Father_pic', $('#FatherPic').prop('files')[0]);
@@ -549,7 +545,74 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#AS').click(function () {
+        data = {
+            'urn': document.getElementsByName('urn')[0].value,
+            'crn': document.getElementsByName('crn')[0].value,
+            'full_name': document.getElementsByName('name')[0].value,
+            'dob': document.getElementsByName('dob')[0].value,
+            'gender': document.getElementsByName('gender')[0].value,
+            'living': document.getElementsByName('living')[0].value,
+            'blood_group': document.getElementsByName('blood')[0].value,
+            'category': document.getElementsByName('category')[0].value,
+            'Contact': document.getElementsByName('contact')[0].value,
+            'email': document.getElementsByName('email')[0].value,
+            'height': document.getElementsByName('height')[0].value,
+            'weight': document.getElementsByName('weight')[0].value,
+            'Father_name': document.getElementsByName('father_name')[0].value,
+            'Mother_name': document.getElementsByName('mother_name')[0].value,
+            'Father_contact': document.getElementsByName('father_contact')[0].value,
+            'Mother_contact': document.getElementsByName('mother_contact')[0].value,
+            'Address': document.getElementsByName('address')[0].value,
+            'Pincode': document.getElementsByName('pincode')[0].value,
+            'City': document.getElementsByName('city')[0].value,
+            'State': document.getElementsByName('state')[0].value,
+            'District': document.getElementsByName('district')[0].value,
+        };
+        console.log(data);
+        if (valStu(data)) {
+            $.ajax({
+                type: "POST",
+                headers: { "X-CSRFToken": token },
+                url: '/create-student',
+                data: {
+                    'student': JSON.stringify(data)
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        alert('Success');
+                    }
+                    else {
+                        alert('Incorrect details');
+                    }
+                }
+            });
+        }
+    });
 });
+
+function valStu(data) {
+    for (let x in data) {
+        if (data[x] == '') {
+            alert('Please enter all details');
+            return false;
+        }
+    }
+    if (data['Contact'].length != 10 ||
+        data['Father_contact'].length != 10 ||
+        data['Mother_contact'].length != 10) {
+        alert('Contact number must be equal to 10 digits');
+        return false;
+    }
+    if (data['urn'].length != 7 || data['crn'].length != 7) {
+        alert('Roll number must be equal to 7 digits');
+        return false;
+    }
+    return true;
+}
+
 
 function preview(input, targ) {
     if (input.files && input.files[0]) {

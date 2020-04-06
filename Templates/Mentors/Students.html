@@ -47,21 +47,21 @@
                         <div class="col-12 d-flex">
                             <div class="input-group justify-content-start">
                                 <label for="urn" class="col-5 mt-2 mb-2">U.R.N.</label>
-                                <input class="form-control urn col-6" type="number">
+                                <input class="form-control urn col-6" name="urn" type="number">
                             </div>
                             <div class="input-group justify-content-end">
                                 <label for="crn" class="col-5 mt-2 mb-2">C.R.N.</label>
-                                <input class="form-control crn col-6" type="number">
+                                <input class="form-control crn col-6" name="crn" type="number">
                             </div>
                         </div>
                         <div class="col-12 d-flex">
                             <div class="input-group justify-content-start">
                                 <label for="name" class="col-5 mt-2 mb-2">Name</label>
-                                <input class="form-control col-6 name" type="text">
+                                <input class="form-control col-6 name" name="name" type="text">
                             </div>
                             <div class="input-group input-group justify-content-end">
                                 <label for="dob" class="col-5 mt-2 mb-2">D.O.B.</label>
-                                <input class="form-control col-6 dob" type="date">
+                                <input class="form-control col-6 dob" name="dob" type="date">
                             </div>
                         </div>
                         <div class="col-12 d-flex">
@@ -74,9 +74,9 @@
                             </div>
                             <div class="input-group input-group justify-content-end">
                                 <label for="living" class="col-5 mt-2 mb-2">Living</label>
-                                <select name="living" id="living" class="form-control col-6">
-                                    <option value="day_scholar">Day Scholar</option>
-                                    <option value="hosteller">Hosteller</option>
+                                <select name='living' id="living" class="form-control col-6">
+                                    <option value="DAY SCHOLAR">Day Scholar</option>
+                                    <option value="HOSTELLER">Hosteller</option>
                                 </select>
                             </div>
                         </div>
@@ -84,89 +84,96 @@
                             <div class="input-group justify-content-start">
                                 <label for="blood" class="col-5 mt-2 mb-2">Blood Group</label>
                                 <select name="blood" id="blood" class="form-control col-6">
-                                    <option value="aPos">A+</option>
-                                    <option value="aNeg">A-</option>
-                                    <option value="bPos">B+</option>
-                                    <option value="bNeg">B-</option>
-                                    <option value="abPos">AB+</option>
-                                    <option value="abNeg">AB-</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
                                 </select>
                             </div>
                             <div class="input-group input-group justify-content-end">
                                 <label for="cate" class="col-5 mt-2 mb-2">Category</label>
-                                <select name="cate" id="cate" class="form-control col-6">
-                                    <option value="general">General</option>
-                                    <option value="sc">S.C.</option>
-                                    <option value="st">S.T.</option>
-                                    <option value="obc">O.B.C.</option>
+                                <select name="category" id="cate" class="form-control col-6">
+                                    <option value="General">General</option>
+                                    <option value="SC">S.C.</option>
+                                    <option value="ST">S.T.</option>
+                                    <option value="OBC">O.B.C.</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-12 d-flex">
                             <div class="input-group justify-content-start">
                                 <label for="Contact" class="col-5 mt-2 mb-2">Contact Number</label>
-                                <input class="form-control col-6 Contact" type="number">
+                                <input class="form-control col-6 Contact" name="contact" type="number">
                             </div>
                             <div class="input-group input-group justify-content-end">
                                 <label for="email" class="col-5 mt-2 mb-2">E-Mail ID</label>
-                                <input class="form-control col-6 email" type="email">
+                                <input class="form-control col-6 email" name="email" type="email">
                             </div>
                         </div>
                         <div class="col-12 d-flex">
                             <div class="input-group justify-content-start">
                                 <label for="height" class="col-5 mt-2 mb-2">Height (cm)</label>
-                                <input class="form-control col-6 height" type="number">
+                                <input class="form-control col-6 height" name="height" type="number">
                             </div>
                             <div class="input-group input-group justify-content-end">
                                 <label for="weight" class="col-5 mt-2 mb-2">Weight (kg)</label>
-                                <input class="form-control col-6 weight" type="number">
+                                <input class="form-control col-6 weight" name="weight" type="number">
                             </div>
                         </div>
                         <div class="col-12 d-flex">
                             <div class="input-group justify-content-start">
                                 <label for="Father_name" class="col-5 mt-2 mb-2">Father's Name</label>
-                                <input class="form-control col-6 Father_name" type="text">
+                                <input class="form-control col-6 Father_name" name="father_name" type="text">
                             </div>
                             <div class="input-group input-group justify-content-end">
                                 <label for="Father_Contact" class="col-5 mt-2 mb-2">Father's Contact Number</label>
-                                <input class="form-control col-6 Father_Contact" type="number">
+                                <input class="form-control col-6 Father_Contact" name="father_contact" type="number">
                             </div>
                         </div>
                         <div class="col-12 d-flex">
                             <div class="input-group justify-content-start">
                                 <label for="Mother_name" class="col-5 mt-2 mb-2">Mother's Name</label>
-                                <input class="form-control col-6 Mother_name" type="text">
+                                <input class="form-control col-6 Mother_name" name="mother_name" type="text">
                             </div>
                             <div class="input-group input-group justify-content-end">
                                 <label for="Mother_Contact" class="col-5 mt-2 mb-2">Mother's Contact Number</label>
-                                <input class="form-control col-6 Mother_Contact" type="number">
+                                <input class="form-control col-6 Mother_Contact" name="mother_contact" type="number">
                             </div>
                         </div>
                         <div class="col-12 d-flex">
                             <div class="input-group justify-content-start">
                                 <label for="address" class="col-5 mt-2 mb-2">Address</label>
-                                <input class="form-control col-6 address" type="text">
+                                <input class="form-control col-6 address" name="address" type="text">
                             </div>
                             <div class="input-group input-group justify-content-end">
                                 <label for="pin" class="col-5 mt-2 mb-2">Pin Code</label>
-                                <input class="form-control col-6 pin" type="number">
+                                <input class="form-control col-6 pin" name="pincode" type="number">
                             </div>
                         </div>
                         <div class="col-12 d-flex">
                             <div class="input-group input-group justify-content-start">
                                 <label for="city" class="col-5 mt-2 mb-2">City</label>
-                                <input class="form-control col-6 city" type="text">
+                                <input class="form-control col-6 city" name="city" type="text">
                             </div>
                             <div class="input-group input-group justify-content-end">
                                 <label for="state" class="col-5 mt-2 mb-2">State</label>
-                                <input class="form-control col-6 state" type="text">
+                                <input class="form-control col-6 state" name="state" type="text">
                             </div>
-
+                        </div>
+                        <div class="col-12 d-flex">
+                            <div class="input-group input-group justify-content-end">
+                                <label for="email" class="col-5 mt-2 mb-2">District</label>
+                                <input class="form-control col-6 email" name="district" type="text">
+                            </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" id="addDep" class="btn btn-success">Add</button>
+                        <button type="button" id="AS" class="btn btn-success">Add</button>
                     </div>
                 </div>
             </div>

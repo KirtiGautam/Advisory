@@ -9,5 +9,6 @@ urlpatterns = [
     path(r'students', views.index, name='students'),
     path(r'get-students', views.getStudents, name='getstudents'),
     path(r'get-student', views.getStudent, name='getstudent'),
+    path(r'create-student', views.createStudent, name='cretestudent'),
     path(r'update-student', views.updateStudent, name='updateStudent'),
 ]

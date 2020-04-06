@@ -3,6 +3,7 @@ from Advisor.models import students, Class, marks
 from django.http import JsonResponse, FileResponse, HttpResponse
 from django.core import serializers
 from PIL import Image
+import json
 
 
 # Create your views here.
@@ -20,28 +21,15 @@ def index(request):
 
 def createStudent(request):
     if 'user' in request.session:
-        student = students.objects.Create(
-            urn=request.POST['urn'],
-            crn=request.POST['crn'],
-            full_name=request.POST['full_name'],
-            gender=request.POST['gender'],
-            blood_group=request.POST['blood_type'],
-            category=request.POST['category'],
-            height=request.POST['height'],
-            weight=request.POST['weight'],
-            living=request.POST['living'],
-            Father_name=request.POST['Father_name'],
-            Father_contact=request.POST['Father_contact'],
-            Mother_name=request.POST['Mother_name'],
-            Mother_contact=request.POST['Mother_contact'],
-            Address=request.POST['Address'],
-            City=request.POST['City'],
-            State=request.POST['State'],
-            District=request.POST['District'],
-            Pincode=request.POST['Pincode'],
-            Contact=request.POST['Contact'],
-            email=request.POST['email'],
-            Class=Class.objects.get(name=request.POST['Class']),)
+        dat = json.loads(request.POST['student'])
+        clas = Class.objects.get(Mentor=request.user.teacher)
+        s = students(Class=clas, **dat)
+        s.save()
+        data = {
+            'success': True,
+            'student': s,
+        }
+        return JsonResponse(data)
 
 
 def deleteStudent(request):
