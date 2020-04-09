@@ -1,0 +1,147 @@
+{% extends 'Master\navbar.html' %}
+{% load static %}
+
+{% block page %}
+
+<img src="Media/{{ student.photo }}" alt="{{student.full_name}}">
+
+<form method="post" action='{% url "Mentor:updatedStu" %}'>
+    {% csrf_token %}
+    <div class="col-12 d-flex">
+        <div class="input-group justify-content-start">
+            <label for="urn" class="col-5 mt-2 mb-2">U.R.N.</label>
+            <input class="form-control urn col-6" name="urn" type="number" value="{{ student.urn }}">
+        </div>
+        <div class="input-group justify-content-end">
+            <label for="crn" class="col-5 mt-2 mb-2">C.R.N.</label>
+            <input class="form-control crn col-6" name="crn" type="number" value="{{ student.crn }}">
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="input-group justify-content-start">
+            <label for="name" class="col-5 mt-2 mb-2">Name</label>
+            <input class="form-control col-6 name" name="full_name" type="text" value="{{ student.full_name }}">
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="dob" class="col-5 mt-2 mb-2">D.O.B.</label>
+            <input class="form-control col-6 dob" name="dob" type="date" value="{{ student.dob|date:'Y-m-d'  }}">
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="input-group justify-content-start">
+            <label for="gender" class="col-5 mt-2 mb-2">Gender</label>
+            <select name="gender" class="form-control col-6" value="{{ student.gender }}">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="living" class="col-5 mt-2 mb-2">Living</label>
+            <select name='living' class="form-control col-6" value="{{ student.living }}">
+                <option value="DAY SCHOLAR">Day Scholar</option>
+                <option value="HOSTELLER">Hosteller</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="input-group justify-content-start">
+            <label for="blood" class="col-5 mt-2 mb-2">Blood Group</label>
+            <select name="blood_group" id="blood" class="form-control col-6" value="{{ student.bood_group }}">
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="cate" class="col-5 mt-2 mb-2">Category</label>
+            <select name="category" id="cate" class="form-control col-6" value="{{ student.Category }}">
+                <option value="General">General</option>
+                <option value="SC">S.C.</option>
+                <option value="ST">S.T.</option>
+                <option value="OBC">O.B.C.</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="input-group justify-content-start">
+            <label for="Contact" class="col-5 mt-2 mb-2">Contact Number</label>
+            <input class="form-control col-6 Contact" name="Contact" type="number" value="{{ student.Contact }}">
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="email" class="col-5 mt-2 mb-2">E-Mail ID</label>
+            <input class="form-control col-6 email" name="email" type="email" value="{{ student.email }}">
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="input-group justify-content-start">
+            <label for="height" class="col-5 mt-2 mb-2">Height (cm)</label>
+            <input class="form-control col-6 height" name="height" type="number" value="{{ student.height }}">
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="weight" class="col-5 mt-2 mb-2">Weight (kg)</label>
+            <input class="form-control col-6 weight" name="weight" type="number" value="{{ student.weight }}">
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="input-group justify-content-start">
+            <label for="Father_name" class="col-5 mt-2 mb-2">Father's Name</label>
+            <input class="form-control col-6 Father_name" name="Father_name" type="text"
+                value="{{ student.Father_name }}">
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="Father_Contact" class="col-5 mt-2 mb-2">Father's Contact Number</label>
+            <input class="form-control col-6 Father_Contact" name="Father_contact" type="number"
+                value="{{ student.Father_contact }}">
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="input-group justify-content-start">
+            <label for="Mother_name" class="col-5 mt-2 mb-2">Mother's Name</label>
+            <input class="form-control col-6 Mother_name" name="Mother_name" type="text"
+                value="{{ student.Mother_name }}">
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="Mother_Contact" class="col-5 mt-2 mb-2">Mother's Contact Number</label>
+            <input class="form-control col-6 Mother_Contact" name="Mother_contact" type="number"
+                value="{{ student.Mother_contact }}">
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="input-group justify-content-start">
+            <label for="address" class="col-5 mt-2 mb-2">Address</label>
+            <input class="form-control col-6 address" name="Address" type="text" value="{{ student.Address }}">
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="pin" class="col-5 mt-2 mb-2">Pin Code</label>
+            <input class="form-control col-6 pin" name="Pincode" type="number" value="{{ student.Pincode }}">
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="input-group input-group justify-content-start">
+            <label for="city" class="col-5 mt-2 mb-2">City</label>
+            <input class="form-control col-6 city" name="City" type="text" value="{{ student.City }}">
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="state" class="col-5 mt-2 mb-2">State</label>
+            <input class="form-control col-6 state" name="State" type="text" value="{{ student.State }}">
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <div class="input-group input-group justify-content-end">
+            <label for="email" class="col-5 mt-2 mb-2">District</label>
+            <input class="form-control col-6 email" name="District" type="text" value="{{ student.District }}">
+        </div>
+    </div>
+    <div class="col-12 d-flex">
+        <button type="submit">Update details</button>
+    </div>
+
+</form>
+
+
+{% endblock %}

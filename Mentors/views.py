@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from Advisor.models import students, Class, marks
 from django.http import JsonResponse, FileResponse, HttpResponse
 from django.core import serializers
+import os
 from PIL import Image
 import json
 
@@ -27,9 +28,18 @@ def createStudent(request):
         s.save()
         data = {
             'success': True,
-            'student': s,
         }
         return JsonResponse(data)
+
+
+def updatedStu(request):
+    if 'user' in request.session:
+        if request.method == 'POST':
+            values = {k: v for k, v in request.POST.items()}
+            values.pop('csrfmiddlewaretoken')
+            student = students.objects.filter(
+                urn=values.pop('urn')).update(**values)
+            return redirect('Mentor:students')
 
 
 def deleteStudent(request):
@@ -79,8 +89,20 @@ def getStudents(request):
         return JsonResponse(data)
 
 
+def updateSProf(request):
+    if 'user' in request.session:
+        if request.method == 'POST':
+            return render(request, 'Mentors/updateStu.html', {'student': students.objects.get(urn=request.POST['student'])})
+
+
 def updateStudent(request):
     student = students.objects.get(urn=request.POST['urn'])
+    if student.Father_pic:
+        os.remove('Media/'+student.Father_pic.name)
+    if student.Mother_pic:
+        os.remove('Media/'+student.Mother_pic.name)
+    if student.photo:
+        os.remove('Media/'+student.photo.name)
     student.Father_pic = request.FILES['Father_pic']
     student.Mother_pic = request.FILES['Mother_pic']
     student.photo = request.FILES['photo']

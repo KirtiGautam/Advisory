@@ -421,6 +421,53 @@ $(document).ready(function () {
         $("#Details").html($("#marDet").html());
     });
 
+    $('#AS').click(function () {
+        data = {
+            'urn': document.getElementsByName('urn')[0].value,
+            'crn': document.getElementsByName('crn')[0].value,
+            'full_name': document.getElementsByName('name')[0].value,
+            'dob': document.getElementsByName('dob')[0].value,
+            'gender': document.getElementsByName('gender')[0].value,
+            'living': document.getElementsByName('living')[0].value,
+            'blood_group': document.getElementsByName('blood')[0].value,
+            'category': document.getElementsByName('category')[0].value,
+            'Contact': document.getElementsByName('contact')[0].value,
+            'email': document.getElementsByName('email')[0].value,
+            'height': document.getElementsByName('height')[0].value,
+            'weight': document.getElementsByName('weight')[0].value,
+            'Father_name': document.getElementsByName('father_name')[0].value,
+            'Mother_name': document.getElementsByName('mother_name')[0].value,
+            'Father_contact': document.getElementsByName('father_contact')[0].value,
+            'Mother_contact': document.getElementsByName('mother_contact')[0].value,
+            'Address': document.getElementsByName('address')[0].value,
+            'Pincode': document.getElementsByName('pincode')[0].value,
+            'City': document.getElementsByName('city')[0].value,
+            'State': document.getElementsByName('state')[0].value,
+            'District': document.getElementsByName('district')[0].value,
+        };
+        console.log(data);
+        if (valStu(data)) {
+            $.ajax({
+                type: "POST",
+                headers: { "X-CSRFToken": token },
+                url: '/create-student',
+                data: {
+                    'student': JSON.stringify(data)
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        alert('Success');
+                        searchStu();
+                    }
+                    else {
+                        alert('Incorrect details');
+                    }
+                }
+            });
+        }
+    });
+
 
     $('table#stusearch').delegate('tr', 'click', function () {
         let urn = this.id;
@@ -467,6 +514,7 @@ $(document).ready(function () {
                     $('#marDet').html(html);
                     $('#batch').html(sem);
                     $('#urn').html(urn);
+                    $('.urn').val(urn);
                     $('#studDet').trigger('click');
                     $('#data').modal('show');
                 }
@@ -552,51 +600,6 @@ $(document).ready(function () {
         });
     });
 
-    $('#AS').click(function () {
-        data = {
-            'urn': document.getElementsByName('urn')[0].value,
-            'crn': document.getElementsByName('crn')[0].value,
-            'full_name': document.getElementsByName('name')[0].value,
-            'dob': document.getElementsByName('dob')[0].value,
-            'gender': document.getElementsByName('gender')[0].value,
-            'living': document.getElementsByName('living')[0].value,
-            'blood_group': document.getElementsByName('blood')[0].value,
-            'category': document.getElementsByName('category')[0].value,
-            'Contact': document.getElementsByName('contact')[0].value,
-            'email': document.getElementsByName('email')[0].value,
-            'height': document.getElementsByName('height')[0].value,
-            'weight': document.getElementsByName('weight')[0].value,
-            'Father_name': document.getElementsByName('father_name')[0].value,
-            'Mother_name': document.getElementsByName('mother_name')[0].value,
-            'Father_contact': document.getElementsByName('father_contact')[0].value,
-            'Mother_contact': document.getElementsByName('mother_contact')[0].value,
-            'Address': document.getElementsByName('address')[0].value,
-            'Pincode': document.getElementsByName('pincode')[0].value,
-            'City': document.getElementsByName('city')[0].value,
-            'State': document.getElementsByName('state')[0].value,
-            'District': document.getElementsByName('district')[0].value,
-        };
-        console.log(data);
-        if (valStu(data)) {
-            $.ajax({
-                type: "POST",
-                headers: { "X-CSRFToken": token },
-                url: '/create-student',
-                data: {
-                    'student': JSON.stringify(data)
-                },
-                dataType: 'json',
-                success: function (data) {
-                    if (data.success) {
-                        alert('Success');
-                    }
-                    else {
-                        alert('Incorrect details');
-                    }
-                }
-            });
-        }
-    });
 });
 
 function valStu(data) {

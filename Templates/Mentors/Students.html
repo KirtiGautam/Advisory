@@ -191,7 +191,11 @@
                             <button class="mr-2" id="studDet">Personal Details</button>
                             <button class="mr-2" id="pareDet">Parent's Details</button>
                             <button id="markDet">Marks Details</button>
-                            <button class="mr-2" id="update">Update</button>
+                            <form action="{% url 'Mentor:updateSProf' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="student" class="urn">
+                                <button class="mr-2" type="submit">Update</button>
+                            </form>
                         </div>
                         <div class="container mt-5">
                             <div id="Details" class="row"></div>

@@ -11,4 +11,6 @@ urlpatterns = [
     path(r'get-student', views.getStudent, name='getstudent'),
     path(r'create-student', views.createStudent, name='cretestudent'),
     path(r'update-student', views.updateStudent, name='updateStudent'),
+    path(r'update-sprof', views.updateSProf, name='updateSProf'),
+    path(r'updated-sprof', views.updatedStu, name='updatedStu'),
 ]
