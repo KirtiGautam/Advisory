@@ -85,6 +85,19 @@ class marks(models.Model):
     sem = models.PositiveIntegerField()
 
 
+class Subjects(models.Model):
+    sub_code = models.CharField(max_length=255, primary_key=True)
+    Name = models.CharField(max_length=255)
+    department = models.ForeignKey(department, on_delete=models.CASCADE)
+
+
+class detailed_Marks(models.Model):
+    student = models.ForeignKey(students, on_delete=models.CASCADE)
+    semester = models.PositiveIntegerField()
+    subject = models.ForeignKey(Subjects, on_delete=models.CASCADE)
+    Sgpa = models.PositiveIntegerField()
+
+
 class UserManager(BaseUserManager):
     def create_user(self, username, password=None, teacher=None, is_admin=False, is_superuser=False):
         if not username:
