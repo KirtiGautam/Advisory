@@ -3,33 +3,86 @@
 
 {% block content %}
 
-<div id="imver">
-    <form method="post">
-        URN: <input type="text" name="imurn" id="imurn"><br>
-        Date Of Birth: <input type="date" name="imdob" id="imdob"><br>
-        <button type="button" id="imsub">Submit</button>
-    </form>
-</div>
-<div id='imForm' style="display: none;">
-    <form method="POST">
-        Your image: <img id="stuPic" src="" alt="your image" /><input type="file" name="studentPic" id="studentPic"
-            onchange='preview(this, "#stuPic");'><br>
-        Father's image: <img id="fathPic" src="" alt="father image" /><input type="file" name="FatherPic" id="FatherPic"
-            onchange='preview(this, "#fathPic");'><br>
-        Mother's image: <img id="mothPic" src="" alt="mother image" /><input type="file" name="MotherPic" id="MotherPic"
-            onchange='preview(this, "#mothPic");'><br>
-        <button type="button" id="SSP">Submit</button>
-    </form>
-</div>
-<script src="{% static 'js/uploadImage.js' %}"></script>
-<style>
-    img {
-        max-width: 180px;
-    }
-    input[type=file] {
-        padding: 10px;
-        background: #2d2d2d;
-    }
-</style>
+<head>
+    <link rel="stylesheet" href="{% static 'CSS/uploadImage.css' %}">
+</head>
+
+<body>
+    <div class="container mt-5" id="imver">
+        <div class="card">
+            <div class="card-header">
+                <h1>Upload Student's Image</h1>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Fill Details</h4>
+                <div class="card-text">
+                    <form method="post">
+                        <div class="input-group p-md-2 mt-3 mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">U.R.N.</span>
+                            </div>
+                            <input type="text" name="imurn" id="imurn" class="form-control">
+                        </div>
+
+                        <div class="input-group p-md-2 mt-3 mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">D.O.B.</span>
+                            </div>
+                            <input type="date" name="imdob" id="imdob" class="form-control">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <button type="button" id="imsub" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+    <div class="container mt-5" id='imForm'>
+        <div class="card">
+            <div class="card-header">
+                <h1>Upload Student's Image</h1>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Fill Details</h4>
+                <div class="card-text">
+                    <form method="post">
+                        <div class="input-group p-md-2 mt-3 mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Student's Picture</span>
+                            </div>
+                            <div class="form-control">
+                                <img id="stuPic" src="" alt="student's image" height="80px" width="80px" />
+                                <input type="file" name="studentPic" id="studentPic"
+                                    onchange='preview(this, "#stuPic");'>
+                            </div>
+                        </div>
+
+                        <div class="input-group p-md-2 mt-3 mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Father's Picture</span>
+                            </div>
+                            <div class="form-control">
+                                <img id="fathPic" src="" alt="father image" height="80px" width="80px" />
+                                <input type="file" name="FatherPic" id="FatherPic"
+                                    onchange='preview(this, "#fathPic");'>
+                            </div>
+                        </div>
+
+                        <div class="input-group p-md-2 mt-3 mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Mother's Picture</span>
+                            </div>
+                            <div class="form-control">
+                                <img id="mothPic" src="" alt="mother image" height="80px" width="80px" />
+                                <input type="file" name="MotherPic" id="MotherPic"
+                                    onchange='preview(this, "#mothPic");'>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <button type="button" id="SSP" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</body>
 
 {% endblock %}

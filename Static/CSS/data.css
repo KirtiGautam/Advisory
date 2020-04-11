@@ -1,14 +1,4 @@
-.box {
-    border: 1px solid #471A00;
-    width: 50vmin;
-    font-size: 3vmin;
-}
-
-h1 {
-    font-size: 6vmin;
-}
-
-.up {
-    background-color: #6B3C00;
-    color: #F0AD4E;
+.card-body .form-control{
+    height: max-content;
+    width: max-content;
 }

@@ -3,7 +3,7 @@
 
 {% block page %}
 
-<img src="Media/{{ student.photo }}" alt="{{student.full_name}}">
+<img src="Media/{{ student.photo }}" alt="{{student.full_name}}" height="80px" width="80px">
 
 <form method="post" action='{% url "Mentor:updatedStu" %}'>
     {% csrf_token %}
@@ -127,18 +127,22 @@
             <input class="form-control col-6 city" name="City" type="text" value="{{ student.City }}">
         </div>
         <div class="input-group input-group justify-content-end">
-            <label for="state" class="col-5 mt-2 mb-2">State</label>
-            <input class="form-control col-6 state" name="State" type="text" value="{{ student.State }}">
-        </div>
-    </div>
-    <div class="col-12 d-flex">
-        <div class="input-group input-group justify-content-end">
             <label for="email" class="col-5 mt-2 mb-2">District</label>
-            <input class="form-control col-6 email" name="District" type="text" value="{{ student.District }}">
+            <input class="form-control col-6 email" name="district" type="text" value="{{ student.District }}">
         </div>
     </div>
     <div class="col-12 d-flex">
-        <button type="submit">Update details</button>
+        <div class="input-group input-group justify-content-start">
+            <label for="state" class="col-5 mt-2 mb-2">State</label>
+            <input class="form-control col-6 state" name="state" type="text" value="{{ student.State }}">
+        </div>
+        <div class="input-group input-group justify-content-start">
+            <label for="" class="col-5 mt-2 mb-2"></label>
+            <div class="col-6"></div>
+        </div>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+        <button type="submit" class="btn btn-danger">Update details</button>
     </div>
 
 </form>

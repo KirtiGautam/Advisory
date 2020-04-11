@@ -61,6 +61,6 @@ def teacher(N):
 if __name__ == '__main__':
 
     print('Populating Data....')
-    student(100)
-    # teacher(30)
+    # student(100)
+    teacher(100)
     print('Done')
