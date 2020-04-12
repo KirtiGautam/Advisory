@@ -1,0 +1,84 @@
+{% extends 'Master\navbar.html' %}
+{% load static %}
+
+{% block page %}
+
+<div id="content" class="p-4 p-md-5 pt-5">
+    <div class="d-flex justify-content-end mt-3 mb-3">
+        <button class="btn btn-secondary" data-toggle="modal" data-target="#add"><i class="fas fa-plus"></i>
+            Add new</button>
+    </div>
+    <div id="add" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Add New Subject</h1>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="className" class="col-6 mt-2 mb-2">Subject Code</label>
+                        <input class="form-control dept" type="text" id="sub_code">
+                    </div>
+                    <div class="input-group">
+                        <label for="batch" class="col-6 mt-2 mb-2">Name</label>
+                        <input class="form-control dept" type="text" id="Name">
+                    </div>
+                    {% if user.is_superuser %}
+                    <div class="input-group">
+                        <label for="Departments" class="col-6 mt-2 mb-2">Despartments</label>
+                        <select class="form-control" id="Departments" placeholder='Select one name'>
+                            {% for key in departments %}
+                            <option value="{{key.id}}">{{key.name|title}}</option>
+                            {% endfor%}
+                        </select>
+                    </div>
+                    {% else %}
+                    <input type="hidden" id="Departments" value="{{ request.user.teacher.department.id }}">
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="addSubjects" class="btn btn-success">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table p-4 p-md-5 pt-5">
+        <thead>
+            <tr>
+                <th scope="col">Subject Code</th>
+                <th scope="col">Subject Name</th>
+                {% if user.is_superuser %}
+                <th scope="col">Department</th>
+                {% endif %}
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if subjects %}
+            {% for key in subjects %}
+            <tr id="{{key.sub_code}}">
+                <td>{{key.sub_code}}</td>
+                <td>{{key.Name}}</td>
+                {% if user.is_superuser %}
+                <td>{{key.department|title}}</td>
+                {% endif %}
+                <td><button type="submit" class="btn btn-danger" id='{{key.sub_code}}'
+                        onclick="deleteSubject(this.id)">Delete</button></td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="{% if user.is_superuser %} 4 {% else %} 3 {% endif %}">
+                    <center>
+                        No data to show, Add a single subject or upload csv
+                    </center>
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+<script src="{% static 'js/subjects.js' %}"></script>
+
+{% endblock %}

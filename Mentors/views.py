@@ -39,6 +39,7 @@ def updatedStu(request):
             values.pop('csrfmiddlewaretoken')
             student = students.objects.filter(
                 urn=values.pop('urn')).update(**values)
+            student.save()
             return redirect('Mentor:students')
 
 

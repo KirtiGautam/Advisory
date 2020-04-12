@@ -8,6 +8,17 @@
 
 <body>
     <div id="content" class="p-4 p-md-5 pt-5">
+        <div class="input-group p-md-2 mt-3 mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">User Avatar</span>
+            </div>
+            <div class="form-control">
+                <img id="UserPic" src="{% if request.user.avatar %} Media/{{request.user.avatar}} {% endif %}"
+                    alt="User's image" height="80px" width="80px" />
+                <input type="file" name="UserPic" id="UserP" onchange='preview(this, "#UserPic");'>
+            </div>
+        </div>
+        <button type="button" id="UAP" class="btn btn-primary">Upload Pic</button>
         <div class="settings mt-5 p-4 p-md-5 pt-5 d-flex justify-content-center align-items-center">
             <button type="button" class="btn btn-primary" data-toggle="modal" id='gucci' data-target="#pass">Change
                 Password</button>

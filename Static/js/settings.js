@@ -1,8 +1,44 @@
-$('#settings').addClass('act');
-
 let token = $('meta[name="csrf-token"]').attr('content');
 
+function preview(input, targ) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(targ)
+                .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 $(document).ready(function () {
+    $('#settings').addClass('act');
+
+    $('#UAP').click(function () {
+        let formdata = new FormData();
+        formdata.append('avatar', $('#UserP').prop('files')[0]);
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": token },
+            url: '/user-pic',
+            processData: false,
+            contentType: false,
+            data: formdata,
+            success: function (data) {
+                if (data.success) {
+                    let model = JSON.parse(data.user);
+                    console.log(model)
+                    $('#UserPic').attr('src', '/Media/' + model[0].fields.avatar);
+                    alert('Success');
+                }
+                else {
+                    alert('Incorrect details');
+                }
+            }
+        });
+    });
 
     $('#gucci').click(function () {
         $('#pass').show();

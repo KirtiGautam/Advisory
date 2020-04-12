@@ -1,10 +1,64 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import Permission
-from Advisor.models import Users, teachers, Class, department
+from Advisor.models import Users, teachers, Class, department, Subjects
 from django.db.models import Q
 from django.http import JsonResponse
 
 # Create your views here.
+
+
+def deleteSubject(request):
+    if 'user' in request.session:
+        print(request.POST['id'])
+        subject = Subjects.objects.get(sub_code=request.POST['id'])
+        subject.delete()
+        data = {
+            'success': True,
+        }
+        return JsonResponse(data)
+
+    else:
+        return redirect('Advisor:index')
+
+
+def addSubject(request):
+    if 'user' in request.session:
+        values = {k: v for k, v in request.POST.items()}
+        subject = Subjects(department=department.objects.get(
+            id=values.pop('department')), **values)
+        subject.save()
+        data = {
+            'success': True,
+            'superuser': request.user.is_superuser,
+        }
+        if request.user.is_superuser:
+            data['department'] = str(subject.department).title()
+        return JsonResponse(data)
+
+    else:
+        return redirect('Advisor:index')
+
+
+def subjects(request):
+    if 'user' in request.session:
+        if request.user.is_superuser:
+            subjects = Subjects.objects.all()
+            departments = department.objects.all()
+            context = {
+                'subjects': subjects,
+                'departments': departments,
+            }
+        elif request.user.admin:
+            subjects = Subjects.objects.filter(
+                department=request.user.teacher.department)
+            context = {
+                'subjects': subjects,
+            }
+        else:
+            return redirect('Advisor:dashboard')
+        return render(request, 'Admin/subjects.html', context)
+    else:
+        return redirect('Advisor:index')
 
 
 def createClass(request):
@@ -73,7 +127,7 @@ def getTeachers(request):
 
 def mentor(request):
     if 'user' in request.session:
-        depart= request.user.teacher.department
+        depart = request.user.teacher.department
         context = {
             'mentor': Class.objects.filter(department=depart)
         }

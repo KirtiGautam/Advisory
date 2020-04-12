@@ -128,6 +128,7 @@ class UserManager(BaseUserManager):
 
 
 class Users(AbstractBaseUser, PermissionsMixin):
+    avatar = models.ImageField(upload_to='teachers', default=None, null=True)
     teacher = models.OneToOneField(
         teachers,  on_delete=models.CASCADE, default=None, null=True, blank=True)
     username = models.CharField(max_length=50, unique=True)

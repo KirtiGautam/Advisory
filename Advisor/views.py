@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from Advisor.models import Users, teachers, department, Class, students
 from django.http import JsonResponse
+from django.core import serializers
 import json
+import os
+from PIL import Image
 from datetime import datetime, date
 
 
@@ -98,3 +101,19 @@ def changePass(request):
         return JsonResponse(data)
     else:
         return redirect(settings)
+
+
+def UserPic(request):
+    user = request.user
+    if user.avatar:
+        os.remove('Media/'+user.avatar.name)
+    user.avatar = request.FILES['avatar']
+    user.avatar.name = str(request.user.id)+'.jpg'
+    user.save()
+    rec = serializers.serialize(
+        'json', [user], indent=2, use_natural_foreign_keys=True)
+    data = {
+        'success': True,
+        'student': rec,
+    }
+    return JsonResponse(data)
