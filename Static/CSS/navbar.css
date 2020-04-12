@@ -18,7 +18,7 @@ body {
     background-color: #543126;
     opacity: 0.9;
     overflow-x: hidden;
-    padding-top: 60px;
+    padding-top: 30px;
     transition: 0.7s;
 }
 
@@ -37,8 +37,8 @@ body {
 
 .nav a {
     display: block;
-    padding: 20px 30px;
-    font-size: 25px;
+    padding: 15px 25px;
+    font-size: 18px;
     text-decoration: none;
     color: #F0AD4E;
     border-bottom: 1px solid #B7A99A;
