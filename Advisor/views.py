@@ -114,6 +114,6 @@ def UserPic(request):
         'json', [user], indent=2, use_natural_foreign_keys=True)
     data = {
         'success': True,
-        'student': rec,
+        'user': rec,
     }
     return JsonResponse(data)

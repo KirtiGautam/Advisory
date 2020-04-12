@@ -1,5 +1,3 @@
-$('#editAdmin').addClass('act');
-
 let token = $('meta[name="csrf-token"]').attr('content');
 
 function setdep(i) {
@@ -47,6 +45,8 @@ function searchHOD() {
 }
 
 $(document).ready(function () {
+    $('#editAdmin').addClass('act');
+
 
     $('#updateHod').click(function () {
 

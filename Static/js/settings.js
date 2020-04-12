@@ -31,6 +31,7 @@ $(document).ready(function () {
                     let model = JSON.parse(data.user);
                     console.log(model)
                     $('#UserPic').attr('src', '/Media/' + model[0].fields.avatar);
+                    $('.avatar').attr('src', '/Media/' + model[0].fields.avatar);
                     alert('Success');
                 }
                 else {
