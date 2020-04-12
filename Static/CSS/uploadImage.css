@@ -1,0 +1,20 @@
+img {
+    max-width: 180px;
+}
+
+/* input[type=file] {
+    padding: 10px;
+    background: #2d2d2d;
+} */
+
+.card{
+    width:max-content;
+}
+
+#imForm{
+    display: none;
+}
+
+#imForm .form-control{
+    height: max-content;
+}
