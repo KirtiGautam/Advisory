@@ -7,6 +7,9 @@
 </head>
 
 <body>
+    <div class="alert alert-danger d-flex justify-content-end" role="alert">
+        <strong>Login Denied</strong> &nbsp; Invalid Credentials
+    </div>
     <form action="{% url 'Advisor:dashboard' %}" id="login-form" method="POST">
         {% csrf_token %}
         <h1>LOGIN</h1>

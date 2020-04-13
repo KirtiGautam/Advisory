@@ -36,51 +36,46 @@
             <button type="button" id="imsub" class="btn btn-primary">Submit</button>
         </div>
     </div>
-    <div class="container mt-5" id='imForm'>
+    <div class="container mt-5" id="imForm">
         <div class="card">
-            <div class="card-header">
-                <h1>Upload Student's Image</h1>
-            </div>
-            <div class="card-body">
-                <h4 class="card-title">Fill Details</h4>
-                <div class="card-text">
-                    <form method="post">
-                        <div class="input-group p-md-2 mt-3 mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Student's Picture</span>
-                            </div>
-                            <div class="form-control">
-                                <img id="stuPic" src="" alt="student's image" height="80px" width="80px" />
-                                <input type="file" name="studentPic" id="studentPic"
-                                    onchange='preview(this, "#stuPic");'>
-                            </div>
-                        </div>
-
-                        <div class="input-group p-md-2 mt-3 mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Father's Picture</span>
-                            </div>
-                            <div class="form-control">
-                                <img id="fathPic" src="" alt="father image" height="80px" width="80px" />
-                                <input type="file" name="FatherPic" id="FatherPic"
-                                    onchange='preview(this, "#fathPic");'>
-                            </div>
-                        </div>
-
-                        <div class="input-group p-md-2 mt-3 mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Mother's Picture</span>
-                            </div>
-                            <div class="form-control">
-                                <img id="mothPic" src="" alt="mother image" height="80px" width="80px" />
-                                <input type="file" name="MotherPic" id="MotherPic"
-                                    onchange='preview(this, "#mothPic");'>
-                            </div>
-                        </div>
-                    </form>
+            <div class="d-flex justify-content-around">
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Student</h1>
+                    </div>
+                    <img id="stuPic" src="" alt="student's image" height="200px" width="200px" />
+                    <div class="card-footer">
+                        <form method="post">
+                            <input type="file" name="studentPic" id="studentPic" onchange='preview(this, "#stuPic");'>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Father</h1>
+                    </div>
+                    <img id="fathPic" src="" alt="father image" height="200px" width="200px" />
+                    <div class="card-footer">
+                        <form method="post">
+                            <input type="file" name="FatherPic" id="FatherPic" onchange='preview(this, "#fathPic");'>
+                        </form>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Mother</h1>
+                    </div>
+                    <img id="mothPic" src="" alt="mother image" height="200px" width="200px" />
+                    <div class="card-footer">
+                        <form method="post">
+                            <input type="file" name="MotherPic" id="MotherPic" onchange='preview(this, "#mothPic");'>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <button type="button" id="SSP" class="btn btn-primary">Submit</button>
+            <div class="card-footer">
+                <button type="button" id="SSP" class="btn btn-primary">Submit</button>
+            </div>
         </div>
     </div>
 </body>

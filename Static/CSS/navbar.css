@@ -15,7 +15,7 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #543126;
+    background-color: #006F60;
     opacity: 0.9;
     overflow-x: hidden;
     padding-top: 30px;
@@ -41,20 +41,20 @@ body {
     font-size: 18px;
     text-decoration: none;
     color: #F0AD4E;
-    border-bottom: 1px solid #B7A99A;
+    border-bottom: 2px solid #829E3C;
 }
 
 .nav a:hover {
-    color: #B7A99A;
+    color: #FFECCC;
     transition: 0.4s;
 }
 
-.nav .active {
-    color: #B7A99A;
+.nav .act {
+    color: #FFECCC;
 }
 
 .slide {
-    background-color: #543126;
+    background-color: #006F60;
     color: #F0AD4E;
     font-size: 25px;
     width: 50px;
@@ -65,7 +65,7 @@ body {
 }
 
 .slide:hover {
-    color: #B7A99A;
+    color: #FFECCC;
     transition: 0.4s;
     outline: none;
 }
@@ -79,4 +79,8 @@ body {
     padding: 10px;
     transition: margin-left 0.7s;
     width: 100%;
+}
+
+.act {
+    color: #829E3C;
 }
