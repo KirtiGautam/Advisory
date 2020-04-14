@@ -8,7 +8,7 @@ def deletedep(request):
     if 'user' in request.session:
         dep = department.objects.get(id=request.POST['delete'])
         dep.delete()
-        d={'id':dep.id, 'HOD': dep.HOD, 'name': dep.name}
+        d = {'id': dep.id, 'HOD': dep.HOD, 'name': dep.name}
         data = {
             'success': True,
             'dep': d,
@@ -76,10 +76,8 @@ def getHods(request):
 
 def editAdmins(request):
     if 'user' in request.session:
-        teacher = teachers.objects.all()
         Hod = department.objects.all()
-        context = {'teachers': teacher, 'hod': Hod,
-                   'user': Users.objects.get(id=request.session['user'])}
+        context = {'hod': Hod}
         return render(request, 'Superuser\editAdmins.html', context)
     else:
         return redirect('Advisor:index')

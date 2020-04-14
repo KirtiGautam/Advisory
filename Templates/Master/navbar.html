@@ -22,7 +22,7 @@
                 </center>
                 {% if user.admin or user.is_superuser%}
                 <li id="subjects">
-                    <a href="{% url 'Admin:subjects' %}"><span class="fas fa-book"></span> Subjects</a>
+                    <a href="{% url 'Admin:subjects' %}"><span class="fas fa-book mr-2"></span> Subjects</a>
                 </li>
                 {% endif %}
                 {% if user.admin %}

@@ -42,7 +42,6 @@ $(document).ready(function () {
                     $('tbody').append(html);
                     $('#sub_code').val('');
                     $('#Name').val('');
-                    $('#Departments').val('');
                     alert('Subject added successfully');
                 }
             }

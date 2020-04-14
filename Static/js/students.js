@@ -26,7 +26,7 @@ function searchStu(value = '') {
 
 $(document).ready(function () {
     searchStu();
-    
+
     $('#downloadStu').click(function () {
         tableToExcel('stusearch', 'Students');
     });
@@ -105,38 +105,12 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.success) {
                     let models = JSON.parse(data.student);
-                    let student = models[0].fields;
-                    let Class = models[1].fields;
-                    let Department = models[2].fields;
-                    for (let x in student)
-                        $('#' + x).html(student[x]);
-                    for (let x in Class)
-                        $('#' + x).html(Class[x]);
-                    for (let x in Department)
-                        $('#' + x).html(Department[x]);
                     let da = new Date();
-                    let sem = 2 * (4 - (Class['batch'] - da.getUTCFullYear()));
+                    let sem = 2 * (4 - (models[1].fields['batch'] - da.getUTCFullYear()));
                     if (sem <= 8)
                         sem += da.getUTCMonth() > 5 ? 1 : 0;
-                    let marks = JSON.parse(data.marks);
-                    let html = '';
-                    for (let i = 0; i < marks.length; i++) {
-                        let mark = marks[i].fields;
-                        html += '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Semester:</h6>' + '<h6 class="h6">' + mark.sem + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">SGPA:</h6>' + '<h6 class="h6">' + mark.sgpa + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex">' + '<h6 class="mr-3">Active backlogs:</h6>' + '<h6 class="h6">' + mark.active_backs + '</h6> </div>' + '<div class="col-lg-6 col-sm-12 col-xs-12 d-flex"> <h6 class="mr-3">Passive backlogs:</h6>' + '<h6 class="h6">' + mark.passive_backs + '</h6> </div>' + '<hr>';
-                    }
-                    if (student.Father_pic != '') {
-                        $('#fathpic').attr('src', '/Media/' + student.Father_pic);
-                        $('#mothpic').attr('src', '/Media/' + student.Mother_pic);
-                        $('#stupic').attr('src', '/Media/' + student.photo);
-                    } else {
-                        $('#fathpic').attr('src', '');
-                        $('#mothpic').attr('src', '');
-                        $('#stupic').attr('src', '');
-                    }
-                    $('#marDet').html(html);
-                    $('#batch').html(sem);
-                    $('#urn').html(urn);
-                    $('.urn').val(urn);
+                    setStuDetails(models[0].pk, models[0].fields, models[1].fields, models[2].fields, sem);
+                    setStuMarks(data.marks, sem);
                     $('#studDet').trigger('click');
                     $('#data').modal('show');
                 }
@@ -147,6 +121,69 @@ $(document).ready(function () {
         });
     });
 });
+
+function setStuMarks(marks, sem) {
+    let SGPA = 0;
+    let Credits = 0;
+    let Active_backs = 0;
+    let Passive_backs = 0;
+    let html = '';
+    for (let i = 1; i < sem; i++) {
+        let credits = 0;
+        let sgpa = 0;
+        let active_backs = 0;
+        let passive_backs = 0;
+        html += '<div><h5>Semester ' + i + ':</h5><br>';
+        for (let x in marks) {
+            if (marks[x].semester == i) {
+                if (marks[x].Sgpa != 0) {
+                    html += marks[x].subject + ' ' + marks[x].subject__Name + ' : ' + marks[x].Sgpa + ' Examination Date : ' + marks[x].exam_date + ' <br>';
+                    sgpa += (marks[x].Sgpa * marks[x].subject__credits);
+                    credits += marks[x].subject__credits;
+                    if (marks[x].passive_back)
+                        passive_backs += 1;
+                } else {
+                    html += marks[x].subject + ' ' + marks[x].subject__Name + ' : Fail Examination Date : ' + marks[x].exam_date + ' <br>';
+                    active_backs += 0;
+                }
+                const index = marks.indexOf(x);
+                if (index > -1) {
+                    marks.splice(index, 1);
+                }
+            }
+        }
+        html += '<h6>Semester SGPA = ' + (sgpa / credits) + '   Semester Credits earned = ' + credits + '  Passive backs = ' + passive_backs + '  Active backs = ' + active_backs + '</h6></div>';
+        SGPA += sgpa;
+        Credits += credits;
+        Active_backs += active_backs;
+        Passive_backs += passive_backs;
+    }
+    html += '<div style="display: block; block; width: 100%;"><h3>Aggregate SGPA : ' + (SGPA / Credits) + '<br>Aggregate Credits earned = ' + Credits + '<br>Active Backlogs = ' + Active_backs + '<br>Passive Backlogs = ' + Passive_backs + '</h3></div>';
+    $('#marDet').html(html);
+}
+
+function setStuDetails(urn, student, Class, Department, sem) {
+    for (let x in student)
+        $('#' + x + ', .' + x).html(student[x]);
+    for (let x in Class)
+        $('#' + x).html(Class[x]);
+    for (let x in Department)
+        $('#' + x).html(Department[x]);
+    $('#urn').html(urn);
+    $('.urn').val(urn);
+    $('#batch').html(sem);
+    if (student.Father_pic != '') {
+        $('#fathpic').attr('src', '/Media/' + student.Father_pic);
+        $('#mothpic').attr('src', '/Media/' + student.Mother_pic);
+        $('#stupic').attr('src', '/Media/' + student.photo);
+    } else {
+        $('#fathpic').attr('src', '');
+        $('#mothpic').attr('src', '');
+        $('#stupic').attr('src', '');
+    }
+}
+
+
 
 function closeStudent() {
     $('#Details').html('');

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from Advisor.models import Users, teachers, department, Class, students
+from Advisor.models import Users, teachers, department, Class, students, detailed_Marks, Subjects
 from django.http import JsonResponse
 from django.core import serializers
 import json
@@ -53,30 +53,6 @@ def settings(request):
         return redirect('Advisor:index')
 
 
-def uploadtData(request):
-    if 'user' in request.session:
-        dat = json.loads(request.POST['tdata'])
-        model = request.POST['model']
-        if model == 'teachers':
-            for d in dat:
-                dep = department.objects.get(name=d.pop('department').lower())
-                t = teachers(department=dep, **d)
-                t.save()
-        else:
-            for d in dat:
-                clas = Class.objects.get(section=d.pop(
-                    'section'), batch=d.pop('batch'))
-                cr_date = datetime.strptime(
-                    d.pop('dob'), '%d-%m-%Y')
-                do = cr_date.strftime('%Y-%m-%d')
-                s = students(dob=do, Class=clas, **d)
-                s.save()
-        data = {
-            'success': True,
-        }
-        return JsonResponse(data)
-
-
 def uploadData(request):
     if 'user' in request.session:
         context = {'user': Users.objects.get(id=request.session['user'])}
@@ -117,3 +93,42 @@ def UserPic(request):
         'user': rec,
     }
     return JsonResponse(data)
+
+
+def uploadtData(request):
+    if 'user' in request.session:
+        dat = json.loads(request.POST['tdata'])
+        model = request.POST['model']
+        if model == 'teachers':
+            for d in dat:
+                dep = department.objects.get(name=d.pop('department').lower())
+                t = teachers(department=dep, **d)
+                t.save()
+        elif model == 'marks':
+            for d in dat:
+                urn = d.pop('urn')
+                cr_date = datetime.strptime(
+                    d.pop('exam_date'), '%d-%m-%Y')
+                exD = cr_date.strftime('%Y-%m-%d')
+                dm, created = detailed_Marks.objects.get_or_create(subject=Subjects.objects.get(sub_code=d.pop('subject')), student=students.objects.get(
+                    urn=urn), semester=d['semester'], Sgpa=0)
+                dm.exam_date = exD
+                dm.Sgpa = d['Sgpa']
+                if not created and dm.Sgpa != 0:
+                    dm.passive_back = True
+                # dm = detailed_Marks(subject=Subjects.objects.get(sub_code=d.pop('subject')), student=students.objects.get(
+                #     urn=urn), exam_date=exD, **d)
+                dm.save()
+        else:
+            for d in dat:
+                clas = Class.objects.get(section=d.pop(
+                    'section'), batch=d.pop('batch'))
+                cr_date = datetime.strptime(
+                    d.pop('dob'), '%d-%m-%Y')
+                do = cr_date.strftime('%Y-%m-%d')
+                s = students(dob=do, Class=clas, **d)
+                s.save()
+        data = {
+            'success': True,
+        }
+        return JsonResponse(data)

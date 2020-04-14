@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from Advisor.models import students, Class, marks
+from Advisor.models import students, Class, department, detailed_Marks, Subjects
 from django.http import JsonResponse, FileResponse, HttpResponse
 from django.core import serializers
+from django.db.models import Count
 import os
 from PIL import Image
 import json
@@ -63,14 +64,15 @@ def getStudent(request):
             'message': 'No such User',
         }
         return JsonResponse(data)
-    mark = marks.objects.filter(student=student)
-    rec = serializers.serialize(
-        'json', [student, student.Class, student.Class.department], indent=2, use_natural_foreign_keys=True)
+    dm = detailed_Marks.objects.filter(student=student).filter(Sgpa__gte=4).values(
+        'exam_date', 'semester', 'Sgpa', 'subject__Name', 'subject__credits', 'subject', 'passive_back')
+    for d in dm:
+        d['exam_date'] = str(d['exam_date'])
     data = {
         'success': True,
-        'student': rec,
-        'marks': serializers.serialize(
-            'json', mark, indent=2, use_natural_foreign_keys=True),
+        'marks': list(dm),
+        'student': serializers.serialize(
+            'json', [student, student.Class, student.Class.department], indent=2, use_natural_foreign_keys=True),
     }
     return JsonResponse(data)
 

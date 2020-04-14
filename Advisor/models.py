@@ -77,17 +77,10 @@ class students(models.Model):
         return self.full_name
 
 
-class marks(models.Model):
-    student = models.ForeignKey(students, on_delete=models.CASCADE)
-    sgpa = models.PositiveIntegerField()
-    active_backs = models.PositiveIntegerField()
-    passive_backs = models.PositiveIntegerField()
-    sem = models.PositiveIntegerField()
-
-
 class Subjects(models.Model):
     sub_code = models.CharField(max_length=255, primary_key=True)
     Name = models.CharField(max_length=255)
+    credits = models.PositiveIntegerField()
     department = models.ForeignKey(department, on_delete=models.CASCADE)
 
 
@@ -96,6 +89,8 @@ class detailed_Marks(models.Model):
     semester = models.PositiveIntegerField()
     subject = models.ForeignKey(Subjects, on_delete=models.CASCADE)
     Sgpa = models.PositiveIntegerField()
+    passive_back = models.BooleanField(default=False)
+    exam_date = models.DateField(default=None, null=True, blank=True)
 
 
 class UserManager(BaseUserManager):
@@ -145,4 +140,4 @@ class Users(AbstractBaseUser, PermissionsMixin):
         ]
 
     def __str__(self):
-        return str(self.uid)
+        return str(self.teacher)
