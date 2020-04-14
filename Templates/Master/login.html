@@ -7,18 +7,20 @@
 </head>
 
 <body>
+    {% if failed %}
     <div class="alert alert-danger d-flex justify-content-end" role="alert">
         <strong>Login Denied</strong> &nbsp; Invalid Credentials
     </div>
-    <form action="{% url 'Advisor:dashboard' %}" id="login-form" method="POST">
+    {% endif %}
+    <form action="{% url 'Advisor:index' %}" id="login-form" method="POST" onSubmit="return check()">
         {% csrf_token %}
         <h1>LOGIN</h1>
         <div class="input-box">
-            <input type="text" placeholder="Username" name='username'>
+            <input type="text" placeholder="Username" name='username' id="username">
         </div>
 
         <div class="input-box">
-            <input type="password" placeholder="Password" name="password">
+            <input type="password" placeholder="Password" name="password" id="password">
         </div>
 
         <button type="submit" class="login-btn">Login</button>

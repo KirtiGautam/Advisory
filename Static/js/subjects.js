@@ -30,6 +30,7 @@ $(document).ready(function () {
             data: {
                 'sub_code': $('#sub_code').val(),
                 'Name': $('#Name').val(),
+                'credits': $('#credits').val(),
                 'department': $('#Departments').val(),
             },
             dataType: 'json',
@@ -40,6 +41,7 @@ $(document).ready(function () {
                     html += '<td><button type="submit" class="btn btn-danger" id="' + $('#sub_code').val() + '" onclick="deleteSubject(this.id)">Delete</button></td></tr>';
                     console.log(html);
                     $('tbody').append(html);
+                    $('#credits').val('');
                     $('#sub_code').val('');
                     $('#Name').val('');
                     alert('Subject added successfully');

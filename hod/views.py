@@ -66,7 +66,7 @@ def createClass(request):
         teach = teachers.objects.get(id=request.POST['Mentor'])
         clas, created = Class.objects.get_or_create(
             section=request.POST['section'], batch=request.POST['batch'], department=request.user.teacher.department, Mentor=teach)
-        Users.objects.create_user(
+        Users.objects.get_or_create(
             username=teach.full_name, password=teach.full_name, teacher=teach)
         c = {'id': clas.id, 'section': clas.section,
              'Mentor': str(clas.Mentor), 'batch': clas.batch}

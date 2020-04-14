@@ -40,7 +40,6 @@ def updatedStu(request):
             values.pop('csrfmiddlewaretoken')
             student = students.objects.filter(
                 urn=values.pop('urn')).update(**values)
-            student.save()
             return redirect('Mentor:students')
 
 
@@ -64,7 +63,7 @@ def getStudent(request):
             'message': 'No such User',
         }
         return JsonResponse(data)
-    dm = detailed_Marks.objects.filter(student=student).filter(Sgpa__gte=4).values(
+    dm = detailed_Marks.objects.filter(student=student).values(
         'exam_date', 'semester', 'Sgpa', 'subject__Name', 'subject__credits', 'subject', 'passive_back')
     for d in dm:
         d['exam_date'] = str(d['exam_date'])

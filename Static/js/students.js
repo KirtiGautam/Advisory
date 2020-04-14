@@ -137,14 +137,14 @@ function setStuMarks(marks, sem) {
         for (let x in marks) {
             if (marks[x].semester == i) {
                 if (marks[x].Sgpa != 0) {
-                    html += marks[x].subject + ' ' + marks[x].subject__Name + ' : ' + marks[x].Sgpa + ' Examination Date : ' + marks[x].exam_date + ' <br>';
+                    html += marks[x].subject + ' ' + marks[x].subject__Name + ' : ' + marks[x].Sgpa + ' Examination Date : ' + marks[x].exam_date + 'Credits : ' + marks[x].subject__credits + '<br>';
                     sgpa += (marks[x].Sgpa * marks[x].subject__credits);
                     credits += marks[x].subject__credits;
                     if (marks[x].passive_back)
                         passive_backs += 1;
                 } else {
                     html += marks[x].subject + ' ' + marks[x].subject__Name + ' : Fail Examination Date : ' + marks[x].exam_date + ' <br>';
-                    active_backs += 0;
+                    active_backs += 1;
                 }
                 const index = marks.indexOf(x);
                 if (index > -1) {
@@ -152,13 +152,17 @@ function setStuMarks(marks, sem) {
                 }
             }
         }
-        html += '<h6>Semester SGPA = ' + (sgpa / credits) + '   Semester Credits earned = ' + credits + '  Passive backs = ' + passive_backs + '  Active backs = ' + active_backs + '</h6></div>';
+        html += '<h6>Semester SGPA = ';
+        html += active_backs != 0 ? 'Fail' : (sgpa / credits);
+        html += '   Semester Credits earned = ' + credits + '  Passive backs = ' + passive_backs + '  Active backs = ' + active_backs + '</h6></div>';
         SGPA += sgpa;
         Credits += credits;
         Active_backs += active_backs;
         Passive_backs += passive_backs;
     }
-    html += '<div style="display: block; block; width: 100%;"><h3>Aggregate SGPA : ' + (SGPA / Credits) + '<br>Aggregate Credits earned = ' + Credits + '<br>Active Backlogs = ' + Active_backs + '<br>Passive Backlogs = ' + Passive_backs + '</h3></div>';
+    html += '<div style="display: block; block; width: 100%;"><h3>Aggregate SGPA : ';
+    html += Active_backs != 0 ? 'Fail' : (SGPA / Credits);
+    html += '<br>Aggregate Credits earned = ' + Credits + '<br>Active Backlogs = ' + Active_backs + '<br>Passive Backlogs = ' + Passive_backs + '</h3></div>';
     $('#marDet').html(html);
 }
 

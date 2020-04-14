@@ -16,28 +16,31 @@ def index(request):
     if 'user' in request.session:
         return redirect('Advisor:dashboard')
     else:
-        return render(request, 'Master/login.html')
+        if request.method == 'POST':
+            user = authenticate(
+                username=request.POST['username'],
+                password=request.POST['password'])
+            if user is not None:
+                login(request, user)
+                request.session['user'] = str(user.id)
+                return redirect('Advisor:dashboard')
+            else:
+                context = {
+                    'failed': True,
+                }
+                return render(request, 'Master/login.html', context)
+        else:
+            context = {
+                'failed': False,
+            }
+            return render(request, 'Master/login.html', context)
 
 
 def dashboard(request):
-    if request.method == 'POST':
-        user = authenticate(
-            username=request.POST['username'],
-            password=request.POST['password'])
-        if user is not None:
-            login(request, user)
-            request.session['user'] = str(user.id)
-            context = {'user': user}
-            return render(request, 'Master/dashboard.html', context)
-        else:
-            return redirect('Advisor:index')
+    if 'user' in request.session:
+        return render(request, 'Master/dashboard.html')
     else:
-        if 'user' in request.session:
-            context = {'user': Users.objects.get(
-                id=request.session['user'])}
-            return render(request, 'Master/dashboard.html', context)
-        else:
-            return redirect('Advisor:index')
+        return redirect('Advisor:index')
 
 
 def log(request):
