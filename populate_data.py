@@ -17,6 +17,14 @@ def student(N):
     sig = ['+', '-']
     liv = ['DAY SCHOLAR', 'HOSTELLER']
     for _ in range(N):
+        mark = [1,2]
+        if (random.choice(mark)==1):
+            mark12=random.uniform(34.00, 99.00)
+            mark10=0
+        else:
+            mark10=random.uniform(34.00, 99.00)
+            mark12=0
+        print([mark10, mark12])
         stu = students.objects.create(
             urn=random.randint(1000000, 2000000),
             crn=random.randint(1000000, 2000000),
@@ -26,6 +34,10 @@ def student(N):
             category='General',
             height=random.uniform(5.0, 6.11),
             weight=random.uniform(40.0, 90.0),
+            dob=fakegen.date_of_birth(),
+            X_marks=random.uniform(34.00, 99.00),
+            XII_marks=mark12,
+            diploma_marks=mark10,
             living=random.choice(liv),
             Father_name=fakegen.name(),
             Father_contact=random.randint(1000000000, 99999999999),
@@ -61,6 +73,6 @@ def teacher(N):
 if __name__ == '__main__':
 
     print('Populating Data....')
-    # student(100)
-    teacher(100)
+    student(25)
+    # teacher(100)
     print('Done')

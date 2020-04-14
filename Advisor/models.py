@@ -58,6 +58,10 @@ class students(models.Model):
         ('HOSTELLER', 'HOSTELLER'),
     )
     living = models.CharField(choices=living_choices, max_length=12)
+    X_marks = models.DecimalField(max_digits=4, decimal_places=2)
+    XII_marks = models.DecimalField(default=0, max_digits=4, decimal_places=2)
+    diploma_marks = models.DecimalField(
+        default=0, max_digits=4, decimal_places=2)
     Father_pic = models.ImageField(upload_to='father', default=None, null=True)
     Father_name = models.CharField(max_length=255)
     Father_contact = models.CharField(max_length=15)

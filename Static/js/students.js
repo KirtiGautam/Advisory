@@ -110,7 +110,7 @@ $(document).ready(function () {
                     if (sem <= 8)
                         sem += da.getUTCMonth() > 5 ? 1 : 0;
                     setStuDetails(models[0].pk, models[0].fields, models[1].fields, models[2].fields, sem);
-                    setStuMarks(data.marks, sem);
+                    setStuMarks(models[0].fields['diploma_marks'], data.marks, sem);
                     $('#studDet').trigger('click');
                     $('#data').modal('show');
                 }
@@ -122,13 +122,13 @@ $(document).ready(function () {
     });
 });
 
-function setStuMarks(marks, sem) {
+function setStuMarks(diploma, marks, sem) {
     let SGPA = 0;
     let Credits = 0;
     let Active_backs = 0;
     let Passive_backs = 0;
     let html = '';
-    for (let i = 1; i < sem; i++) {
+    for (let i = (diploma == 0) ? 1 : 3; i < sem; i++) {
         let credits = 0;
         let sgpa = 0;
         let active_backs = 0;

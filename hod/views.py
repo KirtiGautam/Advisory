@@ -26,7 +26,7 @@ def addSubject(request):
     if 'user' in request.session:
         values = {k: v for k, v in request.POST.items()}
         try:
-            subject = Subjects.objects.get_or_create(department=department.objects.get(
+            subject, created = Subjects.objects.get_or_create(department=department.objects.get(
                 id=values.pop('department')), **values)
             data = {
                 'success': True,
