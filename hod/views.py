@@ -3,6 +3,7 @@ from django.contrib.auth.models import Permission
 from Advisor.models import Users, teachers, Class, department, Subjects
 from django.db.models import Q
 from django.http import JsonResponse
+from django.db import IntegrityError
 
 # Create your views here.
 
@@ -24,17 +25,21 @@ def deleteSubject(request):
 def addSubject(request):
     if 'user' in request.session:
         values = {k: v for k, v in request.POST.items()}
-        subject = Subjects(department=department.objects.get(
-            id=values.pop('department')), **values)
-        subject.save()
-        data = {
-            'success': True,
-            'superuser': request.user.is_superuser,
-        }
-        if request.user.is_superuser:
-            data['department'] = str(subject.department).title()
+        try:
+            subject = Subjects.objects.get_or_create(department=department.objects.get(
+                id=values.pop('department')), **values)
+            data = {
+                'success': True,
+                'superuser': request.user.is_superuser,
+            }
+            if request.user.is_superuser:
+                data['department'] = str(subject.department).title()
+        except IntegrityError:
+            data = {
+                'success': False,
+                'message': 'Already exists',
+            }
         return JsonResponse(data)
-
     else:
         return redirect('Advisor:index')
 
@@ -66,8 +71,10 @@ def createClass(request):
         teach = teachers.objects.get(id=request.POST['Mentor'])
         clas, created = Class.objects.get_or_create(
             section=request.POST['section'], batch=request.POST['batch'], department=request.user.teacher.department, Mentor=teach)
-        Users.objects.get_or_create(
-            username=teach.full_name, password=teach.full_name, teacher=teach)
+        obj, created = Users.objects.get_or_create(
+            username=teach.full_name, teacher=teach)
+        obj.set_password(teach.full_name)
+        obj.save()
         c = {'id': clas.id, 'section': clas.section,
              'Mentor': str(clas.Mentor), 'batch': clas.batch}
         data = {

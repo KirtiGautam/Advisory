@@ -45,6 +45,8 @@ $(document).ready(function () {
                     $('#sub_code').val('');
                     $('#Name').val('');
                     alert('Subject added successfully');
+                } else {
+                    alert(data.message);
                 }
             }
         });
