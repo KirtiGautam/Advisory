@@ -15,9 +15,9 @@
                     <img src="{% if request.user.avatar %} Media/{{request.user.avatar}} {% else %} {% static 'Images/logo.jpg' %} {% endif %}"
                         alt="Avatar" class="avatar">
                     {% if user.is_superuser %}
-                    <h1>Superuser</h1>
+                    <h2>Superuser</h2>
                     {% else %}
-                    <h1>{{ user.teacher }}</h1>
+                    <h2>{{ user.teacher }}</h2>
                     {% endif %}
                 </center>
                 {% if user.admin or user.is_superuser%}

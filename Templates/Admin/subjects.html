@@ -9,7 +9,7 @@
             Add new</button>
     </div>
     <div id="add" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title">Add New Subject</h1>
@@ -30,7 +30,7 @@
                     </div>
                     {% if user.is_superuser %}
                     <div class="input-group">
-                        <label for="Departments" class="col-6 mt-2 mb-2">Despartments</label>
+                        <label for="Departments" class="col-6 mt-2 mb-2">Department</label>
                         <select class="form-control" id="Departments" placeholder='Select one name'>
                             {% for key in departments %}
                             <option value="{{key.id}}">{{key.name|title}}</option>

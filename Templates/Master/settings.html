@@ -7,53 +7,49 @@
 </head>
 
 <body>
-    <div id="content" class="p-4 p-md-5 pt-5">
-        <div class="input-group p-md-2 mt-3 mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">User Avatar</span>
+    <div class="container">
+        <div class="card mt-2 mb-2">
+            <div class="card-header">
+                <h3>Change Profile Picture</h3>
             </div>
-            <div class="form-control">
-                <img id="UserPic" src="{% if request.user.avatar %} Media/{{request.user.avatar}} {% endif %}"
-                    alt="User's image" height="80px" width="80px" />
-                <input type="file" name="UserPic" id="UserP" onchange='preview(this, "#UserPic");'>
-            </div>
-        </div>
-        <button type="button" id="UAP" class="btn btn-primary">Upload Pic</button>
-        <div class="settings mt-5 p-4 p-md-5 pt-5 d-flex justify-content-center align-items-center">
-            <button type="button" class="btn btn-primary" data-toggle="modal" id='gucci' data-target="#pass">Change
-                Password</button>
-        </div>
-        <div id="pass" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title">Change Password</h1>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="card-body">
+                <div class="input-group p-md-2 mt-3 mb-3">
+                    <label for="UserPic" class="col-lg-4 col-md-4 col-sm-12 col-md-5">User Avatar</label>
+                    <div class="form-control use">
+                        <img id="UserPic" src="{% if request.user.avatar %} Media/{{request.user.avatar}} {% endif %}"
+                            alt="User's image" height="80px" width="80px" />
+                        <input type="file" name="UserPic" id="UserP" onchange='preview(this, "#UserPic");'>
                     </div>
-                    <form method="post">
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <label for="pre" class="col-6 mt-2 mb-2">Current Password</label>
-                                <input type="password" name="pre" id="pre" class="col-6 mt-2 mb-2" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="new" class="col-6 mt-2 mb-2">New Password</label>
-                                <input type="password" name="new" id="new" class="col-6 mt-2 mb-2" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="renew" class="col-6 mt-2 mb-2">Re-enter New Password</label>
-                                <input type="password" name="renew" id="renew" class="col-6 mt-2 mb-2" required>
-                            </div>
-                        </div>
-                        {% csrf_token %}
-                        <div class="modal-footer">
-                            <button type="submit" id="change" class="btn btn-danger">Change Password</button>
-                        </div>
-                    </form>
                 </div>
             </div>
+            <div class="card-footer">
+                <button type="button" id="UAP" class="btn btn-primary">Upload Pic</button>
+            </div>
         </div>
-    </div>
+
+        <div class="card mt-2 mb-2">
+            <h3 class="modal-header">Change Password</h3>
+            <form method="post">
+                <div class="card-body">
+                    <div class="input-group">
+                        <label for="pre" class="col-lg-4 col-md-4 col-sm-12 col-md-5 mt-2 mb-2">Current Password</label>
+                        <input type="password" name="pre" id="pre" class="form-control mt-2 mb-2" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="new" class="col-lg-4 col-md-4 col-sm-12 col-md-5 mt-2 mb-2">New Password</label>
+                        <input type="password" name="new" id="new" class="form-control mt-2 mb-2" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="renew" class="col-lg-4 col-md-4 col-sm-12 col-md-5 mt-2 mb-2">Re-enter New Password</label>
+                        <input type="password" name="renew" id="renew" class="form-control mt-2 mb-2" required>
+                    </div>
+                </div>
+                {% csrf_token %}
+                <div class="card-footer">
+                    <button type="submit" id="change" class="btn btn-danger">Change Password</button>
+                </div>
+            </form>
+        </div>
 </body>
 <script src="{% static 'js/settings.js' %}"></script>
 {% endblock %}

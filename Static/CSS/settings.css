@@ -1,3 +1,7 @@
-#content .form-control{
+.container .use{
     height: max-content;
+}
+
+.card-footer .btn{
+    width: 100%;
 }

@@ -15,9 +15,8 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #006F60;
+    background-color: #292B2C;
     opacity: 0.9;
-    overflow-x: hidden;
     padding-top: 30px;
     transition: 0.7s;
 }
@@ -28,11 +27,11 @@ body {
     border-radius: 50%;
 }
 
-.nav h1 {
+.nav h2 {
     display: block;
     padding: 20px 30px;
     text-decoration: none;
-    color: #F0AD4E;
+    color: #A1A3A5;
 }
 
 .nav a {
@@ -40,22 +39,22 @@ body {
     padding: 15px 25px;
     font-size: 18px;
     text-decoration: none;
-    color: #F0AD4E;
-    border-bottom: 2px solid #829E3C;
+    color: #A1A3A5;
+    border-bottom: 2px solid #76787A;
 }
 
 .nav a:hover {
-    color: #FFECCC;
+    color: #CED0D2;
     transition: 0.4s;
 }
 
 .nav .act {
-    color: #FFECCC;
+    color: #CED0D2;
 }
 
 .slide {
-    background-color: #006F60;
-    color: #F0AD4E;
+    background-color: #292B2C;
+    color: #A1A3A5;
     font-size: 25px;
     width: 50px;
     height: 50px;
@@ -65,7 +64,7 @@ body {
 }
 
 .slide:hover {
-    color: #FFECCC;
+    color: #CED0D2;
     transition: 0.4s;
     outline: none;
 }
@@ -76,11 +75,7 @@ body {
 }
 
 #content {
-    padding: 10px;
+    padding: 5px;
     transition: margin-left 0.7s;
     width: 100%;
-}
-
-.act {
-    color: #829E3C;
 }
