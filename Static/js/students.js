@@ -138,44 +138,43 @@ function setStuMarks(diploma, marks, sem) {
     html += '<thead class="thead-dark"><tr><th>Subject Code</th><th>Subject Name</th><th>Grade</th><th>Examination Date</th><th>Credits</tr></thead>';
     html += '<tbody>'
     for (let i = (diploma == 0) ? 1 : 3; i < sem; i++) {
-        for (let i = 1; i < sem; i++) {
-            let credits = 0;
-            let sgpa = 0;
-            let active_backs = 0;
-            let passive_backs = 0;
-            html += '<tr class="table-dark"><td colspan=5>Semester' + i + '</td></tr>';
-            for (let x in marks) {
-                if (marks[x].semester == i) {
-                    if (marks[x].Sgpa != 0) {
-                        html += '<tr><td>' + marks[x].subject + '</td><td>' + marks[x].subject__Name + '</td><td>' + marks[x].Sgpa + ' </td><td>' + marks[x].exam_date + '</td><td>' + marks[x].subject__credits + '</td></tr>';
-                        sgpa += (marks[x].Sgpa * marks[x].subject__credits);
-                        credits += marks[x].subject__credits;
-                        if (marks[x].passive_back)
-                            passive_backs += 1;
-                    } else {
-                        html += '<tr><td>' + marks[x].subject + '</td><td>' + marks[x].subject__Name + '</td><td>' + marks[x].exam_date + ' </td></tr>';
-                        active_backs += 1;
-                    }
-                    const index = marks.indexOf(x);
-                    if (index > -1) {
-                        marks.splice(index, 1);
-                    }
+        let credits = 0;
+        let sgpa = 0;
+        let active_backs = 0;
+        let passive_backs = 0;
+        html += '<tr class="table-dark"><td colspan="5">Semester' + i + '</td></tr>';
+        for (let x in marks) {
+            if (marks[x].semester == i) {
+                if (marks[x].Sgpa != 0) {
+                    html += '<tr><td>' + marks[x].subject + '</td><td>' + marks[x].subject__Name + '</td><td>' + marks[x].Sgpa + ' </td><td>' + marks[x].exam_date + '</td><td>' + marks[x].subject__credits + '</td></tr>';
+                    sgpa += (marks[x].Sgpa * marks[x].subject__credits);
+                    credits += marks[x].subject__credits;
+                    if (marks[x].passive_back)
+                        passive_backs += 1;
+                } else {
+                    html += '<tr><td>' + marks[x].subject + '</td><td>' + marks[x].subject__Name + '</td><td>Fail</td><td>' + marks[x].exam_date + '<td></td></td></tr>';
+                    active_backs += 1;
+                }
+                const index = marks.indexOf(x);
+                if (index > -1) {
+                    marks.splice(index, 1);
                 }
             }
-            html += '<h6>Semester SGPA = ';
-            html += active_backs != 0 ? 'Fail' : (sgpa / credits);
-            html += '   Semester Credits earned = ' + credits + '  Passive backs = ' + passive_backs + '  Active backs = ' + active_backs + '</h6></div>';
-            SGPA += sgpa;
-            Credits += credits;
-            Active_backs += active_backs;
-            Passive_backs += passive_backs;
         }
-        html += '<div style="display: block; block; width: 100%;"><h3>Aggregate SGPA : ';
-        html += Active_backs != 0 ? 'Fail' : (SGPA / Credits);
-        html += '<br>Aggregate Credits earned = ' + Credits + '<br>Active Backlogs = ' + Active_backs + '<br>Passive Backlogs = ' + Passive_backs + '</h3></div>';
-        $('#marDet').html(html);
+        html += '<tr><td colspan="5">Semester SGPA = ';
+        html += active_backs != 0 ? 'Fail' : (sgpa / credits);
+        html += '   Semester Credits earned = ' + credits + '  Passive backs = ' + passive_backs + '  Active backs = ' + active_backs + '</td>';
+        SGPA += sgpa;
+        Credits += credits;
+        Active_backs += active_backs;
+        Passive_backs += passive_backs;
     }
+    html += '</tbody></table><h4>Aggregate SGPA : ';
+    html += Active_backs != 0 ? 'Fail' : (SGPA / Credits);
+    html += ' Aggregate Credits earned = ' + Credits + ' Active Backlogs = ' + Active_backs + ' Passive Backlogs = ' + Passive_backs + '</h4>';
+    $('#marDet').html(html);
 }
+
 
 function setStuDetails(urn, student, Class, Department, sem) {
     for (let x in student)
