@@ -16,9 +16,19 @@ def imageStu(request):
 
 def index(request):
     if 'user' in request.session:
-        return render(request, 'Mentors/Students.html')
+        if request.user.admin:
+            Classes = Class.objects.filter(
+                department=request.user.teacher.department).values('id', 'section', 'batch').order_by('-batch')
+            context = {
+                'Class': Classes,
+            }
+            return render(request, 'Mentors/Students.html', context)
+        elif request.user.is_superuser:
+            return redirect('Advisor:dashboard')
+        else:
+            return render(request, 'Mentors/Students.html')
     else:
-        return redirect('Advisor:dashboard')
+        return redirect('Advisor:index')
 
 
 def createStudent(request):
@@ -78,10 +88,20 @@ def getStudent(request):
 
 def getStudents(request):
     if 'user' in request.session:
-        Clas = Class.objects.get(Mentor=request.user.teacher)
-        student = students.objects.raw('''SELECT * FROM advisor_students WHERE (full_name LIKE "%%''' +
-                                       request.POST['term'] + '''%%"OR urn LIKE "%%''' +
-                                       request.POST['term'] + '''%%") AND Class_id = ''' + str(Clas.id))
+        if request.user.is_superuser:
+            return redirect(request, 'Advisor:dashboard')
+        elif request.user.admin:
+            if request.POST['class'] == 'ALL':
+                Classes = Class.objects.filter(
+                    department=request.user.teacher.department)
+            else:
+                Classes = [Class.objects.get(id=request.POST['class'])]
+            student = students.objects.filter(full_name__contains=request.POST['term'], Class__in=Classes) | students.objects.filter(
+                crn__contains=request.POST['term'], Class__in=Classes) | students.objects.filter(urn__contains=request.POST['term'], Class__in=Classes)
+        else:
+            Clas = Class.objects.get(Mentor=request.user.teacher)
+            student = students.objects.filter(full_name__contains=request.POST['term'], Class=Clas) | students.objects.filter(
+                crn__contains=request.POST['term'], Class=Clas) | students.objects.filter(urn__contains=request.POST['term'], Class=Clas)
         rec = serializers.serialize(
             'json', student, indent=2, use_natural_foreign_keys=True)
         data = {

@@ -9,6 +9,7 @@ function searchStu(value = '') {
         url: '/get-students',
         data: {
             'term': value,
+            'class': $('#ABatch').val(),
         },
         dataType: 'json',
         success: function (data) {
@@ -26,6 +27,11 @@ function searchStu(value = '') {
 
 $(document).ready(function () {
     searchStu();
+
+    $('#ABatch').change(function () {
+        console.log('Inside change function');
+        $('#SSB').keyup();
+    });
 
     $('#downloadStu').click(function () {
         tableToExcel('stusearch', 'Students');

@@ -25,6 +25,11 @@
                     <a href="{% url 'Admin:subjects' %}"><span class="fas fa-book mr-2"></span> Subjects</a>
                 </li>
                 {% endif %}
+                {% if not user.is_superuser%}
+                <li id="student">
+                    <a href="{% url 'Mentor:students' %}"><span class="fas fa-user-graduate mr-2"></span> Students</a>
+                </li>
+                {% endif %}
                 {% if user.admin %}
                 <li id="Role">
                     <a href="{% url 'Admin:role' %}"><span class="fas fa-user-friends mr-2"></span> Role</a>
@@ -37,9 +42,6 @@
                     <a href="{% url 'Super:editAdmin' %}"><span class="fas fa-user-tag mr-2"></span> Edit Admins</a>
                 </li>
                 {% else %}
-                <li id="student">
-                    <a href="{% url 'Mentor:students' %}"><span class="fas fa-user-graduate mr-2"></span> Students</a>
-                </li>
                 <li id="notification">
                     <a href=""><span class="fas fa-bell mr-2"></span> Notification</a>
                 </li>

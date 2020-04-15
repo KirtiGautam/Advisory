@@ -92,7 +92,8 @@ class detailed_Marks(models.Model):
     student = models.ForeignKey(students, on_delete=models.CASCADE)
     semester = models.PositiveIntegerField()
     subject = models.ForeignKey(Subjects, on_delete=models.CASCADE)
-    Sgpa = models.PositiveIntegerField()
+    Sgpa = models.DecimalField(
+        default=0.0, max_digits=3, decimal_places=2)
     passive_back = models.BooleanField(default=False)
     exam_date = models.DateField(default=None, null=True, blank=True)
 

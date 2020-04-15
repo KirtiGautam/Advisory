@@ -114,18 +114,21 @@ def uploadtData(request):
                     d.pop('exam_date'), '%d-%m-%Y')
                 exD = cr_date.strftime('%Y-%m-%d')
                 dm, created = detailed_Marks.objects.get_or_create(subject=Subjects.objects.get(sub_code=d.pop('subject')), student=students.objects.get(
-                    urn=urn), semester=d['semester'], Sgpa=0)
-                dm.exam_date = exD
-                dm.Sgpa = d['Sgpa']
-                if not created and dm.Sgpa != 0:
-                    dm.passive_back = True
-                # dm = detailed_Marks(subject=Subjects.objects.get(sub_code=d.pop('subject')), student=students.objects.get(
-                #     urn=urn), exam_date=exD, **d)
+                    urn=urn), semester=d['semester'])
+                if created:
+                    dm.exam_date = exD
+                    dm.Sgpa = d['Sgpa']
+                else:
+                    if dm.exam_date < datetime.date(cr_date):
+                        dm.exam_date = exD
+                        dm.Sgpa = d['Sgpa']
+                        if dm.Sgpa != 0:
+                            dm.passive_back = True
                 dm.save()
         else:
             for d in dat:
                 clas = Class.objects.get(section=d.pop(
-                    'section'), batch=d.pop('batch'))
+                    'section'), batch=d.pop('batch'), department=request.user.teacher.department)
                 cr_date = datetime.strptime(
                     d.pop('dob'), '%d-%m-%Y')
                 do = cr_date.strftime('%Y-%m-%d')

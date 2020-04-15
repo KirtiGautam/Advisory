@@ -10,11 +10,19 @@
 <body>
     <div id="content">
         <div class="d-flex justify-content-around mt-5">
+            {% if request.user.admin %}
+            <select id="ABatch">
+                <option value="ALL">All classes</option>
+                {% for key in Class %}
+                <option value="{{key.id}}">{{key.section}} ({{key.batch}})</option>
+                {% endfor %}
+            </select>
+            {% endif %}
             <div class="input-group col-6">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="sea"><span class="fas fa-search"></span></span>
                 </div>
-                <input type="search" class="form-control" placeholder="Search here ..." onkeyup="searchStu(this.value)">
+                <input type="search" class="form-control" placeholder="Search here ..." id="SSB" onkeyup="searchStu(this.value)">
             </div>
             <button type="submit" id="downloadStu" class="btn btn-primary">Download as Excel</button>
         </div>
