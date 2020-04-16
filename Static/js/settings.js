@@ -17,6 +17,7 @@ $(document).ready(function () {
     $('#settings').addClass('act');
 
     $('#UAP').click(function () {
+        $('#UAP').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
         let formdata = new FormData();
         formdata.append('avatar', $('#UserP').prop('files')[0]);
         $.ajax({
@@ -37,6 +38,7 @@ $(document).ready(function () {
                 else {
                     alert('Incorrect details');
                 }
+                $('#UAP').html('Upload Pic');
             }
         });
     });
@@ -47,6 +49,7 @@ $(document).ready(function () {
 
     $('#change').click(function (e) {
         e.preventDefault();
+        $('#change').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
 
         if ($('#new').val() == '' ||
             $('#renew').val() == '' ||
@@ -80,6 +83,7 @@ $(document).ready(function () {
                 else {
                     alert("Invalid Current Password")
                 }
+                $('#change').html('Change Password');
             }
         });
         $('#new').val('');

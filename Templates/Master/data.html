@@ -9,6 +9,7 @@
 
 <body>
     <div class="container">
+        {% if request.user.is_superuser %}
         <div class="card mt-2 mb-2">
             <div class="card-header">
                 <h3>Upload Teachers Data</h3>
@@ -16,15 +17,17 @@
             <div class="card-body">
                 <div class="card-text">
                     <div class="input-group p-md-2">
-                        <label for="data" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">Select a .csv file to upload</label>
-                        <input type="file" name="data" id="data" class="form-control">
+                        <label for="data" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">Select a .csv file to
+                            upload</label>
+                        <input type="file" name="data" id="TD" class="form-control">
                     </div>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" id="upload">Upload data</button>
+                <button type="button" class="btn btn-primary" id='TB'>Upload data</button>
             </div>
         </div>
+        {% elif request.user.admin %}
         <div class="card mt-2 mb-2">
             <div class="card-header">
                 <h3>Upload Students Data</h3>
@@ -32,15 +35,17 @@
             <div class="card-body">
                 <div class="card-text">
                     <div class="input-group p-md-2">
-                        <label for="data" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">Select a .csv file to upload</label>
-                        <input type="file" name="data" id="data" class="form-control">
+                        <label for="data" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">Select a .csv file to
+                            upload</label>
+                        <input type="file" name="data" id="SD" class="form-control">
                     </div>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" id="upload">Upload data</button>
+                <button type="button" class="btn btn-primary" id="SB">Upload data</button>
             </div>
         </div>
+        {% else %}
         <div class="card mt-2 mb-2">
             <div class="card-header">
                 <h3>Upload Students Marks Data</h3>
@@ -48,15 +53,17 @@
             <div class="card-body">
                 <div class="card-text">
                     <div class="input-group p-md-2">
-                        <label for="data" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">Select a .csv file to upload</label>
-                        <input type="file" name="data" id="data" class="form-control">
+                        <label for="data" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">Select a .csv file to
+                            upload</label>
+                        <input type="file" name="data" id="MD" class="form-control">
                     </div>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" id="upload">Upload data</button>
+                <button type="button" class="btn btn-primary" id="MB">Upload data</button>
             </div>
         </div>
+        {% endif %}
     </div>
 </body>
 <script src="{% static 'js/dataUpload.js' %}"></script>

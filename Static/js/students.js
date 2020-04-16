@@ -14,10 +14,14 @@ function searchStu(value = '') {
         success: function (data) {
             let students = JSON.parse(data.student);
             let html = '';
-            for (let i = 0; i < students.length; i++) {
-                let pk = students[i].pk;
-                let student = students[i].fields;
-                html += '<tr id="' + pk + '" ><td>' + pk + '</td><td>' + student.crn + '</td><td>' + student.full_name + '</td><td>' + student.Father_name + '</td><td>' + student.Mother_name + '</td><td>' + student.Contact + '</td><td>' + student.email + '</td></tr>';
+            if (students.length > 0) {
+                for (let i = 0; i < students.length; i++) {
+                    let pk = students[i].pk;
+                    let student = students[i].fields;
+                    html += '<tr id="' + pk + '" ><td>' + pk + '</td><td>' + student.crn + '</td><td>' + student.full_name + '</td><td>' + student.Father_name + '</td><td>' + student.Mother_name + '</td><td>' + student.Contact + '</td><td>' + student.email + '</td></tr>';
+                }
+            } else {
+                html += '<tr><td colspan="7"><center><b>No records</b></center></td></tr>';
             }
             $('tbody').html(html);
         }

@@ -49,7 +49,7 @@ $(document).ready(function () {
 
 
     $('#updateHod').click(function () {
-
+        $('#updateHod').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
         let id = '#' + $('#dep').val();
         $.ajax({
             type: "POST",
@@ -65,6 +65,7 @@ $(document).ready(function () {
                 if (data.success) {
                     alert('Hod updated');
                     $(id).children('td').eq(1).html(data.hod);
+                    $('#updateHod').html('Update');
                 }
             }
         });
@@ -75,7 +76,7 @@ $(document).ready(function () {
     });
 
     $('#addDep').click(function () {
-
+        $('#addDep').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
@@ -92,6 +93,7 @@ $(document).ready(function () {
                             + "' onclick='setdep(this.id)' data-target='#edit'>Edit</button ></td><td><button type='submit' id='" + data.deptid + "' onclick='deleteDep(this.id)' class='btn btn-danger'>Delete</button></td></tr > ";
                         $('tbody').append(html);
                         alert('Departments updated');
+                        $('#updateHod').html('Add');
                     } else {
                         alert('Department already exists')
                     }

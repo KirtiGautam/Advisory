@@ -47,7 +47,7 @@ function search(value = '') {
 $(document).ready(function () {
 
     $('#updateMentor').click(function () {
-
+        $('#updateMentor').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
@@ -60,13 +60,14 @@ $(document).ready(function () {
             success: function (data) {
                 if (data.success) {
                     alert('Change successful');
+                    $('#updateHod').html('Update');
                 }
             }
         });
     });
 
     $('#addClass').click(function () {
-
+        $('#addClass').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
@@ -89,6 +90,7 @@ $(document).ready(function () {
                     } else {
                         alert('Class already exists')
                     }
+                    $('#updateHod').html('Add');
                 }
             }
         });
