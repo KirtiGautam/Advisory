@@ -9,22 +9,27 @@
 
 <body>
     <div id="content">
-        <div class="d-flex justify-content-around mt-5">
-            {% if request.user.admin %}
-            <select id="ABatch">
-                <option value="ALL">All classes</option>
-                {% for key in Class %}
-                <option value="{{key.id}}">{{key.section}} ({{key.batch}})</option>
-                {% endfor %}
-            </select>
-            {% endif %}
-            <div class="input-group col-6">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="sea"><span class="fas fa-search"></span></span>
+        <div class="container">
+            <div class="row">
+                {% if request.user.admin %}
+                <select class="custom-select col-lg-2 col-md-3 col-sm-6 col-xs-12 mt-3 mb-3" id="ABatch">
+                    <option value="ALL" selected>All classes</option>
+                    {% for key in Class %}
+                    <option value="{{key.id}}">{{key.section}} ({{key.batch}})</option>
+                    {% endfor %}
+                </select>
+                {% endif %}
+                <div class="input-group col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-3 mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="sea"><span class="fas fa-search"></span></span>
+                    </div>
+                    <input type="search" class="form-control" placeholder="Search here ..." id="SSB"
+                        onkeyup="searchStu(this.value)">
                 </div>
-                <input type="search" class="form-control" placeholder="Search here ..." id="SSB" onkeyup="searchStu(this.value)">
+                <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 mt-3 mb-3">
+                    <button type="submit" id="downloadStu" class="btn btn-primary">Download as Excel</button>
+                </div>
             </div>
-            <button type="submit" id="downloadStu" class="btn btn-primary">Download as Excel</button>
         </div>
         <div class="container-fluid contain mt-5">
             <table class="table table-striped" id='stusearch'>
@@ -53,7 +58,8 @@
                         <div class="navbar d-flex justify-content-center">
                             <button class="mr-2" id="studDet">Personal Details</button>
                             <button class="mr-2" id="pareDet">Parent's Details</button>
-                            <button id="markDet">Marks Details</button>
+                            <button class="mr-2" id="markDet">Marks Details</button>
+                            <button id="actiDet">Activity Details</button>
                             <form action="{% url 'Mentor:updateSProf' %}" method="POST">
                                 {% csrf_token %}
                                 <input type="hidden" name="student" class="urn">
@@ -91,12 +97,40 @@
                                     <h6 id="Mother_name" class="h6"></h6>
                                 </div>
                                 <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
+                                    <h6 class="mr-3">Branch :</h6>
+                                    <h6 id="name" class="h6"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
+                                    <h6 class="mr-3">Semester :</h6>
+                                    <h6 id="batch" class="h6"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
+                                    <h6 class="mr-3">Living :</h6>
+                                    <h6 id="living" class="h6"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
+                                    <h6 class="mr-3">D.O.B. :</h6>
+                                    <h6 id="dob" class="h6"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
                                     <h6 class="mr-3">Contact Number :</h6>
                                     <h6 id="Contact" class="h6"></h6>
                                 </div>
                                 <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
                                     <h6 class="mr-3">E-Mail ID :</h6>
                                     <h6 id="email" class="h6"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
+                                    <h6 class="mr-3">10th Marks :</h6>
+                                    <h6 id="X_marks" class="h6"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
+                                    <h6 class="mr-3">12th Marks:</h6>
+                                    <h6 id="XII_marks" class="h6"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
+                                    <h6 class="mr-3">Diploma Marks :</h6>
+                                    <h6 id="diploma_marks" class="h6"></h6>
                                 </div>
                                 <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
                                     <h6 class="mr-3">Blood Group :</h6>
@@ -114,17 +148,25 @@
                                     <h6 class="mr-3">Weight (kg) :</h6>
                                     <h6 id="weight" class="h6"></h6>
                                 </div>
-                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <h6 class="mr-3">Branch :</h6>
-                                    <h6 id="name" class="h6"></h6>
+                                <hr>
+                                <div class="col-12">
+                                    <h5>Current Address</h5>
                                 </div>
                                 <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <h6 class="mr-3">Semester :</h6>
-                                    <h6 id="batch" class="h6"></h6>
+                                    <h6 class="mr-3">Address :</h6>
+                                    <h6 id="Address" class="h6"></h6>
                                 </div>
                                 <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <h6 class="mr-3">Living :</h6>
-                                    <h6 id="living" class="h6"></h6>
+                                    <h6 class="mr-3">City :</h6>
+                                    <h6 id="City" class="h6"></h6>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
+                                    <h6 class="mr-3">State :</h6>
+                                    <h6 id="State" class="h6"></h6>
+                                </div>
+                                <hr>
+                                <div class="col-12">
+                                    <h5>Permanent Address</h5>
                                 </div>
                                 <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
                                     <h6 class="mr-3">Address :</h6>
@@ -154,10 +196,6 @@
                                     <h6 class="mr-3">Contact Number :</h6>
                                     <h6 id="Father_contact" class="h6"></h6>
                                 </div>
-                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <h6 class="mr-3">Occupation :</h6>
-                                    <h6 id="f_occupation" class="h6"></h6>
-                                </div>
                                 <hr>
                                 <div class="col-12">
                                     <h5>Mother's Details</h5>
@@ -173,13 +211,10 @@
                                     <h6 class="mr-3">Contact Number :</h6>
                                     <h6 id="Mother_contact" class="h6"></h6>
                                 </div>
-                                <div class="col-lg-6 col-sm-12 col-xs-12 d-flex">
-                                    <h6 class="mr-3">Occupation :</h6>
-                                    <h6 id="m_occupation" class="h6"></h6>
-                                </div>
                             </div>
                         </div>
-                        <div id="marDet" name="marDet">None</div>
+                        <div id="marDet" name="marDet"></div>
+                        <div id="actDet"></div>
                     </div>
                 </div>
             </div>

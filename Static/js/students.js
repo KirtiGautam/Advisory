@@ -1,4 +1,3 @@
-$('student').addClass('act');
 
 let token = $('meta[name="csrf-token"]').attr('content');
 
@@ -47,6 +46,10 @@ $(document).ready(function () {
 
     $('#markDet').click(function () {
         $("#Details").html($("#marDet").html());
+    });
+
+    $('#actiDet').click(function () {
+        $("#Details").html($("#actDet").html());
     });
 
     $('#AS').click(function () {
@@ -161,9 +164,9 @@ function setStuMarks(diploma, marks, sem) {
                 }
             }
         }
-        html += '<tr><td colspan="5">Semester SGPA = ';
+        html += '<tr><td colspan="2">Semester SGPA = ';
         html += active_backs != 0 ? 'Fail' : (sgpa / credits);
-        html += '   Semester Credits earned = ' + credits + '  Passive backs = ' + passive_backs + '  Active backs = ' + active_backs + '</td>';
+        html += '</td><td>Semester Credits earned = ' + credits + '</td><td>Passive backs = ' + passive_backs + '</td><td>Active backs = ' + active_backs + '</td>';
         SGPA += sgpa;
         Credits += credits;
         Active_backs += active_backs;
@@ -174,7 +177,6 @@ function setStuMarks(diploma, marks, sem) {
     html += ' Aggregate Credits earned = ' + Credits + ' Active Backlogs = ' + Active_backs + ' Passive Backlogs = ' + Passive_backs + '</h4>';
     $('#marDet').html(html);
 }
-
 
 function setStuDetails(urn, student, Class, Department, sem) {
     for (let x in student)

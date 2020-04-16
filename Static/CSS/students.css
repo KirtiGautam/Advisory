@@ -21,11 +21,11 @@ th {
 
 tr:hover {
     cursor: pointer;
-    background-color: slategray !important;
+    background-color: #C8CBCC !important;
 }
 
 .navbar {
-    background-color: #009B68;
+    background-color: #292B2C;
 }
 
 .navbar button {
@@ -37,18 +37,18 @@ tr:hover {
     background: transparent;
     outline: transparent;
     border: none;
-    color: #F0AD4E;
+    color: #A1A3A5;
 }
 
 .navbar button:hover {
-    background-color: #00D39B;
-    color: #504538;
+    background-color: #A1A3A5;
+    color: #292B2C;
     transition: 0.4s;
 }
 
 .navbar .act {
-    color: #00D39B;
-    background-color: #504538;
+    color: #A1A3A5;
+    background-color: #292B2C;
 }
 
 .modal-body #stuDet {
@@ -65,7 +65,7 @@ tr:hover {
 
 .modal-body hr {
     width: 100%;
-    border: 1px solid #471A00 !important;
+    border: 1px solid #4E5051 !important;
     size: 5;
 }
 
