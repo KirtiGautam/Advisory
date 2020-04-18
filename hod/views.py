@@ -88,6 +88,9 @@ def createClass(request):
 def updateClass(request):
     if 'user' in request.session:
         clas = Class.objects.get(id=request.POST['id'])
+        if request.user.teacher.department.id != request.POST['department']:
+            clas.department = department.objects.get(
+                id=request.POST['department'])
         try:
             prev = Users.objects.get(teacher=clas.Mentor)
             prev.delete()
@@ -96,8 +99,11 @@ def updateClass(request):
         teach = teachers.objects.get(id=request.POST['Mentor'])
         clas.Mentor = teach
         clas.save()
-        Users.objects.create_user(
-            username=teach.full_name, password=teach.full_name, teacher=teach)
+        obj, created = Users.objects.get_or_create(
+            username=teach.full_name, teacher=teach)
+        if created:
+            obj.set_password(teach.full_name)
+            obj.save()
         c = {'id': clas.id, 'section': clas.section,
              'Mentor': str(clas.Mentor), 'batch': clas.batch}
         data = {
@@ -136,7 +142,8 @@ def mentor(request):
     if 'user' in request.session:
         depart = request.user.teacher.department
         context = {
-            'mentor': Class.objects.filter(department=depart)
+            'mentor': Class.objects.filter(department=depart),
+            'departments': department.objects.all(),
         }
         return render(request, 'Admin/Mentor.html', context)
     else:

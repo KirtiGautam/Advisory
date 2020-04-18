@@ -13,4 +13,5 @@ urlpatterns = [
     path(r'update-student', views.updateStudent, name='updateStudent'),
     path(r'update-sprof', views.updateSProf, name='updateSProf'),
     path(r'updated-sprof', views.updatedStu, name='updatedStu'),
+    path(r'get-pin', views.getPin, name='getpin'),
 ]

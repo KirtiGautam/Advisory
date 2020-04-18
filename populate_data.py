@@ -9,6 +9,8 @@ from faker import Faker
 
 fakegen = Faker()
 import random
+import MySQLdb
+import csv
 
 
 def student(N):
@@ -17,13 +19,13 @@ def student(N):
     sig = ['+', '-']
     liv = ['DAY SCHOLAR', 'HOSTELLER']
     for _ in range(N):
-        mark = [1,2]
-        if (random.choice(mark)==1):
-            mark12=random.uniform(34.00, 99.00)
-            mark10=0
+        mark = [1, 2]
+        if (random.choice(mark) == 1):
+            mark12 = random.uniform(34.00, 99.00)
+            mark10 = 0
         else:
-            mark10=random.uniform(34.00, 99.00)
-            mark12=0
+            mark10 = random.uniform(34.00, 99.00)
+            mark12 = 0
         print([mark10, mark12])
         stu = students.objects.create(
             urn=random.randint(1000000, 2000000),
@@ -70,9 +72,41 @@ def teacher(N):
         teach.save()
 
 
+def pin():
+    mydb = MySQLdb.connect(
+        host="localhost",
+        user="root",
+        passwd="",
+        database="advisory"
+    )
+
+    mycursor = mydb.cursor()
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    sql = "INSERT INTO advisor_pincodes (Pincode, District, State) VALUES (%s, %s, %s)"
+    line_count = 0
+    with open(os.path.join(BASE_DIR,  'Advisory\\pincodes.csv'), 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        print('Adding pincode data, Please wait .....')
+        for row in csv_reader:
+            if line_count == 0:
+                print(", ".join(row))
+                line_count += 1
+            else:
+                val = (row[0], row[1], row[2])
+                mycursor.execute(sql, val)
+                line_count += 1
+        print(line_count)
+
+    mydb.commit()
+
+    print(line_count, " record inserted.")
+
+
 if __name__ == '__main__':
 
-    print('Populating Data....')
-    student(25)
+    print('Populating Table Data....')
+    # student(25)
     # teacher(100)
     print('Done')
+    pin()

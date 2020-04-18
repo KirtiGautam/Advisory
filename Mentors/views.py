@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from Advisor.models import students, Class, department, detailed_Marks, Subjects
+from Advisor.models import students, Class, department, detailed_Marks, Subjects, Pincodes
 from django.http import JsonResponse, FileResponse, HttpResponse
 from django.core import serializers
 from django.db.models import Count
@@ -12,6 +12,18 @@ import json
 
 def imageStu(request):
     return render(request, 'Mentors/uploadImage.html')
+
+
+def getPin(request):
+    if 'user' in request.session:
+        pins = Pincodes.objects.filter(Pincode=request.POST['id'])
+        data = {
+            'success': True,
+            'City': pins[0].District.title(),
+            'District': pins[0].District.title(),
+            'State': pins[0].State.title(),
+        }
+        return JsonResponse(data)
 
 
 def index(request):

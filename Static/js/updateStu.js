@@ -1,3 +1,5 @@
+let token = $('meta[name="csrf-token"]').attr('content');
+
 function valStu(data) {
     for (let x in data) {
         if (data[x] == '') {
@@ -16,4 +18,25 @@ function valStu(data) {
         return false;
     }
     return true;
+}
+
+function getPin(pincode) {
+    if (pincode.length == 6) {
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": token },
+            url: '/get-pin',
+            data: {
+                'id': pincode,
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    document.getElementsByName('City')[0].value = data.City;
+                    document.getElementsByName('State')[0].value = data.State;
+                    document.getElementsByName('District')[0].value = data.District;
+                }
+            }
+        });
+    }
 }

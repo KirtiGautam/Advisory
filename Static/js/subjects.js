@@ -23,6 +23,7 @@ $(document).ready(function () {
     $('#subjects').addClass('act');
 
     $('#addSubjects').click(function () {
+        $('#addSubjects').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
@@ -48,6 +49,7 @@ $(document).ready(function () {
                 } else {
                     alert(data.message);
                 }
+                $('#addSubjects').html('Add');
             }
         });
     });

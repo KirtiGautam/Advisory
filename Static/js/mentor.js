@@ -55,13 +55,14 @@ $(document).ready(function () {
             data: {
                 'Mentor': $('#teachers').val(),
                 'id': $('#class').val(),
+                'department': $('#DOC').val(),
             },
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
                     alert('Change successful');
-                    $('#updateHod').html('Update');
                 }
+                $('#updateMentor').html('Update');
             }
         });
     });

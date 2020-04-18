@@ -1,5 +1,4 @@
 function check() {
-    $('.login-btn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
     if ($('#username').val() == '') {
         alert('Username cannot be empty');
         $("#username").focus();
@@ -9,5 +8,6 @@ function check() {
         $("#password").focus();
         return false
     }
+    $('.login-btn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
     return true;
 }

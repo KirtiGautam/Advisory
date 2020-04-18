@@ -50,6 +50,14 @@
                             <input type="search" class="form-control" placeholder="Search here ..." id="search"
                                 onkeyup="search(this.value)">
                         </div>
+                        <div class="input-group">
+                            <label for="hods" class="col-6 mt-2 mb-2">Transfer Department</label>
+                            <select class="form-control" id="DOC">
+                                {% for key in departments %}
+                                <option value="{{key.id}}">{{key.name|title}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                         <input type="hidden" id="class">
                         <div class="input-group">
                             <label for="hods" class="col-6 mt-2 mb-2">Name</label>
@@ -101,5 +109,10 @@
         </div>
     </div>
 </body>
+<script>
+    $(document).ready(function () {
+        $('#DOC').val({{ request.user.teacher.department.id }});
+    });
+</script>
 <script src="{% static 'js/mentor.js' %}"></script>
 {% endblock %}

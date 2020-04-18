@@ -65,8 +65,8 @@ $(document).ready(function () {
                 if (data.success) {
                     alert('Hod updated');
                     $(id).children('td').eq(1).html(data.hod);
-                    $('#updateHod').html('Update');
                 }
+                $('#updateHod').html('Update');
             }
         });
     });
@@ -93,11 +93,11 @@ $(document).ready(function () {
                             + "' onclick='setdep(this.id)' data-target='#edit'>Edit</button ></td><td><button type='submit' id='" + data.deptid + "' onclick='deleteDep(this.id)' class='btn btn-danger'>Delete</button></td></tr > ";
                         $('tbody').append(html);
                         alert('Departments updated');
-                        $('#updateHod').html('Add');
                     } else {
                         alert('Department already exists')
                     }
                 }
+                $('#addDep').html('Add');
             }
         });
     });

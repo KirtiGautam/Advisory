@@ -146,3 +146,9 @@ class Users(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return str(self.teacher)
+
+
+class Pincodes(models.Model):
+    Pincode =  models.PositiveIntegerField(primary_key=True)
+    District = models.CharField(max_length=255)
+    State = models.CharField(max_length=255)
