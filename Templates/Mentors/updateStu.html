@@ -126,35 +126,73 @@
                 type="number" value="{{ student.Mother_contact }}">
         </div>
     </div>
+    <h1>Permanent Address</h1>
     <div class="d-flex">
         <div class="input-group justify-content-start">
             <label for="address" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3">Address</label>
-            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 address" name="Address" type="text"
-                value="{{ student.Address }}">
+            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 address" name="PAddress" type="text"
+                value="{{ student.PAddress }}">
         </div>
         <div class="input-group input-group justify-content-end">
             <label for="pin" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3">Pin Code</label>
-            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 pin" name="Pincode" type="number" onkeyup="getPin(this.value)"
-                value="{{ student.Pincode }}">
+            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 pin" name="PPincode" type="number"
+                onkeyup="getPin(this.value,'P')" value="{{ student.PPincode }}">
         </div>
     </div>
     <div class="d-flex">
         <div class="input-group input-group justify-content-start">
             <label for="city" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3">City</label>
-            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 city" name="City" type="text"
-                value="{{ student.City }}">
+            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 city" name="PCity" type="text"
+                value="{{ student.PCity }}">
         </div>
         <div class="input-group input-group justify-content-end">
             <label for="email" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3">District</label>
-            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 email" name="District" type="text"
-                value="{{ student.District }}">
+            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 email" name="PDistrict" type="text"
+                value="{{ student.PDistrict }}">
         </div>
     </div>
     <div class="d-flex">
         <div class="input-group input-group justify-content-start">
             <label for="state" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3">State</label>
-            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 state" name="State" type="text"
-                value="{{ student.State }}">
+            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 state" name="PState" type="text"
+                value="{{ student.PState }}">
+        </div>
+        <div class="input-group input-group justify-content-start">
+            <label for="" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3"></label>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"></div>
+        </div>
+    </div>
+    <hr>
+    <h1>Current Address</h1>
+    <div class="d-flex">
+        <div class="input-group justify-content-start">
+            <label for="address" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3">Address</label>
+            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 address" name="CAddress" type="text"
+                value="{{ student.CAddress }}">
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="pin" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3">Pin Code</label>
+            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 pin" name="CPincode" type="number"
+                onkeyup="getPin(this.value,'C')" value="{{ student.CPincode }}">
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="input-group input-group justify-content-start">
+            <label for="city" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3">City</label>
+            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 city" name="CCity" type="text"
+                value="{{ student.CCity }}">
+        </div>
+        <div class="input-group input-group justify-content-end">
+            <label for="email" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3">District</label>
+            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 email" name="CDistrict" type="text"
+                value="{{ student.CDistrict }}">
+        </div>
+    </div>
+    <div class="d-flex">
+        <div class="input-group input-group justify-content-start">
+            <label for="state" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3">State</label>
+            <input class="form-control col-lg-6 col-md-6 col-sm-12 col-xs-12 state" name="CState" type="text"
+                value="{{ student.CState }}">
         </div>
         <div class="input-group input-group justify-content-start">
             <label for="" class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 mb-3"></label>

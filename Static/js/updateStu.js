@@ -20,7 +20,7 @@ function valStu(data) {
     return true;
 }
 
-function getPin(pincode) {
+function getPin(pincode, COP) {
     if (pincode.length == 6) {
         $.ajax({
             type: "POST",
@@ -32,9 +32,9 @@ function getPin(pincode) {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
-                    document.getElementsByName('City')[0].value = data.City;
-                    document.getElementsByName('State')[0].value = data.State;
-                    document.getElementsByName('District')[0].value = data.District;
+                    document.getElementsByName(COP + 'City')[0].value = data.City;
+                    document.getElementsByName(COP + 'State')[0].value = data.State;
+                    document.getElementsByName(COP + 'District')[0].value = data.District;
                 }
             }
         });
