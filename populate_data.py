@@ -45,11 +45,16 @@ def student(N):
             Father_contact=random.randint(1000000000, 99999999999),
             Mother_name=fakegen.name(),
             Mother_contact=random.randint(1000000000, 99999999999),
-            Address=fakegen.address(),
-            City=fakegen.city(),
-            State=fakegen.state(),
-            District=fakegen.city(),
-            Pincode=random.randint(100000, 999999),
+            PAddress=fakegen.address(),
+            PCity=fakegen.city(),
+            PState=fakegen.state(),
+            PDistrict=fakegen.city(),
+            PPincode=random.randint(100000, 999999),
+            CAddress=fakegen.address(),
+            CCity=fakegen.city(),
+            CState=fakegen.state(),
+            CDistrict=fakegen.city(),
+            CPincode=random.randint(100000, 999999),
             Contact=random.randint(1000000000, 99999999999),
             email=fakegen.email(),
             Class=Class.objects.get(id=1))
@@ -106,7 +111,7 @@ def pin():
 if __name__ == '__main__':
 
     print('Populating Table Data....')
-    # student(25)
+    student(25)
     # teacher(100)
     print('Done')
     pin()

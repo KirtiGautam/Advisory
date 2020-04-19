@@ -17,12 +17,17 @@ def imageStu(request):
 def getPin(request):
     if 'user' in request.session:
         pins = Pincodes.objects.filter(Pincode=request.POST['id'])
-        data = {
-            'success': True,
-            'City': pins[0].District.title(),
-            'District': pins[0].District.title(),
-            'State': pins[0].State.title(),
-        }
+        if len(pins) == 1:
+            data = {
+                'success': True,
+                'City': pins[0].District.title(),
+                'District': pins[0].District.title(),
+                'State': pins[0].State.title(),
+            }
+        else:
+            data = {
+                'success': False
+            }
         return JsonResponse(data)
 
 
