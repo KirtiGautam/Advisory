@@ -111,7 +111,7 @@ def pin():
 if __name__ == '__main__':
 
     print('Populating Table Data....')
-    student(25)
-    # teacher(100)
+    student(100)
+    teacher(100)
     print('Done')
     pin()
