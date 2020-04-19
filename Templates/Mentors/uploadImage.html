@@ -38,39 +38,30 @@
     </div>
     <div class="container mt-5" id="imForm">
         <div class="card">
-            <div class="d-flex justify-content-around">
-                <div class="card">
-                    <div class="card-header">
-                        <h1>Student</h1>
-                    </div>
-                    <img id="stuPic" src="" alt="student's image" height="200px" width="200px" />
-                    <div class="card-footer">
-                        <form method="post">
-                            <input type="file" name="studentPic" id="studentPic" onchange='preview(this, "#stuPic");'>
-                        </form>
-                    </div>
+            <div class="card-header">
+                <h1>Upload Pictures</h1>
+            </div>
+            <div class="card-body">
+                <label for="stuPic"><h3>Student</h3></label>
+                <div class="input-group">
+                    <img id="stuPic" src="" alt="student's image" height="100px" width="100px" />
+                    <form method="post">
+                        <input type="file" name="studentPic" id="studentPic" class="col-12" onchange='preview(this, "#stuPic");'>
+                    </form>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h1>Father</h1>
-                    </div>
-                    <img id="fathPic" src="" alt="father image" height="200px" width="200px" />
-                    <div class="card-footer">
-                        <form method="post">
-                            <input type="file" name="FatherPic" id="FatherPic" onchange='preview(this, "#fathPic");'>
-                        </form>
-                    </div>
+                <label for="fathPic"><h3>Father</h3></label>
+                <div class="input-group">
+                    <img id="fathPic" src="" alt="father image" height="100px" width="100px" />
+                    <form method="post">
+                        <input type="file" name="FatherPic" id="FatherPic" class="col-12" onchange='preview(this, "#fathPic");'>
+                    </form>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h1>Mother</h1>
-                    </div>
-                    <img id="mothPic" src="" alt="mother image" height="200px" width="200px" />
-                    <div class="card-footer">
-                        <form method="post">
-                            <input type="file" name="MotherPic" id="MotherPic" onchange='preview(this, "#mothPic");'>
-                        </form>
-                    </div>
+                <label for="mothPic"><h3>Mother</h3></label>
+                <div class="input-group">
+                    <img id="mothPic" src="" alt="mother image" height="100px" width="100px" />
+                    <form method="post">
+                        <input type="file" name="MotherPic" id="MotherPic" class="col-12" onchange='preview(this, "#mothPic");'>
+                    </form>
                 </div>
             </div>
             <div class="card-footer">

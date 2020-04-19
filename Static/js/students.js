@@ -142,14 +142,14 @@ function setStuMarks(diploma, marks, sem) {
     let Passive_backs = 0;
     let html = '';
     html += '<table class="table table-hover table-bordered">';
-    html += '<thead class="thead-dark"><tr><th>Subject Code</th><th>Subject Name</th><th>Grade</th><th>Examination Date</th><th>Credits</tr></thead>';
+    html += '<thead class="thead-dark text-center"><tr><th>Subject Code</th><th>Subject Name</th><th>Grade</th><th>Examination Date</th><th>Credits</tr></thead>';
     html += '<tbody>'
     for (let i = (diploma == 0) ? 1 : 3; i < sem; i++) {
         let credits = 0;
         let sgpa = 0;
         let active_backs = 0;
         let passive_backs = 0;
-        html += '<tr class="table-dark"><td colspan="5">Semester' + i + '</td></tr>';
+        html += '<tr class="table-active"><td colspan="5">Semester' + i + '</td></tr>';
         for (let x in marks) {
             if (marks[x].semester == i) {
                 if (marks[x].Sgpa != 0) {
@@ -168,17 +168,17 @@ function setStuMarks(diploma, marks, sem) {
                 }
             }
         }
-        html += '<tr><td colspan="2">Semester SGPA = ';
+        html += '<tr class="table-primary"><td colspan="2">Semester SGPA : ';
         html += active_backs != 0 ? 'Fail' : (sgpa / credits);
-        html += '</td><td>Semester Credits earned = ' + credits + '</td><td>Passive backs = ' + passive_backs + '</td><td>Active backs = ' + active_backs + '</td>';
+        html += '</td><td>Semester Credits earned : ' + credits + '</td><td>Passive backs : ' + passive_backs + '</td><td>Active backs : ' + active_backs + '</td>';
         SGPA += sgpa;
         Credits += credits;
         Active_backs += active_backs;
         Passive_backs += passive_backs;
     }
-    html += '</tbody></table><h4>Aggregate SGPA : ';
+    html += '<tr class="table-success"><td colspan="2">Aggregate SGPA : ';
     html += Active_backs != 0 ? 'Fail' : (SGPA / Credits);
-    html += ' Aggregate Credits earned = ' + Credits + ' Active Backlogs = ' + Active_backs + ' Passive Backlogs = ' + Passive_backs + '</h4>';
+    html += '</td><td> Aggregate Credits earned : ' + Credits + '</td><td> Passive Backlogs : ' + Passive_backs + '</td><td> Active Backlogs : ' + Active_backs + '</td></tbody></table>';
     $('#marDet').html(html);
 }
 
