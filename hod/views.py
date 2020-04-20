@@ -189,3 +189,17 @@ def updatePerms(request):
             'user': user.teacher.full_name,
         }
         return JsonResponse(data)
+
+
+def removePermission(request):
+    if 'user' in request.session:
+        perm = Permission.objects.get(codename=request.POST['permission'])
+        user = Users.objects.filter(
+            user_permissions=perm, teacher__department=request.user.teacher.department)
+        for u in user:
+            u.user_permissions.remove(perm)
+            u.save()
+        data = {
+            'success': True,
+        }
+        return JsonResponse(data)

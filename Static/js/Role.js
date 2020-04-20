@@ -23,6 +23,29 @@ function set(permission) {
     search();
 }
 
+function removePerm(permission) {
+    $.ajax({
+        type: "POST",
+        headers: { "X-CSRFToken": token },
+        url: '/remove-permission',
+        data: {
+            'permission': permission,
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
+            if (data.success) {
+                if (permission == 'can_upload_students') {
+                    $("#CUS").find("td:eq(1)").text('None');
+                } else {
+                    $("#CAM").find("td:eq(1)").text('None');
+                }
+                alert('Permission removed')
+            }
+        }
+    });
+}
+
 
 $(document).ready(function () {
     $('#Role').addClass('act');
@@ -39,7 +62,12 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 console.log(data)
-                if(data.success){
+                if (data.success) {
+                    if ($('#perm').val() == 'can_upload_students') {
+                        $("#CUS").find("td:eq(1)").text(data.user);
+                    } else {
+                        $("#CAM").find("td:eq(1)").text(data.user);
+                    }
                     alert('Permission added')
                 }
             }
