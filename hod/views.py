@@ -69,17 +69,18 @@ def subjects(request):
 def createClass(request):
     if 'user' in request.session:
         teach = teachers.objects.get(id=request.POST['Mentor'])
-        clas, created = Class.objects.get_or_create(
+        clas, Ccreated = Class.objects.get_or_create(
             section=request.POST['section'], batch=request.POST['batch'], department=request.user.teacher.department, Mentor=teach)
         obj, created = Users.objects.get_or_create(
             username=teach.full_name, teacher=teach)
-        obj.set_password(teach.full_name)
-        obj.save()
+        if not created:
+            obj.set_password(teach.full_name)
+            obj.save()
         c = {'id': clas.id, 'section': clas.section,
              'Mentor': str(clas.Mentor), 'batch': clas.batch}
         data = {
             'success': True,
-            'created': created,
+            'created': Ccreated,
             'Class': c,
         }
         return JsonResponse(data)
@@ -154,7 +155,7 @@ def role(request):
     if 'user' in request.session:
         perm = Permission.objects.get(codename='can_upload_students')
         useru = Users.objects.filter(
-            Q(groups__permissions=perm) | Q(user_permissions=perm)).distinct().first()
+            Q(groups__permissions=perm) | Q(user_permissions=perm)).filter(teacher__department=request.user.teacher.department).distinct().first()
         perm = Permission.objects.get(codename='can_assign_mentors')
         usera = Users.objects.filter(
             Q(groups__permissions=perm) | Q(user_permissions=perm)).distinct().first()
@@ -165,3 +166,26 @@ def role(request):
         return render(request, 'Admin/role.html', context)
     else:
         return redirect('Advisor:index')
+
+
+def updatePerms(request):
+    if 'user' in request.session:
+        teacher = teachers.objects.get(id=request.POST['teach'])
+        user, created = Users.objects.get_or_create(
+            username=teacher.full_name, teacher=teacher)
+        if created:
+            user.set_password(teacher.full_name)
+            user.save()
+        perm = Permission.objects.get(codename=request.POST['permission'])
+        prev_user = Users.objects.filter(
+            user_permissions=perm, teacher__department=request.user.teacher.department)
+        for u in prev_user:
+            u.user_permissions.remove(perm)
+            u.save()
+        user.user_permissions.add(perm)
+        user.save()
+        data = {
+            'success': True,
+            'user': user.teacher.full_name,
+        }
+        return JsonResponse(data)

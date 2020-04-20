@@ -14,4 +14,5 @@ urlpatterns = [
     path(r'create-class', views.createClass, name='createClass'),
     path(r'delete-class', views.deleteClass, name='deleteClass'),
     path(r'get-teachers', views.getTeachers, name='getTeachers'),
+    path(r'update-permission', views.updatePerms, name='addpermission'),
 ]

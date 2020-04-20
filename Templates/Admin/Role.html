@@ -21,13 +21,13 @@
                 <tr>
                     <td>Upload Student Data</td>
                     <td>{{ can_upload }}</td>
-                    <td><button class="btn btn-info edit" data-toggle="modal" data-target="#edit">Edit</button></td>
+                    <td><button class="btn btn-info edit" data-toggle="modal" data-target="#edit" onclick="set('can_upload_students')">Edit</button></td>
                     <td><button type="submit" class="btn btn-danger">Delete</button></td>
                 </tr>
                 <tr>
                     <td>Assign mentors</td>
                     <td>{{ can_assign }}</td>
-                    <td><button class="btn btn-info edit" data-toggle="modal" data-target="#edit">Edit</button></td>
+                    <td><button class="btn btn-info edit" data-toggle="modal" data-target="#edit" onclick="set('can_assign_mentors')">Edit</button></td>
                     <td><button type="submit" class="btn btn-danger">Delete</button></td>
                 </tr>
             </tbody>

@@ -91,7 +91,7 @@ $(document).ready(function () {
                     } else {
                         alert('Class already exists')
                     }
-                    $('#updateHod').html('Add');
+                    $('#addClass').html('Add');
                 }
             }
         });

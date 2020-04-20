@@ -30,12 +30,14 @@
                     <a href="{% url 'Mentor:students' %}"><span class="fas fa-user-graduate mr-2"></span> Students</a>
                 </li>
                 {% endif %}
+                {% if perms.Advisor.can_assign_mentors or request.user.admin %}
+                <li id="Mentor">
+                    <a href="{% url 'Admin:mentor' %}"><span class="fas fa-users mr-2"></span> Mentors</a>
+                </li>
+                {% endif %}
                 {% if user.admin %}
                 <li id="Role">
                     <a href="{% url 'Admin:role' %}"><span class="fas fa-user-friends mr-2"></span> Role</a>
-                </li>
-                <li id="Mentor">
-                    <a href="{% url 'Admin:mentor' %}"><span class="fas fa-users mr-2"></span> Mentors</a>
                 </li>
                 {% elif user.is_superuser %}
                 <li id="editAdmin">

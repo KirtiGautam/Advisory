@@ -59,7 +59,13 @@
             </tr>
         </thead>
         <tbody>
-            {% if subjects %}
+            <tr id="ETR">
+                <td colspan="{% if user.is_superuser %} 4 {% else %} 3 {% endif %}">
+                    <center>
+                        No data to show, Add a single subject or upload csv
+                    </center>
+                </td>
+            </tr>
             {% for key in subjects %}
             <tr id="{{key.sub_code}}">
                 <td>{{key.sub_code}}</td>
@@ -71,18 +77,16 @@
                         onclick="deleteSubject(this.id)">Delete</button></td>
             </tr>
             {% endfor %}
-            {% else %}
-            <tr>
-                <td colspan="{% if user.is_superuser %} 4 {% else %} 3 {% endif %}">
-                    <center>
-                        No data to show, Add a single subject or upload csv
-                    </center>
-                </td>
-            </tr>
-            {% endif %}
         </tbody>
     </table>
 </div>
+{% if subjects %}
+<script>
+    $(document).ready(function () {
+        $('#ETR').hide();
+    });
+</script>
+{% endif %}
 <script src="{% static 'js/subjects.js' %}"></script>
 
 {% endblock %}

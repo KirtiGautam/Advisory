@@ -40,11 +40,11 @@ $(document).ready(function () {
                     html = '<tr id="' + $('#sub_code').val() + '"><td>' + $('#sub_code').val() + '</td><td>' + $('#Name').val();
                     html += (data.superuser) ? '</td><td>' + data.department + '</td>' : '</td>';
                     html += '<td><button type="submit" class="btn btn-danger" id="' + $('#sub_code').val() + '" onclick="deleteSubject(this.id)">Delete</button></td></tr>';
-                    console.log(html);
                     $('tbody').append(html);
                     $('#credits').val('');
                     $('#sub_code').val('');
                     $('#Name').val('');
+                    $('#ETR').hide();
                     alert('Subject added successfully');
                 } else {
                     alert(data.message);

@@ -1,7 +1,5 @@
 let token = $('meta[name="csrf-token"]').attr('content');
 
-$('#Role').addClass('act');
-
 function search(value = '') {
     $.ajax({
         type: "POST",
@@ -20,9 +18,31 @@ function search(value = '') {
     });
 }
 
+function set(permission) {
+    $('#perm').val(permission);
+    search();
+}
+
 
 $(document).ready(function () {
-    $('.edit').click(function () {
-        search();
+    $('#Role').addClass('act');
+
+    $('#updatePerm').click(function () {
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": token },
+            url: '/update-permission',
+            data: {
+                'permission': $('#perm').val(),
+                'teach': $('.teachers').val(),
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                if(data.success){
+                    alert('Permission added')
+                }
+            }
+        });
     });
 });
