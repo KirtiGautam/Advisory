@@ -170,18 +170,13 @@ def notification(request):
     if 'user' in request.session:
         if request.method == 'POST':
             subject = 'Upload your pics'
+            conx ={'host': request.get_host()+'/picture-upload'}
             html_message = render_to_string(
-                'Mails/uploadpic.html', {'context': 'values'})
+                'Mails/uploadpic.html', conx)
             plain_message = strip_tags(html_message)
             from_email = request.user.teacher.full_name
-            # studets = [ key['email'] for key in students.objects.filter(
-            #     urn__in=request.POST.getlist('receiver[]')).values('email')]
-            # print(studets)
             mail.send_mail(subject, plain_message, from_email, [key['email'] for key in students.objects.filter(
                 urn__in=request.POST.getlist('receiver[]')).values('email')], html_message=html_message)
-
-            # send_mail(request.POST['subject'], request.POST['body'], settings.EMAIL_HOST_USER, [
-            # request.POST['receiver']])
             data = {
                 'success': True
             }
