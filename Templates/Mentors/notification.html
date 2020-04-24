@@ -1,0 +1,20 @@
+{% extends 'Master\navbar.html' %}
+{% load static %}
+
+{% block page %}
+
+{% if students %}
+Receiver
+<select id="receiver" multiple='multiple'>
+    {% for key in students %}
+    <option value="{{key.urn}}">{{key.full_name}}</option>
+    {% endfor %}
+</select><br>
+<button type="submit" id="mail">Notify</button>
+{% else %}
+<h1>No students are being mentored by you</h1>
+{% endif %}
+
+<script src="{% static 'js/notification.js' %}"></script>
+
+{% endblock %}

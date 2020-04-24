@@ -1,3 +1,6 @@
+from django.core import mail
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from Advisor.models import students, Class, department, detailed_Marks, Subjects, Pincodes
 from django.http import JsonResponse, FileResponse, HttpResponse
@@ -6,6 +9,10 @@ from django.db.models import Count
 import os
 from PIL import Image
 import json
+from django.conf import settings
+from django.core import mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 
 # Create your views here.
@@ -157,3 +164,32 @@ def updateStudent(request):
         'student': rec,
     }
     return JsonResponse(data)
+
+
+def notification(request):
+    if 'user' in request.session:
+        if request.method == 'POST':
+            subject = 'Upload your pics'
+            html_message = render_to_string(
+                'Mails/uploadpic.html', {'context': 'values'})
+            plain_message = strip_tags(html_message)
+            from_email = request.user.teacher.full_name
+            # studets = [ key['email'] for key in students.objects.filter(
+            #     urn__in=request.POST.getlist('receiver[]')).values('email')]
+            # print(studets)
+            mail.send_mail(subject, plain_message, from_email, [key['email'] for key in students.objects.filter(
+                urn__in=request.POST.getlist('receiver[]')).values('email')], html_message=html_message)
+
+            # send_mail(request.POST['subject'], request.POST['body'], settings.EMAIL_HOST_USER, [
+            # request.POST['receiver']])
+            data = {
+                'success': True
+            }
+            return JsonResponse(data)
+        else:
+            context = {
+                'students': students.objects.filter(Class__Mentor=request.user.teacher).values('urn', 'full_name')
+            }
+            return render(request, 'Mentors/notification.html', context)
+    else:
+        return redirect(request, 'Advisor:index')

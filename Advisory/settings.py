@@ -11,10 +11,14 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import environ
+
+env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -26,7 +30,7 @@ SECRET_KEY = '1h)++rp5^exich=on=qq&wxp81*1esq79@x3ep)^j(%p$k9b*m'
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.43.190', '127.0.0.1',
-                 '[2401:4900:4219:de81:19d2:9324:529f:3626]']
+                 '[2401:4900:4228:a1b7:b8df:7065:e6d9:fb5e]']
 
 
 # Application definition
@@ -78,17 +82,27 @@ WSGI_APPLICATION = 'Advisory.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# print(type(env.str('PASSWORD')))
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, '.env'),
-        },
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': env.db(),
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     # 'OPTIONS': {
+    #     #     'read_default_file':  os.path.join(BASE_DIR, '.env'),
+    #     # },
+    #     # 'ENGINE': 'django.db.backends.sqlite3',
+    #     # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 }
 
+
+EMAIL_BACKEND = env.str('EMAIL_BACKEND')
+EMAIL_HOST = env.str('EMAIL_HOST')
+EMAIL_PORT = env.int('EMAIL_PORT')
+EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
