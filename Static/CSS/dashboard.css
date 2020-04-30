@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.board{
+    background-color: #292B2C;
+    text-align: center;
+    display: block;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: #42474D;
+    border: 2px solid #616470;
+}
+
+.dash a{
+    text-decoration: none;
+    color: #878192;
+}
+
+.dash a:hover {
+    color: #B49EB1;
+    transition: 0.4s;
+}
+
+.dash .act {
+    color: #E3BCCB;
+}
