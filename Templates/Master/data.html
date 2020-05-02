@@ -27,6 +27,23 @@
                 <button type="button" class="btn btn-primary" id='TB'>Upload data</button>
             </div>
         </div>
+        <div class="card mt-2 mb-2">
+            <div class="card-header">
+                <h3>Upload Department Data</h3>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    <div class="input-group p-md-2">
+                        <label for="data" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">Select a .csv file to
+                            upload</label>
+                        <input type="file" name="data" id="DD" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" id='DB'>Upload data</button>
+            </div>
+        </div>
         {% endif %}
         {%if not request.user.is_superuser%}
         {% if request.user.admin or perms.Advisor.can_upload_students %}

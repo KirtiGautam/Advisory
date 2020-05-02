@@ -68,7 +68,7 @@ def subjects(request):
 
 def createClass(request):
     if 'user' in request.session:
-        teach = teachers.objects.get(id=request.POST['Mentor'])
+        teach = teachers.objects.get(EID=request.POST['Mentor'])
         clas, Ccreated = Class.objects.get_or_create(
             section=request.POST['section'], batch=request.POST['batch'], department=request.user.teacher.department, Mentor=teach)
         obj, created = Users.objects.get_or_create(

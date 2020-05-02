@@ -52,6 +52,13 @@ function check(id) {
 $(document).ready(function () {
     $('#dataupload').addClass('act');
 
+    $("#DB").click(function () {
+        if (check('DD')) {
+            $("#DB").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            uploadData('department', 'DD', 'DB');
+        }
+    });
+
     $("#TB").click(function () {
         if (check('TD')) {
             $("#TB").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');

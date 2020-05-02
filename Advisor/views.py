@@ -105,6 +105,13 @@ def uploadData(request):
                             if dm.Sgpa != 0:
                                 dm.passive_back = True
                     dm.save()
+            elif model == 'department':
+                deps = []
+                for d in dat:
+                    name = d.pop('name')
+                    if name != '':
+                        deps.append(department(name=name.lower()))
+                department.objects.bulk_create(deps)
             else:
                 s = []
                 for d in dat:
