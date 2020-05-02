@@ -38,7 +38,7 @@ function searchHOD() {
         success: function (data) {
             let html = '';
             for (let i = 0; i < data.teachers.length; i++)
-                html += '<option value="' + data.teachers[i][1] + '">' + data.teachers[i][0] + ' (' + data.teachers[i][2] + ') ' + '</option>';
+                html += '<option value="' + data.teachers[i].EID + '">' + data.teachers[i].full_name + ' (' + data.teachers[i].contact + ') ' + '</option>';
             $('#hods').html(html);
         }
     });
@@ -46,8 +46,7 @@ function searchHOD() {
 
 $(document).ready(function () {
     $('#editAdmin').addClass('act');
-
-
+    
     $('#updateHod').click(function () {
         $('#updateHod').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
         let id = '#' + $('#dep').val();
@@ -63,6 +62,8 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.success) {
+                    console.log(data.username);
+                    console.log(data.password);
                     alert('Hod updated');
                     $(id).children('td').eq(1).html(data.hod);
                 }

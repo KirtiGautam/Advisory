@@ -2,6 +2,11 @@ from Advisor import views
 from Advisor.models import teachers, department, Users
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+import random
+import string
+from django.core import mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 
 def deletedep(request):
@@ -34,42 +39,52 @@ def updatedeps(request):
 def updatehod(request):
     if 'user' in request.session:
         try:
-            try:
-                prev = teachers.objects.get(
-                    full_name=request.POST['prev'])
-                prev_user = Users.objects.get(teacher=prev)
-                prev_user.admin = False
-                prev_user.save()
-            except teachers.DoesNotExist:
-                print('No such teacheer')
-            next = teachers.objects.get(
-                id=request.POST['id'])
-            user = Users.objects.get(teacher=next)
-            user.admin = True
-            user.save()
-        except Users.DoesNotExist:
-            print('No such User')
-            next = teachers.objects.get(
-                id=request.POST['id'])
-            user = Users.objects.create_admin(
-                username=next.full_name, password=next.full_name, teacher=next)
+            prev = teachers.objects.get(
+                full_name=request.POST['prev'])
+            prev_user = Users.objects.get(teacher=prev)
+            prev_user.admin = False
+            prev_user.save()
+        except teachers.DoesNotExist:
+            print('No such teacheer')
+        next = teachers.objects.get(
+            EID=request.POST['id'])
+        user, created = Users.objects.get_or_create(
+            username=next.EID, teacher=next)
+        if created:
+            password_characters = string.ascii_letters + string.digits + string.punctuation
+            password = ''.join(random.choice(password_characters)
+                               for i in range(random.randint(8, 12)))
+            subject = 'Credentials for E-Advisory'
+            conx = {'host': request.get_host(),
+                    'username': next.EID, 'password': password}
+            html_message = render_to_string(
+                'Mails/usercreatemail.html', conx)
+            plain_message = strip_tags(html_message)
+            from_email = 'E-Advisory Systems'
+            # mail.send_mail(subject, plain_message, from_email, [
+            #                next.email], html_message=html_message)
+            user.set_password(password)
+        user.admin = True
+        user.save()
         hod = department.objects.get(id=request.POST['dept'])
         hod.HOD = next.full_name
         hod.save()
         data = {
             'success': True,
-            'hod': next.full_name
+            'hod': next.full_name,
         }
+        if created:
+            data['username'] = next.EID
+            data['password'] = password
         return JsonResponse(data)
 
 
 def getHods(request):
     if 'user' in request.session:
-        teacher = teachers.objects.raw('''SELECT * FROM advisor_teachers WHERE full_name LIKE "%%''' +
-                                       request.POST['term'] + '''%%" AND department_id = ''' + request.POST['dept'])
-
+        teacher = teachers.objects.filter(full_name__contains=request.POST['term'], department=request.POST['dept']).order_by(
+            'full_name').values('full_name', 'EID', 'contact')
         data = {
-            "teachers": [[teach.full_name, teach.id, teach.contact] for teach in teacher]
+            "teachers": list(teacher)
         }
         return JsonResponse(data)
 

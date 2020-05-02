@@ -13,6 +13,7 @@ class department(models.Model):
 
 
 class teachers(models.Model):
+    EID = models.PositiveIntegerField(primary_key=True)
     full_name = models.CharField(max_length=100)
     GENDER_CHOICES = (
         ('M', 'Male'),
@@ -138,7 +139,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
         teachers,  on_delete=models.CASCADE, default=None, null=True, blank=True)
     username = models.CharField(max_length=50, unique=True)
     admin = models.BooleanField(default=False)
-
+    first_login = models.BooleanField(default=True)
     objects = UserManager()
 
     USERNAME_FIELD = 'username'

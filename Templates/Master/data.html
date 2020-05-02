@@ -28,6 +28,7 @@
             </div>
         </div>
         {% endif %}
+        {%if not request.user.is_superuser%}
         {% if request.user.admin or perms.Advisor.can_upload_students %}
         <div class="card mt-2 mb-2">
             <div class="card-header">
@@ -46,6 +47,7 @@
                 <button type="button" class="btn btn-primary" id="SB">Upload data</button>
             </div>
         </div>
+        {% endif %}
         {% endif %}
         {% if not request.user.is_superuser and not request.user.admin %}
         <div class="card mt-2 mb-2">

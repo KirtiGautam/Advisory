@@ -64,12 +64,14 @@ def student(N):
 def teacher(N):
     lis = ['M', "F"]
     for _ in range(N):
+        id = random.randint(210000, 999999)
         name = fakegen.name()
         email = fakegen.email()
         contact = fakegen.random_number(10)
         gender = random.choice(lis)
         ids = random.randint(1, 4)
-        teach = teachers.objects.create(full_name=name,
+        teach = teachers.objects.create(EID=id,
+                                        full_name=name,
                                         gender=gender,
                                         email=email,
                                         contact=contact,
@@ -110,8 +112,8 @@ def pin():
 
 if __name__ == '__main__':
 
-    print('Populating Table Data....')
-    student(100)
-    teacher(100)
-    print('Done')
+    # print('Populating Table Data....')
+    # student(100)
+    # teacher(100)
+    # print('Done')
     pin()

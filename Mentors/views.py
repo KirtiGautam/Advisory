@@ -9,7 +9,6 @@ from django.db.models import Count
 import os
 from PIL import Image
 import json
-from django.conf import settings
 from django.core import mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -170,7 +169,7 @@ def notification(request):
     if 'user' in request.session:
         if request.method == 'POST':
             subject = 'Upload your pics'
-            conx ={'host': request.get_host()+'/picture-upload'}
+            conx = {'host': request.get_host()+'/picture-upload'}
             html_message = render_to_string(
                 'Mails/uploadpic.html', conx)
             plain_message = strip_tags(html_message)

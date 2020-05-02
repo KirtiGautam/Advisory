@@ -19,21 +19,19 @@
                     {% else %}
                     <h2>{{ user.teacher }}</h2>
                     {% endif %}
-                </center>
-                {% if user.admin or user.is_superuser%}
-                <li id="subjects">
-                    <a href="{% url 'Admin:subjects' %}"><span class="fas fa-book mr-2"></span> Subjects</a>
+                </center>                 
+                <li id="dataupload">
+                    <a href="{% url 'Advisor:uploadData' %}"><span class="fas fa-database mr-2"></span> Data upload</a>
                 </li>
-                {% endif %}
                 {% if not user.is_superuser%}
                 <li id="student">
                     <a href="{% url 'Mentor:students' %}"><span class="fas fa-user-graduate mr-2"></span> Students</a>
                 </li>
-                {% endif %}
                 {% if perms.Advisor.can_assign_mentors or request.user.admin %}
                 <li id="Mentor">
                     <a href="{% url 'Admin:mentor' %}"><span class="fas fa-users mr-2"></span> Mentors</a>
                 </li>
+                {% endif %}
                 {% endif %}
                 {% if user.admin %}
                 <li id="Role">
@@ -41,16 +39,18 @@
                 </li>
                 {% elif user.is_superuser %}
                 <li id="editAdmin">
-                    <a href="{% url 'Super:editAdmin' %}"><span class="fas fa-user-tag mr-2"></span> Edit Admins</a>
+                    <a href="{% url 'Super:editAdmin' %}"><span class="fas fa-user-tag mr-2"></span> Departments</a>
                 </li>
                 {% else %}
                 <li id="notification">
                     <a href="{% url 'Mentor:notification' %}"><span class="fas fa-bell mr-2"></span> Notification</a>
                 </li>
                 {% endif %}
-                <li id="dataupload">
-                    <a href="{% url 'Advisor:uploadData' %}"><span class="fas fa-database mr-2"></span> Data upload</a>
+                {% if user.admin or user.is_superuser%}
+                <li id="subjects">
+                    <a href="{% url 'Admin:subjects' %}"><span class="fas fa-book mr-2"></span> Subjects</a>
                 </li>
+                {% endif %}
                 <li id="settings">
                     <a href="{% url 'Advisor:settings' %}"><span class="fas fa-user-cog mr-2"></span> Settings</a>
                 </li>

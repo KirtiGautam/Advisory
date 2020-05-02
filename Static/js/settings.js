@@ -49,30 +49,33 @@ $(document).ready(function () {
 
     $('#change').click(function (e) {
         e.preventDefault();
-        $('#change').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
-
-        if ($('#new').val() == '' ||
-            $('#renew').val() == '' ||
-            $('#pre').val() == '') {
+        let ne = $('#new').val(), rene = $('#renew').val(), pre = $('#pre').val();        
+        $('#new').val('');
+        $('#renew').val('');
+        $('#pre').val('');
+        if (ne == '' ||
+            rene == '' ||
+            pre == '') {
             alert('Please Fill all values');
             return;
-        } else if ($('#new').val().length < 8) {
+        } else if (ne.length < 8) {
             alert('Passwords cannot be shorter than 8 characters');
             return;
-        } else if ($('#new').val() == $('#pre').val()) {
+        } else if (ne == $('#pre').val()) {
             alert('New Password cannot be same as current');
             return;
-        } else if ($('#new').val() !=
-            $('#renew').val()) {
+        } else if (ne !=
+            rene) {
             alert("Passwords don't match");
             return;
         }
+        $('#change').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
         $.ajax({
             type: "POST",
             headers: { "X-CSRFToken": token },
             url: '/change-password',
             data: {
-                'password': $('#new').val(),
+                'password': ne,
                 'pre': $('#pre').val(),
             },
             dataType: 'json',
@@ -86,8 +89,5 @@ $(document).ready(function () {
                 $('#change').html('Change Password');
             }
         });
-        $('#new').val('');
-        $('#renew').val('');
-        $('#pre').val('');
     });
 });

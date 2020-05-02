@@ -12,4 +12,5 @@ urlpatterns = [
     path(r'change-password', views.changePass, name='changeP'),
     path(r'upload-data', views.uploadData, name='uploadData'),
     path(r'user-pic', views.UserPic, name='UserPic'),
+    path(r'welcome', views.firstlogin, name='firstlogin'),
 ]

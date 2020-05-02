@@ -21,9 +21,15 @@ def index(request):
                 username=request.POST['username'],
                 password=request.POST['password'])
             if user is not None:
-                login(request, user)
-                request.session['user'] = str(user.id)
-                return redirect('Advisor:dashboard')
+                if user.first_login and not user.is_superuser:
+                    teacher = teachers.objects.values('full_name').get(
+                        EID=user.teacher.EID)
+                    print(teacher)
+                    return render(request, 'Master/firstlogin.html', {'username': request.POST['username'], 'name': teacher['full_name']})
+                else:
+                    login(request, user)
+                    request.session['user'] = str(user.id)
+                    return redirect('Advisor:dashboard')
             else:
                 context = {
                     'failed': True,
@@ -34,6 +40,19 @@ def index(request):
                 'failed': False,
             }
             return render(request, 'Master/login.html', context)
+
+
+def firstlogin(request):
+    if request.method == 'POST':
+        user = Users.objects.get(username=request.POST['username'])
+        user.set_password(request.POST['password'])
+        user.first_login = False
+        user.save()
+        login(request, user)
+        request.session['user'] = str(user.id)
+        return redirect('Advisor:dashboard')
+    else:
+        return redirect('Advisor:index')
 
 
 def dashboard(request):
@@ -62,11 +81,12 @@ def uploadData(request):
             dat = json.loads(request.POST['tdata'])
             model = request.POST['model']
             if model == 'teachers':
+                t = []
                 for d in dat:
                     dep = department.objects.get(
                         name=d.pop('department').lower())
-                    t = teachers(department=dep, **d)
-                    t.save()
+                    t.append(teachers(department=dep, **d))
+                teachers.objects.bulk_create(t)
             elif model == 'marks':
                 for d in dat:
                     urn = d.pop('urn')
@@ -86,14 +106,15 @@ def uploadData(request):
                                 dm.passive_back = True
                     dm.save()
             else:
+                s = []
                 for d in dat:
                     clas = Class.objects.get(section=d.pop(
                         'section'), batch=d.pop('batch'), department=request.user.teacher.department)
                     cr_date = datetime.strptime(
                         d.pop('dob'), '%d-%m-%Y')
                     do = cr_date.strftime('%Y-%m-%d')
-                    s = students(dob=do, Class=clas, **d)
-                    s.save()
+                    s.append(students(dob=do, Class=clas, **d))
+                students.objects.bulk_create(s)
             data = {
                 'success': True,
             }

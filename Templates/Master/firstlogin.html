@@ -1,0 +1,33 @@
+{% extends 'Master\master.html' %}
+{% load static %}
+{% block content %}
+
+<body>
+    <div class="container">
+        <center>
+            <h1>Welcome {{name}}, Please change your password below to continue.</h1>
+        </center>
+        <div class="card mt-2 mb-2">
+            <h3 class="modal-header">Change Password</h3>
+            <form method="post" action='{% url "Advisor:firstlogin" %}'>
+                <div class="card-body">
+                    <input type="hidden" name="username" value="{{username}}">
+                    <div class="input-group">
+                        <label for="new" class="col-lg-4 col-md-4 col-sm-12 col-md-5 mt-2 mb-2">New Password</label>
+                        <input type="password" name="password" id="new" class="form-control mt-2 mb-2" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="renew" class="col-lg-4 col-md-4 col-sm-12 col-md-5 mt-2 mb-2">Re-enter New
+                            Password</label>
+                        <input type="password" name="renew" id="renew" class="form-control mt-2 mb-2" required>
+                    </div>
+                </div>
+                {% csrf_token %}
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-danger">Change Password</button>
+                </div>
+            </form>
+        </div>
+</body>
+<script src="{% static 'js/settings.js' %}"></script>
+{% endblock %}

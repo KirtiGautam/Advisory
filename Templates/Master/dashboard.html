@@ -11,19 +11,17 @@
 
 <body>
     <div class="container">
-        <ul class="list-unstyled dash row">
-            {% if user.admin or user.is_superuser%}
+        <ul class="list-unstyled dash row">            
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-3 mb-3">
                 <div class="board">
-                    <h1><span class="fas fa-book"></span></h1>
-                    <li id="subjects">
-                        <a href="{% url 'Admin:subjects' %}">
-                            <h1>Subjects</h1>
+                    <h1><span class="fas fa-database"></span></h1>
+                    <li id="dataupload">
+                        <a href="{% url 'Advisor:uploadData' %}">
+                            <h1>Data upload</h1>
                         </a>
                     </li>
                 </div>
             </div>
-            {% endif %}
             {% if not user.is_superuser%}
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-3 mb-3">
                 <div class="board">
@@ -35,7 +33,6 @@
                     </li>
                 </div>
             </div>
-            {% endif %}
             {% if perms.Advisor.can_assign_mentors or request.user.admin %}
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-3 mb-3">
                 <div class="board">
@@ -47,6 +44,7 @@
                     </li>
                 </div>
             </div>
+            {% endif %}
             {% endif %}
             {% if user.admin %}
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-3 mb-3">
@@ -65,7 +63,7 @@
                     <h1><span class="fas fa-user-tag"></span></h1>
                     <li id="editAdmin">
                         <a href="{% url 'Super:editAdmin' %}">
-                            <h1>Edit Admins</h1>
+                            <h1>Departments</h1>
                         </a>
                     </li>
                 </div>
@@ -82,16 +80,18 @@
                 </div>
             </div>
             {% endif %}
+            {% if user.admin or user.is_superuser%}
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-3 mb-3">
                 <div class="board">
-                    <h1><span class="fas fa-database"></span></h1>
-                    <li id="dataupload">
-                        <a href="{% url 'Advisor:uploadData' %}">
-                            <h1>Data upload</h1>
+                    <h1><span class="fas fa-book"></span></h1>
+                    <li id="subjects">
+                        <a href="{% url 'Admin:subjects' %}">
+                            <h1>Subjects</h1>
                         </a>
                     </li>
                 </div>
             </div>
+            {% endif %}
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-3 mb-3">
                 <div class="board">
                     <h1><span class="fas fa-user-cog"></span></h1>

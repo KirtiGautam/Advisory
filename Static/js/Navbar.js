@@ -8,6 +8,6 @@ function SlideMenu() {
     else {
         document.getElementById('menu').style.width = '200px';
         document.getElementById('content').style.marginLeft = '200px';
-        document.getElementById('content').style.width = '85%';
+        document.getElementById('content').style.width = '75%';
     }
 }
