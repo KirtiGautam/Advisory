@@ -4,6 +4,12 @@ from Advisor.models import Users, teachers, Class, department, Subjects
 from django.db.models import Q
 from django.http import JsonResponse
 from django.db import IntegrityError
+import random
+import string
+from django.core import mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
 
 # Create your views here.
 
@@ -73,8 +79,20 @@ def createClass(request):
             section=request.POST['section'], batch=request.POST['batch'], department=request.user.teacher.department, Mentor=teach)
         obj, created = Users.objects.get_or_create(
             username=teach.full_name, teacher=teach)
-        if not created:
-            obj.set_password(teach.full_name)
+        if created:
+            from_email = 'E-Advisory Systems'
+            subject = 'Credentials for E-Advisory'
+            password_characters = string.ascii_letters + string.digits + string.punctuation
+            password = ''.join(random.choice(password_characters)
+                                for i in range(random.randint(8, 12)))
+            obj.set_password(password)
+            conx = {'host': request.get_host(),
+                    'username': teach.EID, 'password': password}
+            html_message = render_to_string(
+                'Mails/usercreatemail.html', conx)
+            plain_message = strip_tags(html_message)
+            # mail.send_mail(subject, plain_message, from_email, [
+            #                teachers.email], html_message=html_message)
             obj.save()
         c = {'id': clas.id, 'section': clas.section,
              'Mentor': str(clas.Mentor), 'batch': clas.batch}
@@ -92,17 +110,13 @@ def updateClass(request):
         if request.user.teacher.department.id != request.POST['department']:
             clas.department = department.objects.get(
                 id=request.POST['department'])
-        try:
-            prev = Users.objects.get(teacher=clas.Mentor)
-            prev.delete()
-        except Users.DoesNotExist:
-            print('User Does not exist')
         teach = teachers.objects.get(id=request.POST['Mentor'])
         clas.Mentor = teach
         clas.save()
         obj, created = Users.objects.get_or_create(
-            username=teach.full_name, teacher=teach)
+            username=teach.EID, teacher=teach)
         if created:
+            
             obj.set_password(teach.full_name)
             obj.save()
         c = {'id': clas.id, 'section': clas.section,
@@ -129,10 +143,10 @@ def deleteClass(request):
 
 def getTeachers(request):
     if 'user' in request.session:
-        teacher = teachers.objects.raw('''SELECT * FROM advisor_teachers WHERE full_name LIKE "%%''' +
-                                       request.POST['term'] + '''%%" AND department_id = ''' + str(request.user.teacher.department.id))
+        teacher = teachers.objects.filter(full_name__contains=request.POST['term'], department=request.user.teacher.department).exclude(
+            EID=request.user.teacher.EID).order_by('full_name').values('full_name', 'EID', 'contact')
         data = {
-            'teachers': [[teach.full_name, teach.id, teach.contact] for teach in teacher],
+            'teachers': list(teacher),
         }
         return JsonResponse(data)
     else:

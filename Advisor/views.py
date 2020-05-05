@@ -7,6 +7,11 @@ import json
 import os
 from PIL import Image
 from datetime import datetime, date
+import random
+import string
+from django.core import mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 
 # Create your views here.
@@ -112,6 +117,39 @@ def uploadData(request):
                     if name != '':
                         deps.append(department(name=name.lower()))
                 department.objects.bulk_create(deps)
+            elif model == 'subject':
+                subs = []
+                for d in dat:    
+                    if request.user.is_superuser:
+                        subs.append(Subjects(department=department.objects.get(name=d.pop('name')), **d))
+                    else:                    
+                        subs.append(Subjects(department=request.user.teacher.department, **d))                
+                Subjects.objects.bulk_create(subs)
+            elif model == 'Class':
+                mentors = []
+                emails = []
+                from_email = 'E-Advisory Systems'
+                subject = 'Credentials for E-Advisory'
+                for d in dat:
+                    teacher = teachers.objects.get(EID=d.pop('MentorEID'))
+                    user, created = Users.objects.get_or_create(
+                        username=teacher.EID, teacher=teacher)
+                    if created:
+                        password_characters = string.ascii_letters + string.digits + string.punctuation
+                        password = ''.join(random.choice(password_characters)
+                                           for i in range(random.randint(8, 12)))
+                        user.set_password(password)
+                        conx = {'host': request.get_host(),
+                                'username': teacher.EID, 'password': password}
+                        html_message = render_to_string(
+                            'Mails/usercreatemail.html', conx)
+                        plain_message = strip_tags(html_message)
+                        emails.append((subject, plain_message, from_email, [teacher.email]))
+                    user.save()
+                    mentors.append(
+                        Class(Mentor=teacher, department=request.user.teacher.department, **d))
+                Class.objects.bulk_create(mentors)
+                mail.send_mass_mail((message for message in emails))
             else:
                 s = []
                 for d in dat:
@@ -127,8 +165,7 @@ def uploadData(request):
             }
             return JsonResponse(data)
         else:
-            context = {'user': Users.objects.get(id=request.session['user'])}
-            return render(request, 'Master/data.html', context)
+            return render(request, 'Master/data.html')
     else:
         return redirect('Advisor:index')
 

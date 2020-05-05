@@ -59,6 +59,20 @@ $(document).ready(function () {
         }
     });
 
+    $("#SUB").click(function () {
+        if (check('SUD')) {
+            $("#SUB").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            uploadData('subject', 'SUD', 'SUB');
+        }
+    });
+
+    $("#CB").click(function () {
+        if (check('CD')) {
+            $("#CB").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            uploadData('Class', 'CD', 'CB');
+        }
+    });
+
     $("#TB").click(function () {
         if (check('TD')) {
             $("#TB").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');

@@ -3,15 +3,12 @@ from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
 from Advisor.models import students, Class, department, detailed_Marks, Subjects, Pincodes
-from django.http import JsonResponse, FileResponse, HttpResponse
+from django.http import JsonResponse
 from django.core import serializers
-from django.db.models import Count
+from django.db.models import Q
 import os
 from PIL import Image
 import json
-from django.core import mail
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
 
 
 # Create your views here.
@@ -119,12 +116,12 @@ def getStudents(request):
                     department=request.user.teacher.department)
             else:
                 Classes = [Class.objects.get(id=request.POST['class'])]
-            student = students.objects.filter(full_name__contains=request.POST['term'], Class__in=Classes) | students.objects.filter(
-                crn__contains=request.POST['term'], Class__in=Classes) | students.objects.filter(urn__contains=request.POST['term'], Class__in=Classes)
+            student = students.objects.filter(Q(full_name__contains=request.POST['term']) | Q(
+                crn__contains=request.POST['term']) | Q(urn__contains=request.POST['term']), Class__in=Classes)
         else:
             Clas = Class.objects.get(Mentor=request.user.teacher)
-            student = students.objects.filter(full_name__contains=request.POST['term'], Class=Clas) | students.objects.filter(
-                crn__contains=request.POST['term'], Class=Clas) | students.objects.filter(urn__contains=request.POST['term'], Class=Clas)
+            student = students.objects.filter(Q(full_name__contains=request.POST['term']) | Q(
+                crn__contains=request.POST['term']) | Q(urn__contains=request.POST['term']), Class=Clas)
         rec = serializers.serialize(
             'json', student, indent=2, use_natural_foreign_keys=True)
         data = {

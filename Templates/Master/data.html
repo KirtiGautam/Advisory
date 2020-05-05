@@ -65,6 +65,25 @@
             </div>
         </div>
         {% endif %}
+        {% if request.user.admin or perms.Advisor.can_assign_mentors %}
+        <div class="card mt-2 mb-2">
+            <div class="card-header">
+                <h3>Upload Class Data</h3>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    <div class="input-group p-md-2">
+                        <label for="data" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">Select a .csv file to
+                            upload</label>
+                        <input type="file" name="data" id="CD" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" id="CB">Upload data</button>
+            </div>
+        </div>
+        {% endif %}
         {% endif %}
         {% if not request.user.is_superuser and not request.user.admin %}
         <div class="card mt-2 mb-2">
@@ -82,6 +101,25 @@
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" class="btn btn-primary" id="MB">Upload data</button>
+            </div>
+        </div>
+        {% endif %}
+        {% if request.user.is_superuser or request.user.admin %}
+        <div class="card mt-2 mb-2">
+            <div class="card-header">
+                <h3>Upload Subject data</h3>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    <div class="input-group p-md-2">
+                        <label for="data" class="col-lg-5 col-md-5 col-sm-12 col-xs-12">Select a .csv file to
+                            upload</label>
+                        <input type="file" name="data" id="SUD" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" id="SUB">Upload data</button>
             </div>
         </div>
         {% endif %}

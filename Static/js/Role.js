@@ -12,7 +12,7 @@ function search(value = '') {
         success: function (data) {
             let html = '';
             for (let i = 0; i < data.teachers.length; i++)
-                html += '<option value="' + data.teachers[i][1] + '">' + data.teachers[i][0] + ' (' + data.teachers[i][2] + ') ' + '</option>';
+                html += '<option value="' + data.teachers[i].EID + '">' + data.teachers[i].full_name + ' (' + data.teachers[i].contact + ') ' + '</option>';
             $('.teachers').html(html);
         }
     });

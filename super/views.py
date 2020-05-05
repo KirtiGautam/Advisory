@@ -38,14 +38,11 @@ def updatedeps(request):
 
 def updatehod(request):
     if 'user' in request.session:
-        try:
-            prev = teachers.objects.get(
-                full_name=request.POST['prev'])
-            prev_user = Users.objects.get(teacher=prev)
+        prev_user = Users.objects.filter(teacher__department=request.POST['dept'], admin=True)
+        if len(prev_user) > 0:
+            prev_user = prev_user[0]
             prev_user.admin = False
             prev_user.save()
-        except teachers.DoesNotExist:
-            print('No such teacheer')
         next = teachers.objects.get(
             EID=request.POST['id'])
         user, created = Users.objects.get_or_create(

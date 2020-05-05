@@ -123,9 +123,9 @@ $(document).ready(function () {
                     if (sem <= 8)
                         sem += da.getUTCMonth() > 5 ? 1 : 0;
                     setStuDetails(models[0].pk, models[0].fields, models[1].fields, models[2].fields, sem);
-                    setStuMarks(models[0].fields['diploma_marks'], data.marks, sem);
                     $('#studDet').trigger('click');
                     $('#data').modal('show');
+                    setStuMarks(models[0].fields['diploma_marks'], data.marks, sem);                    
                 }
                 else {
                     alert('Error getting details');
