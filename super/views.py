@@ -58,8 +58,8 @@ def updatehod(request):
                 'Mails/usercreatemail.html', conx)
             plain_message = strip_tags(html_message)
             from_email = 'E-Advisory Systems'
-            # mail.send_mail(subject, plain_message, from_email, [
-            #                next.email], html_message=html_message)
+            mail.send_mail(subject, plain_message, from_email, [
+                           next.email], html_message=html_message)
             user.set_password(password)
         user.admin = True
         user.save()

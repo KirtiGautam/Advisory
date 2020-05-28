@@ -3,9 +3,7 @@
     padding: 0;
 }
 
-
-
-.board{
+.board {
     background-color: #292B2C;
     text-align: center;
     display: block;
@@ -15,7 +13,7 @@
     border: 2px solid #616470;
 }
 
-.dash a{
+.dash a {
     text-decoration: none;
     color: #878192;
 }

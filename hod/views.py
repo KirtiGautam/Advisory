@@ -184,9 +184,9 @@ def role(request):
 
 def updatePerms(request):
     if 'user' in request.session:
-        teacher = teachers.objects.get(id=request.POST['teach'])
+        teacher = teachers.objects.get(EID=request.POST['teach'])
         user, created = Users.objects.get_or_create(
-            username=teacher.full_name, teacher=teacher)
+            username=teacher.EID, teacher=teacher)
         if created:
             user.set_password(teacher.full_name)
             user.save()
